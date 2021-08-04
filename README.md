@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # FS-App-Template
 
 ## Setup
@@ -75,3 +76,6 @@ Database Setup
 
 
 Now, you should be deployed!
+=======
+# pomodoro-go-1
+>>>>>>> cf2b3bac4c4efee1ccd492f4288e61bb416ca5a3
