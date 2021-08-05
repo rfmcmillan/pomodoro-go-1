@@ -148,7 +148,7 @@ const AuthForm = (props) => {
                 password:
               </Typography>
               <Typography>Email: cody@mail.com</Typography>
-              <Typography>Password: 123</Typography>
+              <Typography gutterBottom={true}>Password: 123</Typography>
               <Grid item>
                 <TextField
                   id="email"
