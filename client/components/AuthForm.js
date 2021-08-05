@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     width: 200,
+    margin: 4,
   },
 }));
 
