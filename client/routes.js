@@ -75,7 +75,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/login">
-              <Redirect to="/home" />
+              <Redirect to="/dashboard" />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
@@ -92,7 +92,6 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/uhoh" component={BlockError} />
-            <Route path="/dashboard" component={Dashboard} />
           </Switch>
         )}
       </div>

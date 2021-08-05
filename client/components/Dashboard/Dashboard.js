@@ -48,18 +48,12 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   let sessions = useSelector((state) => state.sessions);
-  const auth = {
-    id: '758578d1-6bf2-48d6-a239-d4356733e64d',
-    username: 'cody',
-    email: 'cody@mail.com',
-    password: '$2b$05$rAS1MDAUFO67TSj/k0p6guHlh/3QSa1gAcN.gzxZbz7F5M1rE30ra',
-    admin: false,
-  };
-  console.log(auth);
+  const auth = useSelector((state) => state.auth);
   let blackList = useSelector((state) => state.blackList);
   let blocks = useSelector((state) => state.blocks);
   const sites = useSelector((state) => state.sites);
   const theme = useTheme();
+
   if (auth) {
     sessions = sessions.filter((session) => session.userId === auth.id);
     blackList = blackList.filter((entry) => entry.userId === auth.id);
@@ -148,7 +142,10 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={classes.dashboardContain}>
+    <div
+      className={classes.dashboardContain}
+      // style={{ backgroundColor: theme.palette.background.default }}
+    >
       <Grid
         container
         direction="row"
@@ -157,7 +154,7 @@ const Dashboard = () => {
         spacing={3}
       >
         <Grid item xs={3}>
-          <Typography variant="overline" color="textPrimary">
+          <Typography variant="overline" color="textPrimary" >
             Dashboard
           </Typography>
           <Typography variant="h6" color="textPrimary">
@@ -174,6 +171,12 @@ const Dashboard = () => {
               component="fieldset"
               className={classes.formControlCheckboxes}
             >
+              {/* <FormLabel
+                style={{ color: theme.palette.text.primary }}
+                component="legend"
+              >
+                Display
+              </FormLabel> */}
               <FormGroup row={true}>
                 <FormControlLabel
                   style={{ color: theme.palette.text.primary }}
@@ -318,11 +321,7 @@ const Dashboard = () => {
           {sessionDistribution ? <ChartLeft sessions={sessions} /> : ''}
         </Grid>
         <Grid item xs={6}>
-          {sessionFrequency ? (
-            <ChartRight blocks={blocks} sessions={sessions} sites={sites} />
-          ) : (
-            ''
-          )}
+          {sessionFrequency ? <ChartRight blocks={blocks} sessions={sessions} sites={sites}/> : ''}
         </Grid>
       </Grid>
     </div>

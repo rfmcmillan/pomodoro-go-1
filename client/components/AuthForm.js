@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     top: '30vh',
   },
   item: {
-    width: 200
+    width: 200,
   },
 }));
 
@@ -59,7 +59,7 @@ const AuthForm = (props) => {
   return (
     <div>
       {/* script for google OAuth */}
-      <form id='login' onSubmit={handleSubmit} name={name} value={value}>
+      <form id="login" onSubmit={handleSubmit} name={name} value={value}>
         {name === 'signup' ? (
           <Paper className={classes.login}>
             <Grid container direction="column" alignItems="center">
@@ -141,7 +141,14 @@ const AuthForm = (props) => {
         ) : (
           <Paper className={classes.login}>
             <Grid container direction="column" alignItems="center">
-              <Typography>Log In to Your Account</Typography>
+              <Typography variant="h6">Log In</Typography>
+              <Typography align="center" gutterBottom={true}>
+                {' '}
+                To use our sandbox account, please use the following email and
+                password:
+              </Typography>
+              <Typography>Email: cody@mail.com</Typography>
+              <Typography>Password: 123</Typography>
               <Grid item>
                 <TextField
                   id="email"

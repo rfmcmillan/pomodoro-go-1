@@ -8,10 +8,8 @@ const basePath = currentPath + '/.env';
 const envPath = basePath + '.' + process.env.NODE_ENV;
 const finalPath = fs.existsSync(envPath) ? envPath : basePath;
 
-console.log('dotenv:', dotenv);
-console.log('finalPath:', finalPath);
 const fileEnv = dotenv.config({ path: finalPath }).parsed;
-console.log('fileEnv:', fileEnv);
+
 const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
   prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
   return prev;

@@ -47,7 +47,6 @@ const App = (props) => {
   }, [dispatch]);
   useEffect(() => {
     if (window.localStorage.getItem('token')) {
-      console.log('auth in app.js:', auth);
       dispatch(me());
     }
   }, [dispatch]);
