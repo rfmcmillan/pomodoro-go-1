@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const axios = require('axios');
 const SALT_ROUNDS = 5;
+const dotenv = require('dotenv').config();
+const jwtSecret = process.env.JWT;
 
 const User = db.define('user', {
   id: {
@@ -59,7 +61,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 };
 
 User.prototype.generateToken = function () {
-  return jwt.sign({ id: this.id }, process.env.JWT);
+  return jwt.sign({ id: this.id }, jwtSecret);
 };
 
 /**
@@ -81,7 +83,7 @@ User.authenticate = async function (userObj, method = null) {
 
 User.findByToken = async function (token, method = null) {
   try {
-    const { id } = await jwt.verify(token, process.env.JWT);
+    const { id } = await jwt.verify(token, jwtSecret);
     let user = await User.findByPk(id);
     if (!user) {
       console.log('no user from jwt');
