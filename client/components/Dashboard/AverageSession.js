@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 
 const AverageSession = (props) => {
   const classes = useStyles();
-  // const sessions = useSelector((state) => state.sessions);
   const { sessions } = props;
   let totalExpectedSessionLength;
   if (sessions.length) {
@@ -178,7 +177,9 @@ const AverageSession = (props) => {
               Expected
             </Typography>
             <Typography variant="h5">
-              {sessionsFailed.length ? `${avgFailedExpSessionMinutes}min` : 'N/A'}
+              {sessionsFailed.length
+                ? `${avgFailedExpSessionMinutes}min`
+                : 'N/A'}
             </Typography>
           </Grid>
         </Grid>
