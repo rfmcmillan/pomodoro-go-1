@@ -7,6 +7,8 @@ const {
 } = require('../index');
 const jwt = require('jsonwebtoken');
 const seed = require('../../../script/seed');
+const dotenv = require('dotenv').config();
+const jwtSecretTest = process.env.JWT_TEST;
 
 describe('User model', () => {
   beforeEach(async () => {
@@ -87,10 +89,10 @@ describe('User model', () => {
           password: 'kiki',
         });
         const token = await user.generateToken();
-        const { id } = await jwt.verify(token, process.env.JWT);
+        const { id } = await jwt.verify(token, jwtSecretTest);
         expect(id).to.equal(user.id);
       });
-    }); // end describe('correctPassword')
+    });
     describe('authenticate', () => {
       let user;
       beforeEach(
@@ -125,6 +127,6 @@ describe('User model', () => {
           }
         });
       });
-    }); // end describe('authenticate')
-  }); // end describe('instanceMethods')
-}); // end describe('User model')
+    });
+  });
+});
