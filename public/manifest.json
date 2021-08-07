@@ -28,7 +28,7 @@
     "default_popup": "popup.html"
   },
   "externally_connectable": {
-    "matches": ["*://pomodoro-go-2101.herokuapp.com/*", "*://localhost/*"]
+    "matches": ["*://pomodoro-go-1.herokuapp.com/*", "*://localhost/*"]
   },
   "oauth2": {
     "client_id": "811227993938-bdnup0onkbhf33rejoirhia20j2kf51r.apps.googleusercontent.com",
