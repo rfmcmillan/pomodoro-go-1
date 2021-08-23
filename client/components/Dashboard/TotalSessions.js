@@ -56,7 +56,7 @@ const TotalSessions = (props) => {
         <Grid container item direction="column" xs={4}>
           <Grid item className={classes.lsItem} xs={3}>
             <Typography variant="caption" color="textSecondary">
-              Total Sessions
+              Total
             </Typography>
             <Typography variant="h5">
               {sessions.length ? sessions.length : ''}

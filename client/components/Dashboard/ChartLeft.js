@@ -660,7 +660,7 @@ const ChartLeft = (props) => {
   return (
     <Paper className={classes.contain} {...props} elevation={10}>
       <Grid container direction="row" justify="space-between">
-        <Grid item sx={8}>
+        <Grid item xs={8}>
           <Typography
             className={classes.lsItem}
             variant="h5"
@@ -676,7 +676,7 @@ const ChartLeft = (props) => {
             Sessions by {distribution}
           </Typography>
         </Grid>
-        <Grid container item direction="row" xs={3} justify="flexEnd">
+        <Grid container item xs={4} justify="center">
           <Grid item xs={6}>
             <FormControlLabel
               style={{ color: theme.palette.text.primary }}

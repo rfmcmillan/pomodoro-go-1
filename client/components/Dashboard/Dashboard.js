@@ -154,7 +154,7 @@ const Dashboard = () => {
         spacing={3}
       >
         <Grid item xs={3}>
-          <Typography variant="overline" color="textPrimary" >
+          <Typography variant="overline" color="textPrimary">
             Dashboard
           </Typography>
           <Typography variant="h6" color="textPrimary">
@@ -166,7 +166,7 @@ const Dashboard = () => {
           </Typography>
         </Grid>
         <Grid item container xs={9} justify="flex-end" alignItems="flex-end">
-          <Grid item xs={9}>
+          <Grid item xs={10}>
             <FormControl
               component="fieldset"
               className={classes.formControlCheckboxes}
@@ -259,45 +259,48 @@ const Dashboard = () => {
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={2}>
-            <FormControl className={classes.formControlSelect}>
-              <InputLabel id="time-frame-label" color="primary">
-                Period
-              </InputLabel>
-              <Select
-                color="primary"
-                labelId="time-frame-label"
-                value={timeFrame}
-                onChange={handleTimeFrameChange}
-              >
-                <MenuItem value={'All'}>All</MenuItem>
-                <MenuItem value={'Week'}>Week</MenuItem>
-                <MenuItem value={'Month'}>Month</MenuItem>
-                <MenuItem value={'Quarter'}>Quarter</MenuItem>
-                <MenuItem value={'Year'}>Year</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControlSelect}>
-              <InputLabel id="goal-label">Goal</InputLabel>
-              <Select
-                labelId="goal-label"
-                value={goal}
-                onChange={handleGoalChange}
-              >
-                <MenuItem value={'All'}>All</MenuItem>
-                {goalOptions.map((goal, idx) => {
-                  return (
-                    <MenuItem key={idx} value={goal}>
-                      {goal}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
+          <Grid item container xs={2} justify="flex-end">
+            <Grid>
+              <FormControl className={classes.formControlSelect}>
+                <InputLabel id="time-frame-label" color="primary">
+                  Period
+                </InputLabel>
+                <Select
+                  color="primary"
+                  labelId="time-frame-label"
+                  value={timeFrame}
+                  onChange={handleTimeFrameChange}
+                >
+                  <MenuItem value={'All'}>All</MenuItem>
+                  <MenuItem value={'Week'}>Week</MenuItem>
+                  <MenuItem value={'Month'}>Month</MenuItem>
+                  <MenuItem value={'Quarter'}>Quarter</MenuItem>
+                  <MenuItem value={'Year'}>Year</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid>
+              <FormControl className={classes.formControlSelect}>
+                <InputLabel id="goal-label">Goal</InputLabel>
+                <Select
+                  labelId="goal-label"
+                  value={goal}
+                  onChange={handleGoalChange}
+                >
+                  <MenuItem value={'All'}>All</MenuItem>
+                  {goalOptions.map((goal, idx) => {
+                    return (
+                      <MenuItem key={idx} value={goal}>
+                        {goal}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-
       <Grid container spacing={3}>
         <Grid item xs={3}>
           {lastSession ? <LastSession sessions={sessions} /> : ''}
@@ -316,12 +319,17 @@ const Dashboard = () => {
           )}
         </Grid>
       </Grid>
+
       <Grid container spacing={3}>
         <Grid item xs={6}>
           {sessionDistribution ? <ChartLeft sessions={sessions} /> : ''}
         </Grid>
         <Grid item xs={6}>
-          {sessionFrequency ? <ChartRight blocks={blocks} sessions={sessions} sites={sites}/> : ''}
+          {sessionFrequency ? (
+            <ChartRight blocks={blocks} sessions={sessions} sites={sites} />
+          ) : (
+            ''
+          )}
         </Grid>
       </Grid>
     </div>
