@@ -708,21 +708,13 @@ const ChartLeft = (props) => {
           </Grid>
         </Grid>
       </Grid>
-      {distribution === 'Day of Week' ? (
-        <Chart width="800" height="450" type="bar" {...chart} />
-      ) : (
-        ''
-      )}
+      {distribution === 'Day of Week' ? <Chart type="bar" {...chart} /> : ''}
       {distribution === 'Hour of Day' ? (
-        <Chart width="800" height="450" type="bar" {...hourChart} />
+        <Chart type="bar" {...hourChart} />
       ) : (
         ''
       )}
-      {distribution === 'Goal' ? (
-        <Chart width="800" height="450" type="bar" {...goalChart} />
-      ) : (
-        ''
-      )}
+      {distribution === 'Goal' ? <Chart type="bar" {...goalChart} /> : ''}
     </Paper>
   );
 };

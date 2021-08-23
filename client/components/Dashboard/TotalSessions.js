@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     padding: 10,
     minWidth: 100,
     minHeight: 272,
+    maxHeight: 273,
     flexGrow: 1,
   },
   lsItem: {
@@ -51,9 +52,9 @@ const TotalSessions = (props) => {
       <Typography className={classes.lsItem} variant="h5" color="textPrimary">
         Total Sessions
       </Typography>
-      <Grid container>
-        <Grid container item direction="column" xs={6}>
-          <Grid item className={classes.lsItem} xs={4}>
+      <Grid container alignItems="center">
+        <Grid container item direction="column" xs={4}>
+          <Grid item className={classes.lsItem} xs={3}>
             <Typography variant="caption" color="textSecondary">
               Total Sessions
             </Typography>
@@ -61,7 +62,7 @@ const TotalSessions = (props) => {
               {sessions.length ? sessions.length : ''}
             </Typography>
           </Grid>
-          <Grid item className={classes.lsItem} xs={4}>
+          <Grid item className={classes.lsItem} xs={3}>
             <Typography variant="caption" color="textSecondary">
               Successful
             </Typography>
@@ -69,7 +70,7 @@ const TotalSessions = (props) => {
               {sessions.length ? totalSuccessful.length : ''}
             </Typography>
           </Grid>
-          <Grid item className={classes.lsItem} xs={4}>
+          <Grid item className={classes.lsItem} xs={3}>
             <Typography variant="caption" color="textSecondary">
               Failed
             </Typography>
@@ -79,7 +80,7 @@ const TotalSessions = (props) => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
           <TotalDonut sessions={sessions} />
         </Grid>
       </Grid>

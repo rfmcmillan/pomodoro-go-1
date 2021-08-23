@@ -1,8 +1,12 @@
 body {
   margin: 0;
   box-sizing: border-box;
-  background-image:
-    linear-gradient(95deg,#fcccb0 5%, #fdeac4 40%,#faefe8 70%);
+  background-image: linear-gradient(
+    95deg,
+    #fcccb0 5%,
+    #fdeac4 40%,
+    #faefe8 70%
+  );
 }
 
 a {
@@ -23,7 +27,7 @@ a {
   width: 20%;
 }
 
-#main>h3 {
+#main > h3 {
   padding-left: 30px;
 }
 
@@ -55,8 +59,6 @@ a {
   justify-content: space-between;
   width: 8%;
 }
-
-
 
 #googleIcon {
   height: 36px;
@@ -176,12 +178,12 @@ img {
   left: -10px;
   border: 3px solid black;
   box-shadow: 7px 7px black;
-  z-index: 2
+  z-index: 2;
 }
 
 .paper {
-  font-size:'30px';
-  position:relative;
+  font-size: '30px';
+  position: relative;
   height: 550px;
   width: 450px;
   background: rgba(255, 255, 255, 0.9);
@@ -196,13 +198,17 @@ img {
   left: 45px;
   height: 100%;
   width: 2px;
-  background: rgba(255,0,0,0.4);
+  background: rgba(255, 0, 0, 0.4);
 }
 .lines {
   margin-top: 40px;
   height: calc(100% - 40px);
   width: 100%;
-  background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+  background-image: repeating-linear-gradient(
+    white 0px,
+    white 24px,
+    steelblue 25px
+  );
 }
 .text {
   position: absolute;
@@ -235,12 +241,17 @@ img {
   bottom: 10%;
 }
 
-#device-list, #all-playlists {
+#device-list,
+#all-playlists {
   border-radius: 15px;
   box-shadow: 0 3px 5px 2px #b49b8f;
   width: 380px;
   margin-bottom: 10px;
-  background-image:
-    linear-gradient(140deg,#faefe8 25%, #d7dae8 50%,#cedaa4 90%);
+  background-image: linear-gradient(
+    140deg,
+    #faefe8 25%,
+    #d7dae8 50%,
+    #cedaa4 90%
+  );
   padding: 5px;
 }

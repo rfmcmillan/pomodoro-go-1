@@ -1,11 +1,11 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { useTheme} from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 
 const TotalDonut = (props) => {
   const { sessions } = props;
   const theme = useTheme();
-  const {background, primary, secondary} = theme.palette;
+  const { background, primary, secondary } = theme.palette;
 
   let totalExpectedSessionLength;
   if (sessions.length) {
@@ -38,6 +38,23 @@ const TotalDonut = (props) => {
       colors: [primary.main, secondary.main],
       labels: ['Successful', 'Failed'],
       legend: { show: false, position: 'bottom' },
+      // plotOptions: {
+      //   pie: {
+      //     customScale: 0.95,
+      //   },
+      // },
+      // responsive: [
+      //   {
+      //     breakpoint: 10000,
+      //     options: {
+      //       plotOptions: {
+      //         pie: {
+      //           customScale: 1,
+      //         },
+      //       },
+      //     },
+      //   },
+      // ],
       stroke: {
         show: true,
         colors: [background.paper],
@@ -46,8 +63,8 @@ const TotalDonut = (props) => {
         toolbar: {
           show: false,
         },
-        offsetX: -70,
-        offsetY: -40,
+        // offsetX: -70,
+        // offsetY: -20,
       },
     },
 
@@ -60,7 +77,7 @@ const TotalDonut = (props) => {
         options={chart.options}
         series={chart.series}
         type="donut"
-        width="290"
+        // width="140%"
       />
     </div>
   );

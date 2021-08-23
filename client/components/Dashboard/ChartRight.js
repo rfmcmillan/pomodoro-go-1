@@ -728,42 +728,18 @@ const ChartRight = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <Box
-          sx={{
-            height: 336,
-            minWidth: 500,
-            px: 2,
-          }}
-        >
-          {rightChart === 'Frequency' ? (
-            <Chart width="800" height="450" type="heatmap" {...chart} />
-          ) : (
-            ''
-          )}
-          {rightChart === 'Session History' ? (
-            <Chart
-              options={options}
-              series={series}
-              type="line"
-              width="800"
-              height="450"
-            />
-          ) : (
-            ''
-          )}
-          {rightChart === 'Block History' ? (
-            <Chart
-              options={optionsBlocks}
-              series={seriesBlocks}
-              type="line"
-              width="800"
-              height="450"
-            />
-          ) : (
-            ''
-          )}
-        </Box>
       </Grid>
+      {rightChart === 'Frequency' ? <Chart type="heatmap" {...chart} /> : ''}
+      {rightChart === 'Session History' ? (
+        <Chart options={options} series={series} type="line" />
+      ) : (
+        ''
+      )}
+      {rightChart === 'Block History' ? (
+        <Chart options={optionsBlocks} series={seriesBlocks} type="line" />
+      ) : (
+        ''
+      )}
     </Paper>
   );
 };

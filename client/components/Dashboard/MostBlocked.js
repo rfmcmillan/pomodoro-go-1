@@ -42,8 +42,8 @@ const MostBlocked = (props) => {
       <Typography className={classes.lsItem} variant="h5" color="textPrimary">
         Most Blocked
       </Typography>
-      <Grid container>
-        <Grid container item direction="column" xs={6}>
+      <Grid container alignItems="center">
+        <Grid container item direction="column" xs={4}>
           {topThree.map((entry, idx) => {
             return (
               <Grid item key={idx} className={classes.lsItem} xs={4}>
@@ -55,7 +55,7 @@ const MostBlocked = (props) => {
             );
           })}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
           <BlocksDonut sortedBlackList={sorted} />
         </Grid>
       </Grid>

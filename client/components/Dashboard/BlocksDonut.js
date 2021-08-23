@@ -1,7 +1,6 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { useTheme} from '@material-ui/core/styles';
-
+import { useTheme } from '@material-ui/core/styles';
 
 const BlocksDonut = (props) => {
   const { sortedBlackList } = props;
@@ -22,15 +21,21 @@ const BlocksDonut = (props) => {
   const chart = {
     options: {
       dataLabels: { enabled: false },
-      colors: [primaryColor, secondaryColor, textSecondary, textPrimary, infoColor],
+      colors: [
+        primaryColor,
+        secondaryColor,
+        textSecondary,
+        textPrimary,
+        infoColor,
+      ],
       labels: sites,
       legend: { show: false, position: 'bottom' },
       chart: {
         toolbar: {
           show: false,
         },
-        offsetX: -70,
-        offsetY: -40,
+        // offsetX: -70,
+        // offsetY: -20,
       },
       stroke: {
         show: true,
@@ -44,12 +49,7 @@ const BlocksDonut = (props) => {
   return (
     <div className="donut">
       {sortedBlackList.length ? (
-        <Chart
-          options={chart.options}
-          series={chart.series}
-          type="donut"
-          width="290"
-        />
+        <Chart options={chart.options} series={chart.series} type="donut" />
       ) : (
         ''
       )}
