@@ -159,6 +159,8 @@ const ChartLeft = (props) => {
         toolbar: {
           show: true,
         },
+        // height: '50px',
+        // width: '100px',
       },
       colors: stacked ? [secondary.main, primary.main] : [primary.main],
       dataLabels: {
