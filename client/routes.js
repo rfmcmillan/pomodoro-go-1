@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
+import SandboxLogin from './components/AuthForm/SandboxLogin';
 import CreateSession from './components/Timer/CreateSession';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -77,6 +78,9 @@ class Routes extends Component {
             <Route path="/login">
               <Redirect to="/dashboard" />
             </Route>
+            <Route path="/sandboxLogin">
+              <Redirect to="/dashboard" />
+            </Route>
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
@@ -89,6 +93,7 @@ class Routes extends Component {
         ) : (
           <Switch>
             <Route path="/" exact component={Intro} />
+            <Route path="/sandboxLogin" component={SandboxLogin} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/uhoh" component={BlockError} />

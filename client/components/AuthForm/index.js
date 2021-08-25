@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { authenticate } from '../store';
+import { authenticate } from '../../store';
 import {
   TextField,
   Button,
@@ -10,6 +10,7 @@ import {
   Link,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import SandboxLogin from './SandboxLogin.js';
 
 const useStyles = makeStyles((theme) => ({
   login: {
@@ -32,7 +33,9 @@ const useStyles = makeStyles((theme) => ({
  */
 const AuthForm = (props) => {
   const classes = useStyles();
+  console.log(props);
   const { name, displayName, error, value } = props;
+  console.log('value:', value);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -55,6 +58,11 @@ const AuthForm = (props) => {
       formName = 'login';
     }
     dispatch(authenticate(username, email, password, formName));
+  };
+
+  const loginToSandbox = (ev) => {
+    ev.preventDefault();
+    dispatch(authenticate('cody@mail.com', 'cody@mail.com', '123', 'login'));
   };
 
   return (
@@ -145,11 +153,28 @@ const AuthForm = (props) => {
               <Typography variant="h6">Log In</Typography>
               <Typography align="center" gutterBottom={true}>
                 {' '}
-                To use our sandbox account, please use the following email and
-                password:
+                To use our sandbox account, simply click the button below:
               </Typography>
-              <Typography>Email: cody@mail.com</Typography>
-              <Typography gutterBottom={true}>Password: 123</Typography>
+              <Button
+                onClick={loginToSandbox}
+                id="submitSandbox"
+                variant="contained"
+                type="submit"
+                value={value}
+                color="primary"
+                style={{
+                  backgroundColor: '#5061a9',
+                  color: 'white',
+                  marginTop: '10px',
+                }}
+                className={classes.item}
+              >
+                Login To Sandbox
+              </Button>
+              <Typography align="center" gutterBottom={true}>
+                {' '}
+                Or if you have your own account, please log in below:
+              </Typography>
               <Grid item>
                 <TextField
                   id="email"
