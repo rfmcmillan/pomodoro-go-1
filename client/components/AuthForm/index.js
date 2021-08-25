@@ -10,7 +10,6 @@ import {
   Link,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import SandboxLogin from './SandboxLogin.js';
 
 const useStyles = makeStyles((theme) => ({
   login: {
@@ -133,7 +132,7 @@ const AuthForm = (props) => {
                   {displayName}
                 </Button>
               </Grid>
-              <Grid item>
+              <Grid item container direction="column" alignItems="center">
                 <Grid item>
                   <Typography variant="caption">
                     Already have an account?
@@ -144,6 +143,20 @@ const AuthForm = (props) => {
                     Log in
                   </Link>
                 </Grid>
+                <Grid item>
+                  <Typography variant="caption">
+                    Or log in to our sandbox account
+                    {`
+            `}
+                  </Typography>
+
+                  <Link
+                    variant="caption"
+                    href={`${process.env.API_URL}/sandboxLogin`}
+                  >
+                    here.
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
           </Paper>
@@ -151,30 +164,7 @@ const AuthForm = (props) => {
           <Paper className={classes.login}>
             <Grid container direction="column" alignItems="center">
               <Typography variant="h6">Log In</Typography>
-              <Typography align="center" gutterBottom={true}>
-                {' '}
-                To use our sandbox account, simply click the button below:
-              </Typography>
-              <Button
-                onClick={loginToSandbox}
-                id="submitSandbox"
-                variant="contained"
-                type="submit"
-                value={value}
-                color="primary"
-                style={{
-                  backgroundColor: '#5061a9',
-                  color: 'white',
-                  marginTop: '10px',
-                }}
-                className={classes.item}
-              >
-                Login To Sandbox
-              </Button>
-              <Typography align="center" gutterBottom={true}>
-                {' '}
-                Or if you have your own account, please log in below:
-              </Typography>
+
               <Grid item>
                 <TextField
                   id="email"
@@ -217,6 +207,20 @@ const AuthForm = (props) => {
                 >
                   {displayName}
                 </Button>
+              </Grid>
+              <Grid item>
+                <Typography variant="caption">
+                  Log in to our sandbox account
+                  {`
+            `}
+                </Typography>
+
+                <Link
+                  variant="caption"
+                  href={`${process.env.API_URL}/sandboxLogin`}
+                >
+                  here.
+                </Link>
               </Grid>
               <Grid item>
                 <Grid item>

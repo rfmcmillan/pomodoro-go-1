@@ -48,11 +48,11 @@ const SandboxLogin = (props) => {
       >
         <Paper className={classes.login}>
           <Grid container direction="column" alignItems="center">
-            <Typography variant="h6">Log In</Typography>
-            <Typography align="center" gutterBottom={true}>
+            {/* <Typography variant="h6">Log In</Typography> */}
+            {/* <Typography align="center" gutterBottom={true}>
               {' '}
               To use our sandbox account, simply click the button below:
-            </Typography>
+            </Typography> */}
             <Button
               onClick={loginToSandbox}
               id="submit"
@@ -69,6 +69,29 @@ const SandboxLogin = (props) => {
             >
               Login To Sandbox
             </Button>
+            <Grid item>
+              <Typography variant="caption">
+                Log in to your own account
+                {`
+            `}
+              </Typography>
+
+              <Link variant="caption" href={`${process.env.API_URL}/login`}>
+                here.
+              </Link>
+            </Grid>
+            <Grid item>
+              <Grid item>
+                <Typography variant="caption">
+                  Need an account?
+                  {`
+            `}
+                </Typography>
+                <Link variant="caption" href={`${process.env.API_URL}/signup`}>
+                  Sign up
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
         </Paper>
       </form>
