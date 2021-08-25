@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { authenticate } from '../store';
+import { authenticate } from '../../store';
 import {
   TextField,
   Button,
@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
  */
 const AuthForm = (props) => {
   const classes = useStyles();
+  console.log(props);
   const { name, displayName, error, value } = props;
+  console.log('value:', value);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -55,6 +57,11 @@ const AuthForm = (props) => {
       formName = 'login';
     }
     dispatch(authenticate(username, email, password, formName));
+  };
+
+  const loginToSandbox = (ev) => {
+    ev.preventDefault();
+    dispatch(authenticate('cody@mail.com', 'cody@mail.com', '123', 'login'));
   };
 
   return (
@@ -125,7 +132,7 @@ const AuthForm = (props) => {
                   {displayName}
                 </Button>
               </Grid>
-              <Grid item>
+              <Grid item container direction="column" alignItems="center">
                 <Grid item>
                   <Typography variant="caption">
                     Already have an account?
@@ -136,6 +143,20 @@ const AuthForm = (props) => {
                     Log in
                   </Link>
                 </Grid>
+                <Grid item>
+                  <Typography variant="caption">
+                    Or log in to our sandbox account
+                    {`
+            `}
+                  </Typography>
+
+                  <Link
+                    variant="caption"
+                    href={`${process.env.API_URL}/sandboxLogin`}
+                  >
+                    here.
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
           </Paper>
@@ -143,13 +164,7 @@ const AuthForm = (props) => {
           <Paper className={classes.login}>
             <Grid container direction="column" alignItems="center">
               <Typography variant="h6">Log In</Typography>
-              <Typography align="center" gutterBottom={true}>
-                {' '}
-                To use our sandbox account, please use the following email and
-                password:
-              </Typography>
-              <Typography>Email: cody@mail.com</Typography>
-              <Typography gutterBottom={true}>Password: 123</Typography>
+
               <Grid item>
                 <TextField
                   id="email"
@@ -192,6 +207,20 @@ const AuthForm = (props) => {
                 >
                   {displayName}
                 </Button>
+              </Grid>
+              <Grid item>
+                <Typography variant="caption">
+                  Log in to our sandbox account
+                  {`
+            `}
+                </Typography>
+
+                <Link
+                  variant="caption"
+                  href={`${process.env.API_URL}/sandboxLogin`}
+                >
+                  here.
+                </Link>
               </Grid>
               <Grid item>
                 <Grid item>

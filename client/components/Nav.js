@@ -14,7 +14,7 @@ import {
   MenuItem,
   Menu,
   Button,
-  createMuiTheme,
+  createTheme,
   Avatar,
 } from '@material-ui/core';
 import { AccountBox, HomeOutlined } from '@material-ui/icons';
@@ -76,7 +76,7 @@ const Navbar = (props) => {
             style={{ backgroundColor: '#5061a9' }}
           >
             <Toolbar>
-              <div id='logo'>
+              <div id="logo">
                 <Avatar
                   src={
                     'https://e7.pngegg.com/pngimages/499/436/png-clipart-logo-tomato-app-store-fruit-scribbles-tomato-logo.png'
@@ -87,7 +87,7 @@ const Navbar = (props) => {
                   variant="h4"
                   style={{ fontFamily: 'Righteous' }}
                 >
-                Pomodoro,go!
+                  Pomodoro,go!
                 </Typography>
               </div>
 
@@ -122,7 +122,7 @@ const Navbar = (props) => {
                     }}
                   >
                     <HomeOutlined style={{ color: '#e0e2e4', fontSize: 30 }} />
-                      Home
+                    Home
                   </IconButton>
                   <IconButton
                     id="dashboard"
@@ -196,6 +196,14 @@ const Navbar = (props) => {
                     Log In
                   </MenuItem>
                   <MenuItem
+                    key="sandboxLogin"
+                    component={Link}
+                    onClick={() => setAnchorEl(null)}
+                    to="/sandboxLogin"
+                  >
+                    Log In To Sandbox
+                  </MenuItem>
+                  <MenuItem
                     key="SignUp"
                     onClick={() => setAnchorEl(null)}
                     component={Link}
@@ -214,7 +222,7 @@ const Navbar = (props) => {
                   edge="start"
                   size="medium"
                   onClick={(ev) => setAnchorEl(ev.currentTarget)}
-                // ref={anchorRef}
+                  // ref={anchorRef}
                 >
                   <AccountBox style={{ color: '#e0e2e4', fontSize: 30 }} />
                 </IconButton>
@@ -225,14 +233,18 @@ const Navbar = (props) => {
                     buttonText="Logout"
                     onLogoutSuccess={handleLogOut}
                     isSignedIn={props.isLoggedIn}
-                    render={renderProps => (
-                      <Avatar onClick={renderProps.onClick} style={{
-                        height: 30,
-                        width: 30,
-                        border: 0,
-                        borderRadius: '50%',
-                        marginTop: '10px'
-                      }} src='https://i.pinimg.com/originals/a3/d5/8f/a3d58f0b2820871d486e9851c0fdbb60.jpg'/>
+                    render={(renderProps) => (
+                      <Avatar
+                        onClick={renderProps.onClick}
+                        style={{
+                          height: 30,
+                          width: 30,
+                          border: 0,
+                          borderRadius: '50%',
+                          marginTop: '10px',
+                        }}
+                        src="https://i.pinimg.com/originals/a3/d5/8f/a3d58f0b2820871d486e9851c0fdbb60.jpg"
+                      />
                     )}
                   ></GoogleLogout>
                 ) : (
@@ -244,14 +256,18 @@ const Navbar = (props) => {
                     cookiePolicy={'single_host_origin'}
                     isSignedIn={props.isLoggedIn}
                     redirectUri={`${process.env.API_URL}/home`}
-                    render={renderProps => (
-                      <Avatar onClick={renderProps.onClick} style={{
-                        height: 30,
-                        width: 30,
-                        border: 0,
-                        borderRadius: '50%',
-                        marginTop: '10px'
-                      }} src='https://img-authors.flaticon.com/google.jpg'/>
+                    render={(renderProps) => (
+                      <Avatar
+                        onClick={renderProps.onClick}
+                        style={{
+                          height: 30,
+                          width: 30,
+                          border: 0,
+                          borderRadius: '50%',
+                          marginTop: '10px',
+                        }}
+                        src="https://img-authors.flaticon.com/google.jpg"
+                      />
                     )}
                   />
                 )}
