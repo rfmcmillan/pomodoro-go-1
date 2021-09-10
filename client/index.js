@@ -12,8 +12,6 @@ import App from './app';
 
 const theme = createTheme({
   palette: {
-    // divider: 'rgba(145, 158, 171, 0.24)',
-    // mode: 'dark',
     background: {
       default: '#ffffff',
       paper: '#ffffff',
@@ -22,7 +20,6 @@ const theme = createTheme({
       contrastText: '#ffffff',
       main: '#a83942',
     },
-
     primary: {
       contrastText: '#e4ddee',
       main: '#5061a9',
@@ -42,6 +39,9 @@ const theme = createTheme({
       primary: '#4d2a4e',
       secondary: '#9671a2',
     },
+  },
+  typography: {
+    fontFamily: ['Roboto', 'sans-serif'].join(','),
   },
 });
 

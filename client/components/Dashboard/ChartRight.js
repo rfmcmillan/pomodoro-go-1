@@ -693,7 +693,7 @@ const ChartRight = (props) => {
   console.log('monthData.sereis:', monthData.series);
   return (
     <Paper className={classes.contain} {...props} elevation={10}>
-      <Grid container direction="row" justify="space-between">
+      <Grid container direction="row" justifyContent="space-between">
         <Grid item>
           <Typography
             className={classes.lsItem}
