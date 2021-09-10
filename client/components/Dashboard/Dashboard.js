@@ -149,7 +149,7 @@ const Dashboard = () => {
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="flex-start"
         spacing={3}
       >
@@ -165,18 +165,18 @@ const Dashboard = () => {
             Here is your latest data.
           </Typography>
         </Grid>
-        <Grid item container xs={9} justify="flex-end" alignItems="flex-end">
-          <Grid item xs={10}>
+        <Grid
+          item
+          container
+          xs={9}
+          justifyContent="flex-end"
+          alignItems="flex-end"
+        >
+          {/* <Grid item xs={10}>
             <FormControl
               component="fieldset"
               className={classes.formControlCheckboxes}
             >
-              {/* <FormLabel
-                style={{ color: theme.palette.text.primary }}
-                component="legend"
-              >
-                Display
-              </FormLabel> */}
               <FormGroup row={true}>
                 <FormControlLabel
                   style={{ color: theme.palette.text.primary }}
@@ -258,8 +258,8 @@ const Dashboard = () => {
                 />
               </FormGroup>
             </FormControl>
-          </Grid>
-          <Grid item container xs={2} justify="flex-end">
+          </Grid> */}
+          <Grid item container xs={2} justifyContent="flex-end">
             <Grid>
               <FormControl className={classes.formControlSelect}>
                 <InputLabel id="time-frame-label" color="primary">
