@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { authenticateGoogle, logout, me } from '../store';
+import { authenticateGoogle, logout, me } from '../../store';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 import {
@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import { AccountBox, HomeOutlined } from '@material-ui/icons';
 import { useTheme, makeStyles } from '@material-ui/styles';
+import NavButton from './NavButton';
 
 const Navbar = (props) => {
   const theme = useTheme();
@@ -24,8 +25,6 @@ const Navbar = (props) => {
       color: 'black',
       backgroundColor: '#ffffff00',
       boxShadow: 'none',
-      fontFamily: theme.typography.fontFamily,
-      fontWeight: 'bold',
       height: 60,
     },
     button: {
@@ -80,7 +79,7 @@ const Navbar = (props) => {
 
               {isLoggedIn ? (
                 <>
-                  <Button
+                  <NavButton
                     className={classes.button}
                     id="home"
                     aria-label="home"
@@ -89,8 +88,8 @@ const Navbar = (props) => {
                     to="/home"
                   >
                     Home
-                  </Button>
-                  <Button
+                  </NavButton>
+                  <NavButton
                     className={classes.button}
                     id="dashboard"
                     // edge="start"
@@ -98,8 +97,8 @@ const Navbar = (props) => {
                     to="/dashboard"
                   >
                     Dashboard
-                  </Button>
-                  <Button
+                  </NavButton>
+                  <NavButton
                     className={classes.button}
                     id="blocksites"
                     // aria-label="menu"
@@ -108,8 +107,8 @@ const Navbar = (props) => {
                     to="/blocksites"
                   >
                     BlockList
-                  </Button>
-                  <Button
+                  </NavButton>
+                  <NavButton
                     className={classes.button}
                     id="friends"
                     edge="start"
@@ -117,7 +116,7 @@ const Navbar = (props) => {
                     to="/friends"
                   >
                     Friends
-                  </Button>
+                  </NavButton>
                   <Menu
                     className={classes.button}
                     id="menu"
