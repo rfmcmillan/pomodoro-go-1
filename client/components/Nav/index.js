@@ -6,6 +6,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 import {
   AppBar,
+  Grid,
   Button,
   Toolbar,
   IconButton,
@@ -33,6 +34,11 @@ const Navbar = (props) => {
       fontFamily: theme.typography.fontFamily,
     },
     login: { color: 'black' },
+    signup: {
+      borderRadius: 40,
+      backgroundColor: 'black',
+      color: 'white',
+    },
   });
   const classes = useStyles();
 
@@ -131,84 +137,105 @@ const Navbar = (props) => {
                   </Menu>
                 </>
               ) : (
-                <Menu
-                  id="menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  aria-haspopup="true"
-                  onClose={() => setAnchorEl(null)}
-                >
-                  <MenuItem
-                    key="Login"
-                    component={Link}
-                    onClick={() => setAnchorEl(null)}
-                    to="/login"
+                <>
+                  <Menu
+                    id="menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    aria-haspopup="true"
+                    onClose={() => setAnchorEl(null)}
                   >
-                    Log In
-                  </MenuItem>
-                  <MenuItem
-                    key="sandboxLogin"
-                    component={Link}
-                    onClick={() => setAnchorEl(null)}
-                    to="/sandboxLogin"
+                    <MenuItem
+                      key="Login"
+                      component={Link}
+                      onClick={() => setAnchorEl(null)}
+                      to="/login"
+                    >
+                      Log In
+                    </MenuItem>
+                    <MenuItem
+                      key="sandboxLogin"
+                      component={Link}
+                      onClick={() => setAnchorEl(null)}
+                      to="/sandboxLogin"
+                    >
+                      Log In To Sandbox
+                    </MenuItem>
+                    <MenuItem
+                      key="SignUp"
+                      onClick={() => setAnchorEl(null)}
+                      component={Link}
+                      to="/signup"
+                    >
+                      Sign Up
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
+
+              <Grid container id="extension-login">
+                <Grid item>
+                  <IconButton
+                    className={classes.button}
+                    id="account"
+                    aria-label="menu"
+                    aria-haspopup="true"
+                    edge="start"
+                    size="medium"
+                    onClick={(ev) => setAnchorEl(ev.currentTarget)}
                   >
-                    Log In To Sandbox
-                  </MenuItem>
-                  <MenuItem
-                    key="SignUp"
-                    onClick={() => setAnchorEl(null)}
+                    <AccountBox />
+                  </IconButton>
+                </Grid>
+                {isLoggedIn ? (
+                  <Grid item>
+                    <GoogleLogout
+                      clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
+                      buttonText="Logout"
+                      onLogoutSuccess={handleLogOut}
+                      isSignedIn={props.isLoggedIn}
+                      render={(renderProps) => (
+                        <Avatar
+                          onClick={renderProps.onClick}
+                          src="https://i.pinimg.com/originals/a3/d5/8f/a3d58f0b2820871d486e9851c0fdbb60.jpg"
+                        />
+                      )}
+                    ></GoogleLogout>
+                  </Grid>
+                ) : (
+                  <Grid item>
+                    <GoogleLogin
+                      clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
+                      buttonText="Login"
+                      onSuccess={handleSuccess}
+                      onFailure={handleFail}
+                      cookiePolicy={'single_host_origin'}
+                      isSignedIn={props.isLoggedIn}
+                      redirectUri={`${process.env.API_URL}/home`}
+                      render={(renderProps) => (
+                        <Avatar
+                          onClick={renderProps.onClick}
+                          src="https://img-authors.flaticon.com/google.jpg"
+                        />
+                      )}
+                    />
+                  </Grid>
+                )}
+                {isLoggedIn ? (
+                  ''
+                ) : (
+                  <NavButton
+                    textSizeSmall
+                    variant="contained"
+                    className={classes.signup}
                     component={Link}
                     to="/signup"
                   >
                     Sign Up
-                  </MenuItem>
-                </Menu>
-              )}
-              <div id="extension-login">
-                <IconButton
-                  className={classes.button}
-                  id="account"
-                  aria-label="menu"
-                  aria-haspopup="true"
-                  edge="start"
-                  size="medium"
-                  onClick={(ev) => setAnchorEl(ev.currentTarget)}
-                >
-                  <AccountBox />
-                </IconButton>
-
-                {props.isLoggedIn ? (
-                  <GoogleLogout
-                    clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
-                    buttonText="Logout"
-                    onLogoutSuccess={handleLogOut}
-                    isSignedIn={props.isLoggedIn}
-                    render={(renderProps) => (
-                      <Avatar
-                        onClick={renderProps.onClick}
-                        src="https://i.pinimg.com/originals/a3/d5/8f/a3d58f0b2820871d486e9851c0fdbb60.jpg"
-                      />
-                    )}
-                  ></GoogleLogout>
-                ) : (
-                  <GoogleLogin
-                    clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={handleSuccess}
-                    onFailure={handleFail}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={props.isLoggedIn}
-                    redirectUri={`${process.env.API_URL}/home`}
-                    render={(renderProps) => (
-                      <Avatar
-                        onClick={renderProps.onClick}
-                        src="https://img-authors.flaticon.com/google.jpg"
-                      />
-                    )}
-                  />
+                  </NavButton>
                 )}
-              </div>
+              </Grid>
             </Toolbar>
           </AppBar>
         )}
