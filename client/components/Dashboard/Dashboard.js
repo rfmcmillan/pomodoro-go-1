@@ -22,7 +22,6 @@ import ChartRight from './ChartRight';
 
 const useStyles = makeStyles((theme) => ({
   contain: {
-    padding: 10,
     minWidth: 100,
     flexGrow: 1,
   },
@@ -38,10 +37,15 @@ const useStyles = makeStyles((theme) => ({
   dashboardContain: {
     paddingLeft: 15,
     paddingRight: 15,
-    margin: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
   },
   formControlLabel: {
     color: theme.palette.text.primary,
+  },
+  greeting: {
+    marginBottom: 5,
   },
 }));
 
@@ -147,14 +151,14 @@ const Dashboard = () => {
       // style={{ backgroundColor: theme.palette.background.default }}
     >
       <Grid
+        className={classes.greeting}
         container
         direction="row"
         justifyContent="space-between"
         alignItems="flex-start"
-        spacing={3}
       >
         <Grid item xs={3}>
-          <Typography variant="overline" color="textPrimary">
+          <Typography gutterBottom={0} variant="overline" color="textPrimary">
             Dashboard
           </Typography>
           <Typography variant="h6" color="textPrimary">
@@ -172,93 +176,6 @@ const Dashboard = () => {
           justifyContent="flex-end"
           alignItems="flex-end"
         >
-          {/* <Grid item xs={10}>
-            <FormControl
-              component="fieldset"
-              className={classes.formControlCheckboxes}
-            >
-              <FormGroup row={true}>
-                <FormControlLabel
-                  style={{ color: theme.palette.text.primary }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={lastSession}
-                      onChange={handleCheckboxChange}
-                      name="lastSession"
-                    />
-                  }
-                  label="Last Session"
-                  className={classes.formControlLabel}
-                />
-                <FormControlLabel
-                  style={{ color: theme.palette.text.primary }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={totalSessions}
-                      onChange={handleCheckboxChange}
-                      name="totalSessions"
-                    />
-                  }
-                  label="Total Sessions"
-                  className={classes.formControlLabel}
-                />
-                <FormControlLabel
-                  style={{ color: theme.palette.text.primary }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={averageSession}
-                      onChange={handleCheckboxChange}
-                      name="averageSession"
-                    />
-                  }
-                  label="Average Session"
-                  className={classes.formControlLabel}
-                />
-                <FormControlLabel
-                  style={{ color: theme.palette.text.primary }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={sessionDistribution}
-                      onChange={handleCheckboxChange}
-                      name="sessionDistribution"
-                    />
-                  }
-                  label="Session Distribution"
-                  className={classes.formControlLabel}
-                />
-                <FormControlLabel
-                  style={{ color: theme.palette.text.primary }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={sessionFrequency}
-                      onChange={handleCheckboxChange}
-                      name="sessionFrequency"
-                    />
-                  }
-                  label="Session Frequency"
-                  className={classes.formControlLabel}
-                />
-                <FormControlLabel
-                  style={{ color: theme.palette.text.primary }}
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={mostBlocked}
-                      onChange={handleCheckboxChange}
-                      name="mostBlocked"
-                    />
-                  }
-                  label="Most Blocked"
-                  className={classes.formControlLabel}
-                />
-              </FormGroup>
-            </FormControl>
-          </Grid> */}
           <Grid item container xs={2} justifyContent="flex-end">
             <Grid>
               <FormControl className={classes.formControlSelect}>

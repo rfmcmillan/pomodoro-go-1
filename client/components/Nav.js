@@ -6,6 +6,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 import {
   AppBar,
+  Button,
   Toolbar,
   IconButton,
   Typography,
@@ -25,8 +26,13 @@ const Navbar = (props) => {
       boxShadow: 'none',
       fontFamily: theme.typography.fontFamily,
       fontWeight: 'bold',
+      height: 60,
     },
-    menuItem: { color: theme.palette.text.primary, fontSize: 'medium' },
+    button: {
+      color: theme.palette.text.primary,
+      fontSize: 'medium',
+      fontFamily: theme.typography.fontFamily,
+    },
     login: { color: 'black' },
   });
   const classes = useStyles();
@@ -64,20 +70,56 @@ const Navbar = (props) => {
         ) : (
           <AppBar position="static" className={classes.header}>
             <Toolbar>
-              <div id="logo">
-                <Typography
-                  id="pomo-go"
-                  variant="h4"
-                  style={{ fontFamily: 'Righteous' }}
-                >
-                  PomodoroGo.
-                </Typography>
-              </div>
+              <Typography
+                id="pomo-go"
+                variant="h4"
+                style={{ fontFamily: 'Righteous' }}
+              >
+                PomodoroGo.
+              </Typography>
 
               {isLoggedIn ? (
                 <>
+                  <Button
+                    className={classes.button}
+                    id="home"
+                    aria-label="home"
+                    // edge="start"
+                    component={Link}
+                    to="/home"
+                  >
+                    Home
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    id="dashboard"
+                    // edge="start"
+                    component={Link}
+                    to="/dashboard"
+                  >
+                    Dashboard
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    id="blocksites"
+                    // aria-label="menu"
+                    edge="start"
+                    component={Link}
+                    to="/blocksites"
+                  >
+                    BlockList
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    id="friends"
+                    edge="start"
+                    component={Link}
+                    to="/friends"
+                  >
+                    Friends
+                  </Button>
                   <Menu
-                    className={classes.menuItem}
+                    className={classes.button}
                     id="menu"
                     aria-label="menu"
                     anchorEl={anchorEl}
@@ -88,44 +130,6 @@ const Navbar = (props) => {
                   >
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                   </Menu>
-                  <IconButton
-                    className={classes.menuItem}
-                    id="home"
-                    aria-label="home"
-                    edge="start"
-                    component={Link}
-                    to="/home"
-                  >
-                    Home
-                  </IconButton>
-                  <IconButton
-                    className={classes.menuItem}
-                    id="dashboard"
-                    edge="start"
-                    component={Link}
-                    to="/dashboard"
-                  >
-                    Dashboard
-                  </IconButton>
-                  <IconButton
-                    className={classes.menuItem}
-                    id="blocksites"
-                    // aria-label="menu"
-                    edge="start"
-                    component={Link}
-                    to="/blocksites"
-                  >
-                    BlockList
-                  </IconButton>
-                  <IconButton
-                    className={classes.menuItem}
-                    id="friends"
-                    edge="start"
-                    component={Link}
-                    to="/friends"
-                  >
-                    Friends
-                  </IconButton>
                 </>
               ) : (
                 <Menu
@@ -164,7 +168,7 @@ const Navbar = (props) => {
               )}
               <div id="extension-login">
                 <IconButton
-                  className={classes.menuItem}
+                  className={classes.button}
                   id="account"
                   aria-label="menu"
                   aria-haspopup="true"
