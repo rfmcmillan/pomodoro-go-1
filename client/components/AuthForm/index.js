@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
   signupButton: {
-    backgroundColor: 'black',
     color: 'white',
     margin: '10px',
     borderRadius: 40,
   },
+  signInTitle: {},
 }));
 
 /**
@@ -167,7 +167,9 @@ const AuthForm = (props) => {
         ) : (
           <Paper className={classes.login}>
             <Grid container direction="column" alignItems="center">
-              <Typography variant="h6">Sign In</Typography>
+              <Typography variant="h6" className={classes.signInTitle}>
+                Sign In
+              </Typography>
 
               <Grid item>
                 <TextField

@@ -34,6 +34,8 @@ const Navbar = (props) => {
       fontFamily: theme.typography.fontFamily,
     },
     login: { color: 'black' },
+    loggedIn: { justifyContent: 'flexEnd', width: 100 },
+    loggedOut: { justifyContent: 'flexEnd', width: 300 },
     signup: {
       borderRadius: 40,
       backgroundColor: 'black',
@@ -91,7 +93,6 @@ const Navbar = (props) => {
               >
                 PomodoroGo.
               </Typography>
-
               {isLoggedIn ? (
                 <>
                   <NavButton
@@ -132,18 +133,6 @@ const Navbar = (props) => {
                   >
                     Friends
                   </NavButton>
-                  <Menu
-                    className={classes.button}
-                    id="menu"
-                    aria-label="menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    aria-haspopup="true"
-                    onClose={() => setAnchorEl(null)}
-                  >
-                    <MenuItem onClick={handleLogOut}>Logout</MenuItem>
-                  </Menu>
                 </>
               ) : (
                 <Grid container id="extension-login">
@@ -176,56 +165,104 @@ const Navbar = (props) => {
                   </Grid>
                 </Grid>
               )}
-              <Grid container id="extension-login">
-                {isLoggedIn ? (
-                  ''
-                ) : (
-                  <>
-                    <Grid item>
-                      <NavButton
-                        variant="text"
-                        className={classes.sandboxLogin}
-                        component={Link}
-                        to="/sandboxLogin"
-                      >
-                        Sandbox
-                      </NavButton>
-                    </Grid>
-                    <Grid>
-                      <NavButton
-                        variant="text"
-                        className={classes.signIn}
-                        component={Link}
-                        to="/login"
-                      >
-                        Sign In
-                      </NavButton>
-                    </Grid>
-                    <Grid>
-                      <NavButton
-                        variant="contained"
-                        className={classes.signup}
-                        component={Link}
-                        to="/signup"
-                      >
-                        Sign Up
-                      </NavButton>
-                    </Grid>
-                  </>
-                )}
-                <IconButton
-                  className={classes.button}
-                  id="account"
-                  aria-label="menu"
-                  aria-haspopup="true"
-                  edge="start"
-                  size="medium"
-                  onClick={(ev) => setAnchorEl(ev.currentTarget)}
-                >
-                  <AccountBox />
-                </IconButton>
 
-                {isLoggedIn ? (
+              {isLoggedIn ? (
+                <Grid container className={classes.loggedIn}>
+                  <Grid item>
+                    <IconButton
+                      className={classes.button}
+                      id="account"
+                      aria-label="menu"
+                      aria-haspopup="true"
+                      edge="start"
+                      size="medium"
+                      onClick={(ev) => setAnchorEl(ev.currentTarget)}
+                    >
+                      <AccountBox />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <Menu
+                      className={classes.button}
+                      id="menu"
+                      aria-label="menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      aria-haspopup="true"
+                      onClose={() => setAnchorEl(null)}
+                    >
+                      <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+                    </Menu>
+                  </Grid>
+                  <Grid item>
+                    <GoogleLogout
+                      clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
+                      buttonText="Logout"
+                      onLogoutSuccess={handleLogOut}
+                      isSignedIn={props.isLoggedIn}
+                      render={(renderProps) => (
+                        <Avatar
+                          onClick={renderProps.onClick}
+                          src="https://i.pinimg.com/originals/a3/d5/8f/a3d58f0b2820871d486e9851c0fdbb60.jpg"
+                        />
+                      )}
+                    ></GoogleLogout>
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid container className={classes.loggedOut}>
+                  <Grid item>
+                    <NavButton
+                      variant="text"
+                      className={classes.sandboxLogin}
+                      component={Link}
+                      to="/sandboxLogin"
+                    >
+                      Sandbox
+                    </NavButton>
+                  </Grid>
+                  <Grid>
+                    <NavButton
+                      variant="text"
+                      className={classes.signIn}
+                      component={Link}
+                      to="/login"
+                    >
+                      Sign In
+                    </NavButton>
+                  </Grid>
+                  <Grid>
+                    <NavButton
+                      variant="contained"
+                      className={classes.signup}
+                      component={Link}
+                      to="/signup"
+                    >
+                      Sign Up
+                    </NavButton>
+                  </Grid>
+                  <Grid item>
+                    <GoogleLogin
+                      clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
+                      buttonText="Login"
+                      onSuccess={handleSuccess}
+                      onFailure={handleFail}
+                      cookiePolicy={'single_host_origin'}
+                      isSignedIn={props.isLoggedIn}
+                      redirectUri={`${process.env.API_URL}/home`}
+                      render={(renderProps) => (
+                        <Avatar
+                          onClick={renderProps.onClick}
+                          src="https://img-authors.flaticon.com/google.jpg"
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              )}
+
+              {/* {isLoggedIn ? (
                   <Grid item>
                     <GoogleLogout
                       clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
@@ -258,8 +295,7 @@ const Navbar = (props) => {
                       )}
                     />
                   </Grid>
-                )}
-              </Grid>
+                )} */}
             </Toolbar>
           </AppBar>
         )}
