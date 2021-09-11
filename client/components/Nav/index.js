@@ -34,7 +34,7 @@ const Navbar = (props) => {
       fontFamily: theme.typography.fontFamily,
     },
     login: { color: 'black' },
-    loggedIn: { justifyContent: 'flexEnd', width: 100 },
+    loggedIn: { justifyContent: 'flexEnd', width: 130 },
     loggedOut: { justifyContent: 'flexEnd', width: 300 },
     signup: {
       borderRadius: 40,
@@ -168,7 +168,7 @@ const Navbar = (props) => {
 
               {isLoggedIn ? (
                 <Grid container className={classes.loggedIn}>
-                  <Grid item>
+                  {/* <Grid item>
                     <IconButton
                       className={classes.button}
                       id="account"
@@ -180,8 +180,8 @@ const Navbar = (props) => {
                     >
                       <AccountBox />
                     </IconButton>
-                  </Grid>
-                  <Grid item>
+                  </Grid> */}
+                  {/* <Grid item>
                     <Menu
                       className={classes.button}
                       id="menu"
@@ -194,6 +194,9 @@ const Navbar = (props) => {
                     >
                       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                     </Menu>
+                  </Grid> */}
+                  <Grid item>
+                    <Button onClick={handleLogOut}>Logout</Button>
                   </Grid>
                   <Grid item>
                     <GoogleLogout
