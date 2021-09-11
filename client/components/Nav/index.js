@@ -146,66 +146,84 @@ const Navbar = (props) => {
                   </Menu>
                 </>
               ) : (
-                <>
-                  <Menu
-                    id="menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    aria-haspopup="true"
-                    onClose={() => setAnchorEl(null)}
-                  >
-                    <MenuItem
-                      key="Login"
-                      component={Link}
-                      onClick={() => setAnchorEl(null)}
-                      to="/login"
+                <Grid container id="extension-login">
+                  <Grid item>
+                    <Menu
+                      id="menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      aria-haspopup="true"
+                      onClose={() => setAnchorEl(null)}
                     >
-                      Log In
-                    </MenuItem>
-                    <MenuItem
-                      key="sandboxLogin"
-                      component={Link}
-                      onClick={() => setAnchorEl(null)}
-                      to="/sandboxLogin"
-                    >
-                      Log In To Sandbox
-                    </MenuItem>
-                  </Menu>
-                </>
+                      <MenuItem
+                        key="Login"
+                        component={Link}
+                        onClick={() => setAnchorEl(null)}
+                        to="/login"
+                      >
+                        Log In
+                      </MenuItem>
+                      <MenuItem
+                        key="sandboxLogin"
+                        component={Link}
+                        onClick={() => setAnchorEl(null)}
+                        to="/sandboxLogin"
+                      >
+                        Log In To Sandbox
+                      </MenuItem>
+                    </Menu>
+                  </Grid>
+                </Grid>
               )}
-
               <Grid container id="extension-login">
-                <Grid item>
-                  <NavButton
-                    variant="text"
-                    className={classes.sandboxLogin}
-                    component={Link}
-                    to="/sandboxLogin"
-                  >
-                    Sandbox
-                  </NavButton>
-                </Grid>
-                <Grid>
-                  <NavButton
-                    variant="text"
-                    className={classes.signIn}
-                    component={Link}
-                    to="/login"
-                  >
-                    Sign In
-                  </NavButton>
-                </Grid>
-                <Grid>
-                  <NavButton
-                    variant="contained"
-                    className={classes.signup}
-                    component={Link}
-                    to="/signup"
-                  >
-                    Sign Up
-                  </NavButton>
-                </Grid>
+                {isLoggedIn ? (
+                  ''
+                ) : (
+                  <>
+                    <Grid item>
+                      <NavButton
+                        variant="text"
+                        className={classes.sandboxLogin}
+                        component={Link}
+                        to="/sandboxLogin"
+                      >
+                        Sandbox
+                      </NavButton>
+                    </Grid>
+                    <Grid>
+                      <NavButton
+                        variant="text"
+                        className={classes.signIn}
+                        component={Link}
+                        to="/login"
+                      >
+                        Sign In
+                      </NavButton>
+                    </Grid>
+                    <Grid>
+                      <NavButton
+                        variant="contained"
+                        className={classes.signup}
+                        component={Link}
+                        to="/signup"
+                      >
+                        Sign Up
+                      </NavButton>
+                    </Grid>
+                  </>
+                )}
+                <IconButton
+                  className={classes.button}
+                  id="account"
+                  aria-label="menu"
+                  aria-haspopup="true"
+                  edge="start"
+                  size="medium"
+                  onClick={(ev) => setAnchorEl(ev.currentTarget)}
+                >
+                  <AccountBox />
+                </IconButton>
 
                 {isLoggedIn ? (
                   <Grid item>

@@ -9,7 +9,7 @@ import {
   Typography,
   Link,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   login: {
@@ -17,13 +17,20 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 100,
     flexGrow: 1,
     width: '20vw',
-    position: 'fixed',
-    right: '39vw',
-    top: '30vh',
+    position: 'absolute',
+    margin: 'auto',
+    top: '40%',
+    transform: 'translate(0, -50%)',
   },
   item: {
     width: 200,
     margin: 4,
+  },
+  signupButton: {
+    backgroundColor: 'black',
+    color: 'white',
+    margin: '10px',
+    borderRadius: 40,
   },
 }));
 
@@ -32,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
  */
 const AuthForm = (props) => {
   const classes = useStyles();
+  const theme = useTheme();
   console.log(props);
   const { name, displayName, error, value } = props;
   console.log('value:', value);
@@ -72,6 +80,7 @@ const AuthForm = (props) => {
           <Paper className={classes.login}>
             <Grid container direction="column" alignItems="center">
               <Typography
+                variant="h6"
                 style={{
                   marginBottom: '20px',
                 }}
@@ -116,18 +125,13 @@ const AuthForm = (props) => {
               </Grid>
               <Grid item>
                 <Button
+                  className={classes.signupButton}
                   onClick={handleSubmit}
                   id="submit"
                   variant="contained"
                   type="submit"
                   value={value}
                   color="primary"
-                  style={{
-                    backgroundColor: '#5061a9',
-                    color: 'white',
-                    marginTop: '10px',
-                  }}
-                  className={classes.item}
                 >
                   {displayName}
                 </Button>
@@ -140,12 +144,12 @@ const AuthForm = (props) => {
               `}
                   </Typography>
                   <Link variant="caption" href={`${process.env.API_URL}/login`}>
-                    Log in
+                    Sign in
                   </Link>
                 </Grid>
                 <Grid item>
                   <Typography variant="caption">
-                    Or log in to our sandbox account
+                    Or sign in to our sandbox account
                     {`
             `}
                   </Typography>
@@ -163,7 +167,7 @@ const AuthForm = (props) => {
         ) : (
           <Paper className={classes.login}>
             <Grid container direction="column" alignItems="center">
-              <Typography variant="h6">Log In</Typography>
+              <Typography variant="h6">Sign In</Typography>
 
               <Grid item>
                 <TextField
@@ -210,7 +214,7 @@ const AuthForm = (props) => {
               </Grid>
               <Grid item>
                 <Typography variant="caption">
-                  Log in to our sandbox account
+                  Sign in to our sandbox account
                   {`
             `}
                 </Typography>
@@ -256,7 +260,7 @@ const AuthForm = (props) => {
 const mapLogin = (state) => {
   return {
     name: 'login',
-    displayName: 'Log In',
+    displayName: 'Sign In',
     error: state.auth.error,
   };
 };
