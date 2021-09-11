@@ -38,6 +38,15 @@ const Navbar = (props) => {
       borderRadius: 40,
       backgroundColor: 'black',
       color: 'white',
+      fontSize: 14,
+    },
+    signIn: {
+      backgroundColor: '#ffffff00',
+      color: 'black',
+    },
+    sandboxLogin: {
+      backgroundColor: '#ffffff00',
+      color: 'black',
     },
   });
   const classes = useStyles();
@@ -162,32 +171,42 @@ const Navbar = (props) => {
                     >
                       Log In To Sandbox
                     </MenuItem>
-                    <MenuItem
-                      key="SignUp"
-                      onClick={() => setAnchorEl(null)}
-                      component={Link}
-                      to="/signup"
-                    >
-                      Sign Up
-                    </MenuItem>
                   </Menu>
                 </>
               )}
 
               <Grid container id="extension-login">
                 <Grid item>
-                  <IconButton
-                    className={classes.button}
-                    id="account"
-                    aria-label="menu"
-                    aria-haspopup="true"
-                    edge="start"
-                    size="medium"
-                    onClick={(ev) => setAnchorEl(ev.currentTarget)}
+                  <NavButton
+                    variant="text"
+                    className={classes.sandboxLogin}
+                    component={Link}
+                    to="/sandboxLogin"
                   >
-                    <AccountBox />
-                  </IconButton>
+                    Sandbox
+                  </NavButton>
                 </Grid>
+                <Grid>
+                  <NavButton
+                    variant="text"
+                    className={classes.signIn}
+                    component={Link}
+                    to="/login"
+                  >
+                    Sign In
+                  </NavButton>
+                </Grid>
+                <Grid>
+                  <NavButton
+                    variant="contained"
+                    className={classes.signup}
+                    component={Link}
+                    to="/signup"
+                  >
+                    Sign Up
+                  </NavButton>
+                </Grid>
+
                 {isLoggedIn ? (
                   <Grid item>
                     <GoogleLogout
@@ -221,19 +240,6 @@ const Navbar = (props) => {
                       )}
                     />
                   </Grid>
-                )}
-                {isLoggedIn ? (
-                  ''
-                ) : (
-                  <NavButton
-                    textSizeSmall
-                    variant="contained"
-                    className={classes.signup}
-                    component={Link}
-                    to="/signup"
-                  >
-                    Sign Up
-                  </NavButton>
                 )}
               </Grid>
             </Toolbar>

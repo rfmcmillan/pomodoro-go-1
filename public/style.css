@@ -57,7 +57,7 @@ a {
 #extension-login {
   display: flex;
   justify-content: space-between;
-  width: 250px;
+  width: 350px;
 }
 
 #googleIcon {
