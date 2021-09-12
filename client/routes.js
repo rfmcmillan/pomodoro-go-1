@@ -5,7 +5,7 @@ import { Login, Signup } from './components/AuthForm';
 import SandboxLogin from './components/AuthForm/SandboxLogin';
 import CreateSession from './components/Timer/CreateSession';
 import Home from './components/Home';
-import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './components/Dashboard';
 import { me } from './store';
 import { loadSessions } from './store/sessions';
 import { loadBlackList, updateBlackList } from './store/blackList';
@@ -14,7 +14,6 @@ import { loadSites, updateSite } from './store/sites';
 import { getSites } from './store/blockSites';
 import BlockError from './components/BlockError';
 import BlockSites from './components/BlockSites';
-import Player from './components/Player';
 import Friends from './components/Friends/Friends';
 import RedirectToSite from './components/RedirectToSite';
 
@@ -70,7 +69,7 @@ class Routes extends Component {
       });
 
     return (
-      <div style={{ height: '100%' }}>
+      <div>
         {chrome.storage ? <RedirectToSite /> : null}
         {isLoggedIn && !chrome.storage ? (
           <Switch>

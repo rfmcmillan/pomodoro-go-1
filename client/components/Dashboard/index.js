@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   greeting: {
     marginBottom: 5,
   },
+  charts: { justifyContent: 'space-around' },
 }));
 
 const Dashboard = () => {
@@ -146,10 +147,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div
-      className={classes.dashboardContain}
-      // style={{ backgroundColor: theme.palette.background.default }}
-    >
+    <div className={classes.dashboardContain}>
       <Grid
         className={classes.greeting}
         container
@@ -219,34 +217,36 @@ const Dashboard = () => {
         </Grid>
       </Grid>
       <Grid container spacing={3}>
-        <Grid item xs={3}>
-          {lastSession ? <LastSession sessions={sessions} /> : ''}
+        <Grid item container spacing={3}>
+          <Grid item xs={3}>
+            {lastSession ? <LastSession sessions={sessions} /> : ''}
+          </Grid>
+          <Grid item xs={3}>
+            {totalSessions ? <TotalSessions sessions={sessions} /> : ''}
+          </Grid>
+          <Grid item xs={3}>
+            {averageSession ? <AverageSession sessions={sessions} /> : ''}
+          </Grid>
+          <Grid item xs={3}>
+            {mostBlocked ? (
+              <MostBlocked sessions={sessions} blackList={blackList} />
+            ) : (
+              ''
+            )}
+          </Grid>
         </Grid>
-        <Grid item xs={3}>
-          {totalSessions ? <TotalSessions sessions={sessions} /> : ''}
-        </Grid>
-        <Grid item xs={3}>
-          {averageSession ? <AverageSession sessions={sessions} /> : ''}
-        </Grid>
-        <Grid item xs={3}>
-          {mostBlocked ? (
-            <MostBlocked sessions={sessions} blackList={blackList} />
-          ) : (
-            ''
-          )}
-        </Grid>
-      </Grid>
 
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          {sessionDistribution ? <ChartLeft sessions={sessions} /> : ''}
-        </Grid>
-        <Grid item xs={6}>
-          {sessionFrequency ? (
-            <ChartRight blocks={blocks} sessions={sessions} sites={sites} />
-          ) : (
-            ''
-          )}
+        <Grid className={classes.charts} item container spacing={3}>
+          <Grid item xs={6}>
+            {sessionDistribution ? <ChartLeft sessions={sessions} /> : ''}
+          </Grid>
+          <Grid item xs={6}>
+            {sessionFrequency ? (
+              <ChartRight blocks={blocks} sessions={sessions} sites={sites} />
+            ) : (
+              ''
+            )}
+          </Grid>
         </Grid>
       </Grid>
     </div>

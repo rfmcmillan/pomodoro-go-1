@@ -13,12 +13,10 @@ const useStyles = makeStyles(() => {
       borderRadius: '15px',
       backgroundColor: 'white',
       height: '100%',
-      minHeight: '120px',
-      width:'500px',
+
+      width: '500px',
       margin: '10px',
       paddingLeft: '10px',
-      paddingRight: '10px',
-      paddingBottom: '10px',
     },
     goal: {
       padding: '1rem',
@@ -56,20 +54,11 @@ const FocusConfig = (props) => {
   return (
     <Paper className={classes.container} elevation={10}>
       <Grid
-        justify="center"
-        item
-        container
-        xs={12}
-        spacing={2}
         className={classes.gridContainer}
+        justify="center"
+        direction="column"
+        container
       >
-        <Grid item>
-          {currentSession.status !== 'Ongoing' ? (
-            <Typography align="center">Create Session</Typography>
-          ) : (
-            <Typography>Current Session</Typography>
-          )}
-        </Grid>
         <Grid container direction="row">
           <Grid item xs={3}>
             {currentSession.status !== 'Ongoing' ? (

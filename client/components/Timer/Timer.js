@@ -41,7 +41,7 @@ const Timer = (props) => {
   const start = Date.parse(startTime);
   const { setCountDown, sessionTime, countDown, setSessionTime } =
     useContext(SessionContext);
-  const targetTime = (end - start);
+  const targetTime = end - start;
   const { updateSession } = props;
   let seconds;
   const msToHMS = (ms) => {
@@ -153,21 +153,6 @@ const Timer = (props) => {
             width: '100%',
             position: 'relative',
             bottom: '160px',
-          }}
-        />
-        <Circle
-          percent={msToS(sessionTime)}
-          strokeWidth="1"
-          strokeColor={{
-            '0%': info.main,
-            '100%': '#5061a9',
-          }}
-          trailColor={primary.contrastText}
-          style={{
-            width: '92%',
-            position: 'relative',
-            bottom: '644px',
-            left: '20px',
           }}
         />
       </Card>

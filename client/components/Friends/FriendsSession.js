@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Avatar, Badge, Tooltip } from '@material-ui/core';
+import { Avatar, Badge, Tooltip, Typography } from '@material-ui/core';
 import FaceIcon from '@material-ui/icons/Face';
 import LastSession from '../Dashboard/LastSession';
 import TotalSessions from '../Dashboard/TotalSessions';
@@ -61,27 +61,33 @@ const FriendsSession = (props) => {
 
   return (
     <div id="friends-stats" className={classes.contain}>
-      {props.onlineStatus ? (
-        <Tooltip title="Online" placement="right">
-          <StyledBadge
-            overlap="circle"
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            variant="dot"
-          >
+      <Grid container>
+        <Grid item>
+          {props.onlineStatus ? (
+            <Tooltip title="Online" placement="right">
+              <StyledBadge
+                overlap="circle"
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                variant="dot"
+              >
+                <Avatar className={classes.avatar}>
+                  <FaceIcon />
+                </Avatar>
+              </StyledBadge>
+            </Tooltip>
+          ) : (
             <Avatar className={classes.avatar}>
               <FaceIcon />
             </Avatar>
-          </StyledBadge>
-        </Tooltip>
-      ) : (
-        <Avatar className={classes.avatar}>
-          <FaceIcon />
-        </Avatar>
-      )}
-      <h4>Email | {props.friend.email}</h4>
+          )}
+        </Grid>
+        <Grid item>
+          <Typography>{props.friend.username}</Typography>
+        </Grid>
+      </Grid>
       <Grid container spacing={3}>
         <Grid item xs={5}>
           <LastSession sessions={sessions} />

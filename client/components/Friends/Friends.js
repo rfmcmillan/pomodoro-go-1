@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import socketIOClient from 'socket.io-client';
 
 import RequestsToMe from './RequestsToMe';
 import RequestsToOthers from './RequestsToOthers';
@@ -8,7 +7,6 @@ import AddFriends from './AddFriends';
 import FriendsSession from './FriendsSession';
 import { socket } from '../../store/auth';
 
-//material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Tabs, Tab } from '@material-ui/core';
 
@@ -17,13 +15,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '950px',
     margin: '20px auto 20px auto',
-    padding: 20,
+    // padding: 20,
     minHeight: 450,
   },
   tabs: {
-    borderRadius: 15,
-    boxShadow: '0 3px 5px 2px #ccb8b8',
-    width: '80%',
+    // boxShadow: '0 3px 5px 2px #ccb8b8',
+    // width: '80%',
     margin: '20px auto 20px auto',
   },
   card: {
@@ -89,8 +86,6 @@ const Friends = (props) => {
     // console.log('all logged in users', data);
     setLoggedInUsers({ ...data });
   });
-
-  console.log(loggedInUsers);
 
   return (
     <>
@@ -161,7 +156,6 @@ const Friends = (props) => {
                       : classes.tabDisplay
                   }
                 >
-                  {/* <p>{isOnline(each) ? 'online':'offline'}</p> */}
                   <FriendsSession friend={each} onlineStatus={isOnline(each)} />
                 </div>
               );

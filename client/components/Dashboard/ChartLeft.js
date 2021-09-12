@@ -159,13 +159,14 @@ const ChartLeft = (props) => {
         toolbar: {
           show: true,
         },
-        // height: '50px',
+        // height: 50,
         // width: '100px',
       },
       colors: stacked ? [secondary.main, primary.main] : [primary.main],
       dataLabels: {
         enabled: false,
       },
+
       grid: {
         borderColor: theme.palette.divider,
         xaxis: {
@@ -651,9 +652,6 @@ const ChartLeft = (props) => {
             colors: theme.palette.text.secondary,
           },
         },
-        // formatter: function (val, index) {
-        //   return val.toFixed(0);
-        // },
       },
     },
     series: stacked ? stackedDataGoals.series : goalData.series,

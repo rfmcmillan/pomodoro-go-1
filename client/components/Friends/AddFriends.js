@@ -7,6 +7,7 @@ import { existingRequest } from '../../../utils/helper';
 //material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Typography,
   TextField,
   Card,
   CardActions,
@@ -94,7 +95,6 @@ const AddFriends = (props) => {
 
   return (
     <div id="add-friend" className={props.className}>
-      <h3>Friend search</h3>
       <Snackbar
         open={successOpen}
         autoHideDuration={6000}
@@ -135,9 +135,9 @@ const AddFriends = (props) => {
                     <Avatar className={classes.avatar}>
                       <FaceIcon />
                     </Avatar>
-                    <b>Username</b> | {each.username}
+                    <Typography>Username</Typography> | {each.username}
                     <br />
-                    <b>Email</b> | {each.email}
+                    <Typography>Email</Typography> | {each.email}
                   </CardContent>
                   <CardActions>
                     {existingRequest(props.auth.username, each) === false ? (
