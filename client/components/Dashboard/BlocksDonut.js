@@ -26,7 +26,7 @@ const BlocksDonut = (props) => {
         secondaryColor,
         textSecondary,
         textPrimary,
-        infoColor,
+        '#ccb8b8',
       ],
       labels: sites,
       legend: { show: false, position: 'bottom' },
@@ -34,8 +34,6 @@ const BlocksDonut = (props) => {
         toolbar: {
           show: false,
         },
-        // offsetX: -70,
-        // offsetY: -20,
       },
       stroke: {
         show: true,

@@ -91,7 +91,7 @@ const Navbar = (props) => {
                 variant="h4"
                 style={{ fontFamily: 'Righteous' }}
               >
-                PomodoroGo.
+                PomodoroGo
               </Typography>
               {isLoggedIn ? (
                 <>

@@ -13,6 +13,7 @@ import {
   Button,
   Avatar,
   Snackbar,
+  Typography,
 } from '@material-ui/core';
 import FaceIcon from '@material-ui/icons/Face';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
@@ -68,45 +69,48 @@ const RequestsToMe = (props) => {
 
   return (
     <div id="requests-to-me" className={props.className}>
-      <Snackbar
-        open={successOpen}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert onClose={handleClose} severity="success">
-          They are now added as your friend and will appear in your friend list.
-        </Alert>
-      </Snackbar>
-      {requestsToMe.length > 0 ? (
-        requestsToMe.map((each, idx) => {
-          return (
-            <Card className={classes.card} key={idx}>
-              <CardContent>
-                <Avatar className={classes.avatar}>
-                  <FaceIcon />
-                </Avatar>
-                <b>Username</b> | {each.username}
-                <br />
-                <b>Approval status</b> | {each.friendship?.requestStatus}
-              </CardContent>
-              <CardActions>
-                <Button
-                  size="small"
-                  onClick={() => approveRequest(props.auth.id, each.id)}
-                >
-                  <DoneOutlineIcon />
-                  &nbsp;Approve friend request
-                </Button>
-              </CardActions>
-            </Card>
-          );
-        })
-      ) : (
-        <>
-          <h3>No requests found</h3>
-        </>
-      )}
+      <ul>
+        <Snackbar
+          open={successOpen}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert onClose={handleClose} severity="success">
+            They are now added as your friend and will appear in your friend
+            list.
+          </Alert>
+        </Snackbar>
+        {requestsToMe.length > 0 ? (
+          requestsToMe.map((each, idx) => {
+            return (
+              <Card className={classes.card} key={idx}>
+                <CardContent>
+                  <Avatar className={classes.avatar}>
+                    <FaceIcon />
+                  </Avatar>
+                  <b>Username</b> | {each.username}
+                  <br />
+                  <b>Approval status</b> | {each.friendship?.requestStatus}
+                </CardContent>
+                <CardActions>
+                  <Button
+                    size="small"
+                    onClick={() => approveRequest(props.auth.id, each.id)}
+                  >
+                    <DoneOutlineIcon />
+                    &nbsp;Approve friend request
+                  </Button>
+                </CardActions>
+              </Card>
+            );
+          })
+        ) : (
+          <>
+            <Typography align="center">No requests found</Typography>
+          </>
+        )}
+      </ul>
     </div>
   );
 };

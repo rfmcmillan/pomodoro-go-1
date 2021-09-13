@@ -145,7 +145,7 @@ const Timer = (props) => {
           percent={(sessionTime / targetTime) * 100}
           strokeWidth="3"
           strokeColor={{
-            '0%': info.main,
+            '0%': '#5061a9',
             '100%': '#5061a9',
           }}
           trailColor={primary.contrastText}

@@ -5,7 +5,13 @@ import { getMyRequestToOthers } from '../../store/getFriends';
 
 //material-ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActions, CardContent, Avatar } from '@material-ui/core';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Avatar,
+  Typography,
+} from '@material-ui/core';
 import FaceIcon from '@material-ui/icons/Face';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +64,7 @@ const RequestsToOthers = (props) => {
             );
           })
         ) : (
-          <h3>No requests found</h3>
+          <Typography align="center">No requests found</Typography>
         )}
       </ul>
     </div>
