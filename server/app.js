@@ -4,7 +4,6 @@ const path = require('path');
 const morgan = require('morgan');
 const app = express();
 const cors = require('cors');
-const serveIndex = require('serve-index');
 
 module.exports = app;
 
@@ -30,6 +29,9 @@ app.use('/spotifyconnect', require('./spotifyconnect'));
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '..', 'public/index.html'))
 );
+
+// static file-serving middleware
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
