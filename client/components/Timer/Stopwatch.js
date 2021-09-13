@@ -1,20 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {
-  Button,
-  Paper,
-  Typography,
-  makeStyles,
-  Card,
-  Grid,
-} from '@material-ui/core';
+import React, { useContext } from 'react';
+import { Button, Typography, makeStyles, Card, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import dayjs from 'dayjs';
 import { updateSession } from '../../store/sessions';
 import StopButton from './StopButton';
 import { SessionContext } from '../../app';
 import { TimerContext } from './CreateSession';
 import { Circle } from 'rc-progress';
+
 const useStyles = makeStyles(() => ({
   timerContainer: {
     borderRadius: '15px',
@@ -28,7 +21,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Timer = (props) => {
+const Stopwatch = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const { info, primary, secondary, text, error } = theme.palette;
@@ -167,4 +160,4 @@ export default connect(
         dispatch(updateSession(sessionId, sessionTime)),
     };
   }
-)(Timer);
+)(Stopwatch);

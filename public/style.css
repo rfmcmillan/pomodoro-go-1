@@ -44,16 +44,6 @@ a {
   justify-content: space-between;
 }
 
-/* #login-signin-button {
-  width: 155px;
-  background-color: #5061a9;
-  color: white;
-  font-size: medium;
-  font-weight: bold;
-  border-radius: 3px;
-  box-shadow: 0 4px 3px gray;
-} */
-
 #extension-login {
   display: flex;
   justify-content: space-between;

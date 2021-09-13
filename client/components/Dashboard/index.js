@@ -156,7 +156,7 @@ const Dashboard = () => {
         alignItems="flex-start"
       >
         <Grid item xs={3}>
-          <Typography gutterBottom={0} variant="overline" color="textPrimary">
+          <Typography variant="overline" color="textPrimary">
             Dashboard
           </Typography>
           <Typography variant="h6" color="textPrimary">

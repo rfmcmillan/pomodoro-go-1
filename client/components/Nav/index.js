@@ -9,13 +9,11 @@ import {
   Grid,
   Button,
   Toolbar,
-  IconButton,
   Typography,
   MenuItem,
   Menu,
   Avatar,
 } from '@material-ui/core';
-import { AccountBox, HomeOutlined } from '@material-ui/icons';
 import { useTheme, makeStyles } from '@material-ui/styles';
 import NavButton from './NavButton';
 
@@ -78,7 +76,12 @@ const Navbar = (props) => {
         {chrome.storage ? (
           <AppBar position="static" className={classes.header}>
             <Toolbar elevation={0}>
-              <Typography id="pomo-go" align="center" variant="h4">
+              <Typography
+                id="pomo-go"
+                align="center"
+                variant="h4"
+                style={{ fontFamily: 'Righteous' }}
+              >
                 PomodoroGo
               </Typography>
             </Toolbar>
@@ -97,18 +100,15 @@ const Navbar = (props) => {
                 <>
                   <NavButton
                     className={classes.button}
-                    id="home"
-                    aria-label="home"
-                    // edge="start"
+                    aria-label="timer"
                     component={Link}
-                    to="/home"
+                    to="/timer"
                   >
-                    Home
+                    Timer
                   </NavButton>
                   <NavButton
                     className={classes.button}
                     id="dashboard"
-                    // edge="start"
                     component={Link}
                     to="/dashboard"
                   >
@@ -117,8 +117,6 @@ const Navbar = (props) => {
                   <NavButton
                     className={classes.button}
                     id="blocksites"
-                    // aria-label="menu"
-                    edge="start"
                     component={Link}
                     to="/blocksites"
                   >
@@ -127,7 +125,6 @@ const Navbar = (props) => {
                   <NavButton
                     className={classes.button}
                     id="friends"
-                    edge="start"
                     component={Link}
                     to="/friends"
                   >
@@ -168,33 +165,6 @@ const Navbar = (props) => {
 
               {isLoggedIn ? (
                 <Grid container className={classes.loggedIn}>
-                  {/* <Grid item>
-                    <IconButton
-                      className={classes.button}
-                      id="account"
-                      aria-label="menu"
-                      aria-haspopup="true"
-                      edge="start"
-                      size="medium"
-                      onClick={(ev) => setAnchorEl(ev.currentTarget)}
-                    >
-                      <AccountBox />
-                    </IconButton>
-                  </Grid> */}
-                  {/* <Grid item>
-                    <Menu
-                      className={classes.button}
-                      id="menu"
-                      aria-label="menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      aria-haspopup="true"
-                      onClose={() => setAnchorEl(null)}
-                    >
-                      <MenuItem onClick={handleLogOut}>Logout</MenuItem>
-                    </Menu>
-                  </Grid> */}
                   <Grid item>
                     <Button onClick={handleLogOut}>Logout</Button>
                   </Grid>
@@ -253,7 +223,7 @@ const Navbar = (props) => {
                       onFailure={handleFail}
                       cookiePolicy={'single_host_origin'}
                       isSignedIn={props.isLoggedIn}
-                      redirectUri={`${process.env.API_URL}/home`}
+                      redirectUri={`${process.env.API_URL}/timer`}
                       render={(renderProps) => (
                         <Avatar
                           onClick={renderProps.onClick}
@@ -264,41 +234,6 @@ const Navbar = (props) => {
                   </Grid>
                 </Grid>
               )}
-
-              {/* {isLoggedIn ? (
-                  <Grid item>
-                    <GoogleLogout
-                      clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
-                      buttonText="Logout"
-                      onLogoutSuccess={handleLogOut}
-                      isSignedIn={props.isLoggedIn}
-                      render={(renderProps) => (
-                        <Avatar
-                          onClick={renderProps.onClick}
-                          src="https://i.pinimg.com/originals/a3/d5/8f/a3d58f0b2820871d486e9851c0fdbb60.jpg"
-                        />
-                      )}
-                    ></GoogleLogout>
-                  </Grid>
-                ) : (
-                  <Grid item>
-                    <GoogleLogin
-                      clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
-                      buttonText="Login"
-                      onSuccess={handleSuccess}
-                      onFailure={handleFail}
-                      cookiePolicy={'single_host_origin'}
-                      isSignedIn={props.isLoggedIn}
-                      redirectUri={`${process.env.API_URL}/home`}
-                      render={(renderProps) => (
-                        <Avatar
-                          onClick={renderProps.onClick}
-                          src="https://img-authors.flaticon.com/google.jpg"
-                        />
-                      )}
-                    />
-                  </Grid>
-                )} */}
             </Toolbar>
           </AppBar>
         )}

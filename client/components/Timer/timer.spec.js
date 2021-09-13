@@ -1,22 +1,20 @@
-/* global describe beforeEach it */
-
 import { expect } from 'chai';
 import React from 'react';
 import enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Home } from './Home';
+import { Timer } from '.';
 
 const adapter = new Adapter();
 enzyme.configure({ adapter });
 
-describe('Home', () => {
-  let home;
+describe('Time', () => {
+  let timer;
 
   beforeEach(() => {
-    home = shallow(<Home username="cody" />);
+    timer = shallow(<Timer username="cody" />);
   });
 
   it('renders the email in an h3', () => {
-    expect(home.find('h3').text()).to.be.equal('Welcome, cody');
+    expect(timer.find('h3').text()).to.be.equal('Welcome, cody');
   });
 });

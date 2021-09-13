@@ -1,6 +1,6 @@
 {
   "name": "PomodoroGo",
-  "description": "Pomodoro, go! Inspired by the Pomodoro technique, PomodoroGo is an app that helps boost productivity by blocking social media, setting timers and creating focus sessions. Share what you've achieved with your friends, and make work a more interesting experience! ",
+  "description": "Inspired by the Pomodoro technique, PomodoroGo is an app that helps boost productivity by blocking social media, setting timers and creating focus sessions. Share what you've achieved with your friends, and make work a more interesting experience! ",
   "version": "1.0",
   "manifest_version": 3,
   "chrome_url_overrides": {

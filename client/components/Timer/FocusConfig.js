@@ -55,7 +55,7 @@ const FocusConfig = (props) => {
     <Paper className={classes.container} elevation={10}>
       <Grid
         className={classes.gridContainer}
-        justify="center"
+        justifyContent="center"
         direction="column"
         container
       >

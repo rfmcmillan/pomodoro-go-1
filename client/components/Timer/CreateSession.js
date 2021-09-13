@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import { makeStyles, Container, Grid } from '@material-ui/core';
-import Timer from './Timer';
+import Stopwatch from './Stopwatch';
 import FocusConfig from './FocusConfig';
 import { connect, useSelector } from 'react-redux';
 import { loadSession } from '../../store/sessions';
@@ -70,13 +70,17 @@ const CreateSession = (props) => {
       }}
     >
       <Container className={classes.main}>
-        <Grid container direction="column" alignItems="center" justify="center">
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+        >
           <Grid item>
             <FocusConfig />
           </Grid>
           <Grid item>
-
-            <Timer />
+            <Stopwatch />
           </Grid>
         </Grid>
       </Container>

@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import SandboxLogin from './components/AuthForm/SandboxLogin';
 import CreateSession from './components/Timer/CreateSession';
-import Home from './components/Home';
+import Timer from './components/Timer';
 import Dashboard from './components/Dashboard';
 import { me } from './store';
 import { loadSessions } from './store/sessions';
 import { loadBlackList, updateBlackList } from './store/blackList';
 import { loadBlocks } from './store/blocks';
-import { loadSites, updateSite } from './store/sites';
+import { loadSites } from './store/sites';
 import { getSites } from './store/blockSites';
 import BlockError from './components/BlockError';
 import BlockSites from './components/BlockSites';
 import Friends from './components/Friends/Friends';
 import RedirectToSite from './components/RedirectToSite';
+import About from './components/About';
 
-import Intro from './components/Intro';
-
-/**
- * COMPONENT
- */
 class Routes extends Component {
   constructor(props) {
     super(props);
@@ -42,18 +38,9 @@ class Routes extends Component {
       }),
       currUser: this.props.auth.id,
     });
-
-    // chrome?.runtime?.onMessage?.addListener(function(request, sender, sendResponse){
-    //   console.log(request.msg);
-    // });
   }
   render() {
     const { isLoggedIn, auth, blackList, updateB } = this.props;
-    //this enters auth and blackList into chrome.storage so it can be accessed
-    //in background.js file
-
-    //this listens for changes in chrome.storage so that it can update the database
-    // with the updated blacklist info
     if (chrome.storage)
       chrome.storage.onChanged.addListener(async (changes, areaName) => {
         if (changes.updatedBlackList) {
@@ -73,25 +60,24 @@ class Routes extends Component {
         {chrome.storage ? <RedirectToSite /> : null}
         {isLoggedIn && !chrome.storage ? (
           <Switch>
-            <Route path="/home" component={Home} />
+            <Route path="/timer" component={Timer} />
             <Route path="/login">
               <Redirect to="/dashboard" />
             </Route>
             <Route path="/sandboxLogin">
               <Redirect to="/dashboard" />
             </Route>
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
+            <Route path="/" exact component={Timer} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/timer" exact component={CreateSession} />
             <Route exact path="/blocksites" component={BlockSites} />
             <Route exact path="/friends" component={Friends} />
             <Route exact path="/uhoh" component={BlockError} />
+            <Route path="/about" component={About} />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Intro} />
+            <Route path="/about" component={About} />
             <Route path="/sandboxLogin" component={SandboxLogin} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
@@ -103,13 +89,8 @@ class Routes extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
     sites: state.sites,
     auth: state.auth,
@@ -138,6 +119,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Routes));
