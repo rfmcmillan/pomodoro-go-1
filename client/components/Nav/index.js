@@ -79,7 +79,7 @@ const Navbar = (props) => {
           <AppBar position="static" className={classes.header}>
             <Toolbar elevation={0}>
               <Typography id="pomo-go" align="center" variant="h4">
-                Pomodoro,go!
+                PomodoroGo
               </Typography>
             </Toolbar>
           </AppBar>
