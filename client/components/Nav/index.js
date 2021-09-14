@@ -34,7 +34,7 @@ const Navbar = (props) => {
     login: { color: 'black' },
     loggedIn: { justifyContent: 'flexEnd', width: 130 },
     loggedOut: { justifyContent: 'flexEnd', width: 300 },
-    logo: { fontFamily: 'Righteous', color: 'black', fontSize: 100 },
+    logo: { fontFamily: 'Righteous', color: 'black', fontSize: 34 },
     signup: {
       borderRadius: 40,
       backgroundColor: 'black',
@@ -81,7 +81,7 @@ const Navbar = (props) => {
                 disableFocusRipple={true}
                 disableRipple={true}
               >
-                P
+                PomodoroGo
               </NavButton>
             </Toolbar>
           </AppBar>
@@ -95,7 +95,7 @@ const Navbar = (props) => {
                 disableFocusRipple={true}
                 disableRipple={true}
               >
-                P
+                PomodoroGo
               </NavButton>
               {isLoggedIn ? (
                 <>
