@@ -54,8 +54,10 @@ const background = {
   },
 
   listenToExternalMessages: function () {
+    console.log('listening to external messages...');
     return runtime.onMessageExternal.addListener(
       async (message, sender, sendResponse) => {
+        console.log('message received...here it is:', message);
         try {
           if (message.message === 'create-timer') {
             this.sessionTime = message.sessionTime;
@@ -76,6 +78,7 @@ const background = {
             alarms.create('timer', { when: Date.now() });
           }
           if (message.message === 'set-blocked-sites') {
+            console.log('set-blocked-sites message received');
             const sites = [];
             message.blockedSites.forEach((site) => {
               sites.push(site.siteUrl);
@@ -158,6 +161,8 @@ const background = {
 
         storage.sync.get(['blocked', 'currUser'], async function (sync) {
           const { blocked, currUser } = sync;
+          console.log('blocked:', blocked);
+          console.log('currUser:', currUser);
           if (
             Array.isArray(blocked) &&
             blocked.find((domain) => {
