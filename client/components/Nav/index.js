@@ -34,6 +34,7 @@ const Navbar = (props) => {
     login: { color: 'black' },
     loggedIn: { justifyContent: 'flexEnd', width: 130 },
     loggedOut: { justifyContent: 'flexEnd', width: 300 },
+    logo: { fontFamily: 'Righteous', color: 'black', fontSize: 100 },
     signup: {
       borderRadius: 40,
       backgroundColor: 'black',
@@ -72,27 +73,30 @@ const Navbar = (props) => {
       <nav id="navBar">
         {chrome.storage ? (
           <AppBar position="static" className={classes.header}>
-            <Toolbar elevation={0}>
-              <Typography
-                id="pomo-go"
-                align="center"
-                variant="h4"
-                style={{ fontFamily: 'Righteous' }}
+            <Toolbar>
+              <NavButton
+                className={classes.logo}
+                component={Link}
+                to="/timer"
+                disableFocusRipple={true}
+                disableRipple={true}
               >
-                PomodoroGo
-              </Typography>
+                P
+              </NavButton>
             </Toolbar>
           </AppBar>
         ) : (
           <AppBar position="static" className={classes.header}>
             <Toolbar>
-              <Typography
-                id="pomo-go"
-                variant="h4"
-                style={{ fontFamily: 'Righteous' }}
+              <NavButton
+                className={classes.logo}
+                component={Link}
+                to="/timer"
+                disableFocusRipple={true}
+                disableRipple={true}
               >
-                PomodoroGo
-              </Typography>
+                P
+              </NavButton>
               {isLoggedIn ? (
                 <>
                   <NavButton

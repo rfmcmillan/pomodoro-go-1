@@ -29,18 +29,18 @@ const DialogChoice = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {'Just a quick note on our site-blocking feature...'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            In order for the site-blocking functionality to work, you will have
-            to install the Chrome extension. Click the appropriate button below
-            to download it.
+            In order for the site-blocking feature to work, you will have to
+            install the Chrome extension. Please click the appropriate button
+            below to download it.
           </DialogContentText>
           <DialogContentText id="alert-dialog-description">
-            If instead you would like to explore the app's user interface
-            without the site-blocking feature enabled, please click the
-            appropriate button below to be taken to the web-app.
+            If instead you would like to explore the user interface without the
+            site-blocking feature enabled, please click the appropriate button
+            below.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
