@@ -5,8 +5,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/styles';
 
 const DialogChoice = () => {
+  const useStyles = makeStyles({
+    dialog: {
+      color: '#000000',
+    },
+    dialogText: { color: 'gray' },
+  });
+  const classes = useStyles();
   const [open, setOpen] = useState(true);
 
   const handleClickOpen = () => {
@@ -19,25 +27,28 @@ const DialogChoice = () => {
 
   return (
     <div>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button> */}
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle className={classes.dialog} id="alert-dialog-title">
           {'Just a quick note on our site-blocking feature...'}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText
+            className={classes.dialogText}
+            id="alert-dialog-description"
+          >
             In order for the site-blocking feature to work, you will have to
             install the Chrome extension. Please click the appropriate button
             below to download it.
           </DialogContentText>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText
+            className={classes.dialogText}
+            id="alert-dialog-description"
+          >
             If instead you would like to explore the user interface without the
             site-blocking feature enabled, please click the appropriate button
             below.
