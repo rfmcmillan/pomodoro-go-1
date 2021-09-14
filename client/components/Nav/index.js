@@ -55,12 +55,9 @@ const Navbar = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [authInstance, setAuthInstance] = useState({});
   const handleSuccess = (response) => {
-    console.log(response);
     props.getMe(response);
   };
-  const handleFail = (response) => {
-    console.log('sign in failure', response);
-  };
+  const handleFail = (response) => {};
   const handleLogOut = () => {
     clearInterval(window.timer);
     setAnchorEl(null);

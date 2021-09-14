@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RequestsToMe = (props) => {
-  console.log(props);
   const classes = useStyles();
   const [successOpen, setSuccessOpen] = useState(false);
 

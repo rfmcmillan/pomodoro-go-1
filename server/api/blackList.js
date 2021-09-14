@@ -30,10 +30,10 @@ router.put('/:userId/:siteId', async (req, res, next) => {
     const blackList = await BlackList.findAll({
       where: {
         siteId: req.params.siteId,
-        userId: req.params.userId
-      }
+        userId: req.params.userId,
+      },
     });
-    if (blackList[0].blockingEnabled)  {
+    if (blackList[0].blockingEnabled) {
       blackList[0].blockingEnabled = false;
       await blackList[0].save();
     } else {

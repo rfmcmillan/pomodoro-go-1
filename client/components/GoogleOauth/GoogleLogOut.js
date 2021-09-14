@@ -6,7 +6,6 @@ const clientId =
 
 function GLogout() {
   const onSuccess = () => {
-    console.log('Logout successfully');
     alert('Logout!');
   };
 

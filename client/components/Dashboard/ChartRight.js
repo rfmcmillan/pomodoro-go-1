@@ -608,7 +608,6 @@ const ChartRight = (props) => {
   for (const [key, val] of Object.entries(seriesMonthsBlocks)) {
     blockMonthValsArr.push(val);
   }
-  console.log('bMVA:', blockMonthValsArr);
 
   const monthDataBlocks = {
     series: [
@@ -689,8 +688,6 @@ const ChartRight = (props) => {
     },
   };
   const seriesBlocks = monthDataBlocks.series;
-  console.log('seriesBlocks:', seriesBlocks);
-  console.log('monthData.sereis:', monthData.series);
   return (
     <Paper className={classes.contain} {...props} elevation={10}>
       <Grid container direction="row" justifyContent="space-between">

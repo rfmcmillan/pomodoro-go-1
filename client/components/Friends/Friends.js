@@ -15,12 +15,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '950px',
     margin: '20px auto 20px auto',
-    // padding: 20,
     minHeight: 450,
   },
   tabs: {
-    // boxShadow: '0 3px 5px 2px #ccb8b8',
-    // width: '80%',
     margin: '20px auto 20px auto',
   },
   card: {
@@ -78,12 +75,9 @@ const Friends = (props) => {
     socket.emit('get all loggedin users');
   }, []);
 
-  socket.on('other login', (data) => {
-    console.log('someome else', data);
-  });
+  socket.on('other login', (data) => {});
 
   socket.on('send all logged in users', (data) => {
-    // console.log('all logged in users', data);
     setLoggedInUsers({ ...data });
   });
 

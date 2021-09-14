@@ -14,7 +14,6 @@ const loadSites = () => {
       const sites = response.data;
       dispatch(loadSitesActionCreator(sites));
     } catch (error) {
-      console.log('error in loadSites thunk');
       console.log(error);
     }
   };

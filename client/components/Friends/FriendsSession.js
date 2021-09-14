@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(5),
     height: theme.spacing(5),
   },
+  firstName: { fontSize: 28 },
 }));
 
 const FriendsSession = (props) => {
@@ -59,9 +60,13 @@ const FriendsSession = (props) => {
     sessions = sessions.filter((session) => session.userId === props.friend.id);
   }
 
+  const firstName = props.friend.username.slice();
+  const letters = firstName.split('');
+  letters[0] = letters[0].toUpperCase();
+  const capitalizedFirstName = letters.join('');
   return (
     <div id="friends-stats" className={classes.contain}>
-      <Grid container>
+      <Grid container spacing={1} alignItems="center">
         <Grid item>
           {props.onlineStatus ? (
             <Tooltip title="Online" placement="right">
@@ -85,7 +90,9 @@ const FriendsSession = (props) => {
           )}
         </Grid>
         <Grid item>
-          <Typography>{props.friend.username}</Typography>
+          <Typography className={classes.firstName} variant="h1">
+            {capitalizedFirstName}
+          </Typography>
         </Grid>
       </Grid>
       <Grid container spacing={3}>

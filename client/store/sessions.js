@@ -14,7 +14,6 @@ const loadSessions = () => {
       const sessions = response.data;
       dispatch(loadSessionsActionCreator(sessions));
     } catch (error) {
-      console.log('error in loadSessions thunk');
       console.log(error);
     }
   };
@@ -36,7 +35,6 @@ const loadSession = (sessionId) => async (dispatch) => {
     );
     dispatch(loadSessionActionCreator(res.data));
   } catch (error) {
-    console.log('error in loadSession thunk');
     console.log(error);
   }
 };
@@ -67,7 +65,6 @@ const createSession = (userId, goal) => async (dispatch) => {
     localStorage.setItem('currentSession', JSON.stringify(data));
     dispatch(createSessionActionCreator(data));
   } catch (error) {
-    console.log('error in createSession thunk');
     console.log(error);
   }
 };
@@ -90,7 +87,6 @@ const updateSession = (sessionId, sessionInfo) => async (dispatch) => {
     window.localStorage.setItem('currentSession', JSON.stringify(data));
     dispatch(updateSessionActionCreator(data));
   } catch (error) {
-    console.log('error in updateSession thunk');
     console.log(error);
   }
 };
@@ -187,7 +183,6 @@ const updateTask = (taskId, sessionId) => async (dispatch) => {
     );
     dispatch(updateTaskActionCreator(res.data));
   } catch (error) {
-    console.log('error with updateTask');
     console.log(error);
   }
 };

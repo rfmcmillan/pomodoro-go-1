@@ -10,14 +10,11 @@ const clientId =
 
 function GLogin() {
   const onSuccess = (res) => {
-    console.log('Login Success! CurrentUser:', res.profileObj);
     alert(`Logged in with Gmail! Welcome,${res.profileObj.name}`);
     refreshTokenSetup(res);
   };
 
-  const onFailure = (res) => {
-    console.log('Login failed: res:', res);
-  };
+  const onFailure = (res) => {};
   const handleClick = () => {
     if (chrome.identity) {
       chrome.identity.getAuthToken({ interactive: true }, function (token) {

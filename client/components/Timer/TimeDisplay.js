@@ -28,7 +28,6 @@ const TimeDisplay = (props) => {
   const { setTime, time } = props;
   const incrementByTen = () => {
     setTime(time + 10);
-    console.log(time);
   };
   const increment = () => {
     setTime(time + 1);

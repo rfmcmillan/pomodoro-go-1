@@ -32,7 +32,6 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:sessionId', async (req, res, next) => {
   try {
-    console.log('sessions get route');
     const session = await Session.findByPk(req.params.sessionId, {
       include: [User, Task],
     });
@@ -69,7 +68,6 @@ router.put('/:sessionId', async (req, res, next) => {
 // END SESSION
 router.put('/:sessionId/end', async (req, res, next) => {
   try {
-    console.log('ENDING SESSION TIME', req.body);
     const { sessionId } = req.params;
     const { successful } = req.body;
     const session = await Session.findByPk(sessionId);
@@ -77,7 +75,6 @@ router.put('/:sessionId/end', async (req, res, next) => {
     const updatedSession = await Session.findByPk(sessionId, {
       include: [User, Task],
     });
-    console.log(updatedSession);
     res.send(updatedSession);
   } catch (error) {
     next(error);
@@ -128,14 +125,12 @@ router.put('/:sessionId/tasks/:taskId', async (req, res, next) => {
 router.delete('/:sessionId/tasks/:taskId', async (req, res, next) => {
   try {
     const { taskId, sessionId } = req.params;
-    console.log(taskId, sessionId);
     const deleteTask = await Task.findByPk(taskId);
     await deleteTask.destroy();
     const session = await Session.findOne({
       where: { id: sessionId },
       include: [User, Task],
     });
-    console.log(session);
     res.send(session);
   } catch (error) {
     next(error);

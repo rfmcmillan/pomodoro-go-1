@@ -40,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const AuthForm = (props) => {
   const classes = useStyles();
   const theme = useTheme();
-  console.log(props);
   const { name, displayName, error, value } = props;
-  console.log('value:', value);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

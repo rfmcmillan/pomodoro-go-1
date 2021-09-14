@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SandboxLogin = (props) => {
-  console.log('props:', props);
   const { name, displayName, error, value } = props;
   const dispatch = useDispatch();
   const classes = useStyles();

@@ -13,11 +13,10 @@ const init = async () => {
     const socketServer = new io.Server(server, {
       cors: {
         origin: '*',
-        methods: ['GET', 'POST']
-      }
+        methods: ['GET', 'POST'],
+      },
     });
 
-    //sockets
     let sockets = [];
     let usersTracking = {};
     socketServer.on('connection', (socket) => {
@@ -27,14 +26,12 @@ const init = async () => {
 
       socket.on('login', (data) => {
         console.log('user ' + data.userId + ' connected');
-        // socket.join(data.userId);
         const socketId = socket.id + '';
         if (socketId in usersTracking) {
           console.log('user already has socket open');
         } else {
           usersTracking[socketId] = data.userId;
         }
-        // console.log(usersTracking);
         socket.broadcast.emit('other login', {
           msg: 'user ' + data.userId + ' is now online',
         });

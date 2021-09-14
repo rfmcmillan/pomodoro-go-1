@@ -41,7 +41,6 @@ export const authenticateGoogle =
       const response = await axios.post('/auth/google', data, {
         headers: { authorization: data.tokenId },
       });
-      console.log(response.data);
       window.localStorage.setItem('token', response.data.token);
       dispatch(me());
     } catch (error) {

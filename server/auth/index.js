@@ -55,7 +55,6 @@ router.post('/google', async (req, res, next) => {
         password,
       });
       const token = newUser.generateToken();
-      console.log('token after user create', token);
       res.send({ token });
     } else {
       res.send({ token: user.generateToken() });
