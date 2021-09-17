@@ -22,6 +22,11 @@ const App = (props) => {
   const [sessionTime, setSessionTime] = useState(0);
   const [goal, setGoal] = useState('');
   const [countDown, setCountDown] = useState(false);
+  const blackList = useSelector((state) => state.blackList);
+
+  if (chrome && blackList) {
+    console.log('yip');
+  }
   const [intervalID, setIntervalID] = useState('');
   useEffect(() => {
     const timeLeft = localStorage.getItem('sessionTime');
