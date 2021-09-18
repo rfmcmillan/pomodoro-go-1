@@ -12,17 +12,6 @@ const loadBlackList = () => {
     try {
       const response = await axios.get(`${process.env.API_URL}/api/blackList`);
       const blackList = response.data;
-
-      // chrome.storage.sync.set({ blackList });
-      // chrome.storage.sync.get([
-      //   'blackList',
-      //   (result) => {
-      //     console.log(
-      //       'in loadBlacklist...blackList in chrome.storage:',
-      //       result.blackList
-      //     );
-      //   },
-      // ]);
       dispatch(loadBlackListActionCreator(blackList));
     } catch (error) {
       console.log('error in loadBlackList thunk');

@@ -54,10 +54,8 @@ const background = {
   },
 
   listenToExternalMessages: function () {
-    console.log('listening to external messages...');
     return runtime.onMessageExternal.addListener(
       async (message, sender, sendResponse) => {
-        console.log('message received...here it is:', message);
         try {
           if (message.message === 'create-timer') {
             this.sessionTime = message.sessionTime;
@@ -74,7 +72,6 @@ const background = {
             });
           }
           if (message.message === 'timer-done') {
-            console.log('received message');
             alarms.create('timer', { when: Date.now() });
           }
           if (message.message === 'set-blocked-sites') {
@@ -104,7 +101,6 @@ const background = {
                 const update = results.blocked.filter((each) => {
                   return each !== message.toggleSite;
                 });
-                // console.log(update);
                 chrome.storage.sync.set({ blocked: update });
               } else {
                 results.blocked.push(message.toggleSite);
@@ -201,6 +197,7 @@ const background = {
     return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
       chrome.storage.sync.get(['auth', 'blackList'], function (result) {
         const { auth, blackList } = result;
+        console.log('blackList in background:', blackList);
         if (blackList) {
           const blackListAuth = blackList.filter((entry) => {
             return entry.userId === auth.id;
