@@ -11,7 +11,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setStoredBlackList": () => (/* binding */ setStoredBlackList),
-/* harmony export */   "getStoredBlackList": () => (/* binding */ getStoredBlackList)
+/* harmony export */   "getStoredBlackList": () => (/* binding */ getStoredBlackList),
+/* harmony export */   "setStoredAuth": () => (/* binding */ setStoredAuth),
+/* harmony export */   "getStoredAuth": () => (/* binding */ getStoredAuth)
 /* harmony export */ });
 function setStoredBlackList(blackList) {
   const vals = {
@@ -27,6 +29,23 @@ function getStoredBlackList() {
   return new Promise(resolve => {
     chrome.storage.local.get(['blackList'], res => {
       resolve(res.blackList);
+    });
+  });
+}
+function setStoredAuth(auth) {
+  const vals = {
+    auth
+  };
+  return new Promise(resolve => {
+    chrome.storage.local.set(vals, () => {
+      resolve();
+    });
+  });
+}
+function getStoredAuth() {
+  return new Promise(resolve => {
+    chrome.storage.local.get(['auth'], res => {
+      resolve(res.auth);
     });
   });
 }
@@ -106,9 +125,7 @@ const {
   alarms,
   scripting
 } = chrome;
- //Can I get blackList from server from background.js?
 
-console.log(_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList);
 chrome.action.onClicked.addListener(tab => {
   console.log('new tab created');
   chrome.tabs.create({
@@ -344,9 +361,14 @@ const background = {
   //   });
   // },
   listenForBlockedSite: function () {
-    console.log('starting listenForBlockedSite');
-    (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList)().then(blackList => {
-      console.log('blackList in background:', blackList);
+    return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+      console.log('changeInfo.url:', changeInfo.url);
+
+      if (changeInfo.url) {}
+
+      (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList)().then(blackList => {
+        (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredAuth)().then(auth => console.log('auth in backgorund:', auth)).then(console.log('blackList in background:', blackList));
+      });
     });
   },
   listenForAlarm: function () {

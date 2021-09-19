@@ -1,8 +1,6 @@
 'use strict';
 const { storage, tabs, runtime, alarms, scripting } = chrome;
-import { getStoredBlackList } from './storage';
-//Can I get blackList from server from background.js?
-console.log(getStoredBlackList);
+import { getStoredAuth, getStoredBlackList } from './storage';
 
 chrome.action.onClicked.addListener((tab) => {
   console.log('new tab created');
@@ -231,9 +229,15 @@ const background = {
   // },
 
   listenForBlockedSite: function () {
-    console.log('starting listenForBlockedSite');
-    getStoredBlackList().then((blackList) => {
-      console.log('blackList in background:', blackList);
+    return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+      console.log('changeInfo.url:', changeInfo.url);
+      if (changeInfo.url) {
+      }
+      getStoredBlackList().then((blackList) => {
+        getStoredAuth()
+          .then((auth) => console.log('auth in backgorund:', auth))
+          .then(console.log('blackList in background:', blackList));
+      });
     });
   },
   listenForAlarm: function () {

@@ -19,12 +19,10 @@ const App = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentSession = useSelector((state) => state.currentSession);
-  const auth = useSelector((state) => state.auth);
   const [sessionTime, setSessionTime] = useState(0);
   const [goal, setGoal] = useState('');
   const [countDown, setCountDown] = useState(false);
   const blackList = useSelector((state) => state.blackList);
-
   if (blackList.length) {
     setStoredBlackList(blackList).then(
       getStoredBlackList().then((blackList) => {

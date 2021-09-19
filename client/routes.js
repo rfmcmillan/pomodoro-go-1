@@ -17,6 +17,7 @@ import BlockSites from './components/BlockSites';
 import Friends from './components/Friends/Friends';
 import RedirectToSite from './components/RedirectToSite';
 import About from './components/About';
+import { setStoredAuth, getStoredAuth } from './storage.js';
 
 class Routes extends Component {
   constructor(props) {
@@ -24,15 +25,12 @@ class Routes extends Component {
   }
   async componentDidMount() {
     await this.props.loadInitialData();
+    console.log('this.props:', this.props);
   }
-
   async componentDidUpdate(prevProps) {
     if (this.props.auth && this.props.auth.id !== prevProps.auth.id) {
       await this.props.getSites(this.props.auth.id);
     }
-    console.log('sending set-blocked-sites message');
-    console.log('chrome:', chrome);
-    console.log('chrome.runtime:', chrome.runtime);
     chrome?.runtime?.sendMessage('kaghhmclljbnigfffgjhfbbbcpgenjoi', {
       message: 'set-blocked-sites',
       blockedSites: this.props.blockedSites.filter((each) => {
@@ -40,10 +38,10 @@ class Routes extends Component {
       }),
       currUser: this.props.auth.id,
     });
-    console.log('set-blocked-sites message sent');
   }
   render() {
     const { isLoggedIn, auth, blackList, updateB } = this.props;
+
     if (chrome.storage)
       chrome.storage.onChanged.addListener(async (changes, areaName) => {
         if (changes.updatedBlackList) {

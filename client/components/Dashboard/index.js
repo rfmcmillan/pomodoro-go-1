@@ -58,7 +58,6 @@ const Dashboard = () => {
   let blocks = useSelector((state) => state.blocks);
   const sites = useSelector((state) => state.sites);
   const theme = useTheme();
-
   if (auth) {
     sessions = sessions.filter((session) => session.userId === auth.id);
     blackList = blackList.filter((entry) => entry.userId === auth.id);

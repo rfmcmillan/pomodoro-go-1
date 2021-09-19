@@ -26899,6 +26899,7 @@ const App = props => {
   const [goal, setGoal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [countDown, setCountDown] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const blackList = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(state => state.blackList);
+  console.log('auth in app.js:', currentSession);
 
   if (blackList.length) {
     (0,_storage_js__WEBPACK_IMPORTED_MODULE_6__.setStoredBlackList)(blackList).then((0,_storage_js__WEBPACK_IMPORTED_MODULE_6__.getStoredBlackList)().then(blackList => {
@@ -30565,6 +30566,7 @@ const Dashboard = () => {
   let blocks = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.blocks);
   const sites = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.sites);
   const theme = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__.default)();
+  console.log('auth:', auth);
 
   if (auth) {
     sessions = sessions.filter(session => session.userId === auth.id);
@@ -32877,6 +32879,7 @@ class Routes extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       blackList,
       updateB
     } = this.props;
+    console.log('auth:', auth);
     if (chrome.storage) chrome.storage.onChanged.addListener(async (changes, areaName) => {
       if (changes.updatedBlackList) {
         const {
@@ -32994,7 +32997,9 @@ const mapDispatch = dispatch => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setStoredBlackList": () => (/* binding */ setStoredBlackList),
-/* harmony export */   "getStoredBlackList": () => (/* binding */ getStoredBlackList)
+/* harmony export */   "getStoredBlackList": () => (/* binding */ getStoredBlackList),
+/* harmony export */   "setStoredAuth": () => (/* binding */ setStoredAuth),
+/* harmony export */   "getStoredAuth": () => (/* binding */ getStoredAuth)
 /* harmony export */ });
 function setStoredBlackList(blackList) {
   const vals = {
@@ -33010,6 +33015,23 @@ function getStoredBlackList() {
   return new Promise(resolve => {
     chrome.storage.local.get(['blackList'], res => {
       resolve(res.blackList);
+    });
+  });
+}
+function setStoredAuth(auth) {
+  const vals = {
+    auth
+  };
+  return new Promise(resolve => {
+    chrome.storage.local.set(vals, () => {
+      resolve();
+    });
+  });
+}
+function getStoredAuth() {
+  return new Promise(resolve => {
+    chrome.storage.local.get(['auth'], res => {
+      resolve(res.auth);
     });
   });
 }
