@@ -1,5 +1,7 @@
 'use strict';
 const { storage, tabs, runtime, alarms, scripting } = chrome;
+import { getStoredBlackList } from './storage';
+//Can I get blackList from server from background.js?
 
 const background = {
   active: false,
@@ -24,7 +26,8 @@ const background = {
         this.listenToExternalMessages();
         this.listenToStorage();
         this.listenToTabs();
-        this.listenForBlackListIncrement();
+        this.listenForBlockedSite();
+        // this.listenForBlackListIncrement();
         this.listenForDashboardRedirect();
         this.active = true;
       }
@@ -191,32 +194,38 @@ const background = {
       });
     });
   },
-  listenForBlackListIncrement: function () {
-    // increment blocks in Blacklist table when a blacklisted site is blocked
+  // listenForBlackListIncrement: function () {
+  //   // increment blocks in Blacklist table when a blacklisted site is blocked
 
-    return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
-      chrome.storage.sync.get(['auth', 'blackList'], function (result) {
-        const { auth, blackList } = result;
-        console.log('blackList in background:', blackList);
-        if (blackList) {
-          const blackListAuth = blackList.filter((entry) => {
-            return entry.userId === auth.id;
-          });
-          const url = changeInfo.pendingUrl || changeInfo.url;
-          if (url) {
-            const matchingBlackList = blackListAuth.find((entry) => {
-              return entry.site.siteUrl === url;
-            });
+  //   return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+  //     chrome.storage.sync.get(['auth', 'blackList'], function (result) {
+  //       const { auth, blackList } = result;
+  //       console.log('blackList in background:', blackList);
+  //       if (blackList) {
+  //         const blackListAuth = blackList.filter((entry) => {
+  //           return entry.userId === auth.id;
+  //         });
+  //         const url = changeInfo.pendingUrl || changeInfo.url;
+  //         if (url) {
+  //           const matchingBlackList = blackListAuth.find((entry) => {
+  //             return entry.site.siteUrl === url;
+  //           });
 
-            if (matchingBlackList) {
-              matchingBlackList.blocks++;
-              console.log('matchingBlackList:', matchingBlackList);
-              chrome.storage.sync.set({ updatedBlackList: matchingBlackList });
-            }
-          }
-        }
-      });
-    });
+  //           if (matchingBlackList) {
+  //             matchingBlackList.blocks++;
+  //             console.log('matchingBlackList:', matchingBlackList);
+  //             chrome.storage.sync.set({ updatedBlackList: matchingBlackList });
+  //           }
+  //         }
+  //       }
+  //     });
+  //   });
+  // },
+
+  listenForBlockedSite: function () {
+    getStoredBlackList().then((blackList) =>
+      console.log('blackList:', blackList)
+    );
   },
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {

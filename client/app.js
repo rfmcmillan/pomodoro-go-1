@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { me } from './store';
 import { endSession, removeSession } from './store/sessions';
+import { setStoredBlackList, getStoredBlackList } from '../public/storage.js';
 export const SessionContext = createContext();
 
 const useStyles = makeStyles(() => ({
@@ -24,8 +25,12 @@ const App = (props) => {
   const [countDown, setCountDown] = useState(false);
   const blackList = useSelector((state) => state.blackList);
 
-  if (chrome && blackList.length) {
-    ////Begin Here
+  if (blackList.length) {
+    setStoredBlackList(blackList).then(
+      getStoredBlackList().then((blackList) => {
+        console.log('from storage.local:', blackList);
+      })
+    );
   }
 
   const [intervalID, setIntervalID] = useState('');
