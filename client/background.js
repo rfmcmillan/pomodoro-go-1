@@ -242,6 +242,7 @@ const background = {
     return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
       console.log('changeInfo', changeInfo);
       console.log('changeInfo.url:', changeInfo.url);
+
       if (changeInfo.url) {
         getStoredBlackList().then((blackList) => {
           getStoredAuth().then((auth) => {
