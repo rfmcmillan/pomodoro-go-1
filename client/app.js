@@ -7,6 +7,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { me } from './store';
 import { endSession, removeSession } from './store/sessions';
 import { setStoredBlackList, getStoredBlackList } from './storage.js';
+import { setStoredAuth, getStoredAuth } from './storage.js';
 export const SessionContext = createContext();
 
 const useStyles = makeStyles(() => ({
@@ -23,12 +24,21 @@ const App = (props) => {
   const [goal, setGoal] = useState('');
   const [countDown, setCountDown] = useState(false);
   const blackList = useSelector((state) => state.blackList);
+  const auth = useSelector((state) => state.auth);
   if (blackList.length) {
     setStoredBlackList(blackList).then(
       getStoredBlackList().then((blackList) => {
         console.log('from storage.local:', blackList);
       })
     );
+  }
+  if (auth.id) {
+    setStoredAuth(auth).then(
+      getStoredAuth().then((auth) => {
+        console.log('from storage.local auth:', auth);
+      })
+    );
+    console.log('yay auth!', auth);
   }
 
   const [intervalID, setIntervalID] = useState('');

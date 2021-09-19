@@ -73,27 +73,27 @@ async function seed() {
   const sites = await Promise.all([
     Site.create({
       name: 'Twitter',
-      siteUrl: 'twitter.com',
+      siteUrl: 'https://twitter.com/',
       category: 'Social Media',
     }),
     Site.create({
       name: 'Instagram',
-      siteUrl: 'www.instagram.com',
+      siteUrl: 'https://www.instagram.com/',
       category: 'Social Media',
     }),
     Site.create({
       name: 'Facebook',
-      siteUrl: 'www.facebook.com',
+      siteUrl: 'https://www.facebook.com/',
       category: 'Social Media',
     }),
     Site.create({
       name: 'Netflix',
-      siteUrl: 'www.netflix.com',
+      siteUrl: 'https://www.netflix.com/',
       category: 'Entertainment',
     }),
     Site.create({
       name: 'Hulu',
-      siteUrl: 'www.hulu.com',
+      siteUrl: 'https://www.hulu.com/',
       category: 'Entertainment',
     }),
   ]);

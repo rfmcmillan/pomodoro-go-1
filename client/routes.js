@@ -17,7 +17,6 @@ import BlockSites from './components/BlockSites';
 import Friends from './components/Friends/Friends';
 import RedirectToSite from './components/RedirectToSite';
 import About from './components/About';
-import { setStoredAuth, getStoredAuth } from './storage.js';
 
 class Routes extends Component {
   constructor(props) {
@@ -25,7 +24,6 @@ class Routes extends Component {
   }
   async componentDidMount() {
     await this.props.loadInitialData();
-    console.log('this.props:', this.props);
   }
   async componentDidUpdate(prevProps) {
     if (this.props.auth && this.props.auth.id !== prevProps.auth.id) {

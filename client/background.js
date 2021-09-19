@@ -9,6 +9,16 @@ chrome.action.onClicked.addListener((tab) => {
   });
 });
 
+const filterBlackListByUser = (blackList, auth) => {
+  const filtered = blackList.filter((listItem) => {
+    return listItem.userId === auth.id;
+  });
+  console.log('filtered:,', filtered);
+  const mapped = filtered.map((item) => item.site.siteUrl);
+  console.log('mapped:,', mapped);
+  return mapped;
+};
+
 const background = {
   active: false,
   currentTab: null,
@@ -230,16 +240,24 @@ const background = {
 
   listenForBlockedSite: function () {
     return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+      console.log('changeInfo', changeInfo);
       console.log('changeInfo.url:', changeInfo.url);
       if (changeInfo.url) {
+        getStoredBlackList().then((blackList) => {
+          getStoredAuth().then((auth) => {
+            const filtered = filterBlackListByUser(blackList, auth);
+            if (filtered.includes(changeInfo.url)) {
+              console.log('we have a match');
+              chrome.tabs.update(tabId, {
+                url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
+              });
+            }
+          });
+        });
       }
-      getStoredBlackList().then((blackList) => {
-        getStoredAuth()
-          .then((auth) => console.log('auth in backgorund:', auth))
-          .then(console.log('blackList in background:', blackList));
-      });
     });
   },
+
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
       // notifies the user when the session is over
