@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const webpack = require('webpack');
 const fs = require('fs');
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const currentPath = path.join(__dirname);
 const basePath = currentPath + '/.env';
@@ -16,13 +17,26 @@ const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
 }, {});
 
 module.exports = {
-  entry: ['./client/index.js'],
+  entry: {
+    tab: path.resolve('./client/index.js'),
+    background: path.resolve('./client/background.js'),
+  },
   output: {
-    path: __dirname,
-    filename: './public/bundle.js',
+    path: path.resolve('public'),
+    filename: '[name].js',
   },
   devtool: 'source-map',
-  plugins: [new webpack.DefinePlugin(envKeys)],
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve('client/static'),
+          to: path.resolve('public'),
+        },
+      ],
+    }),
+    new webpack.DefinePlugin(envKeys),
+  ],
   module: {
     rules: [
       {

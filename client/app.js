@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { me } from './store';
 import { endSession, removeSession } from './store/sessions';
-import { setStoredBlackList, getStoredBlackList } from '../public/storage.js';
+import { setStoredBlackList, getStoredBlackList } from './storage.js';
 export const SessionContext = createContext();
 
 const useStyles = makeStyles(() => ({
