@@ -120,9 +120,6 @@ const BlockSites = (props) => {
   };
 
   const submitNewUrl = () => {
-    // at top, use useSelector: const blackList = useSelector('blackList')
-    //here, const updatedBlackList = [...blackList, urlInput]
-    //setStoredBlackList(updatedBlackList)
     props.addSite(urlInput, props.auth.id);
   };
 

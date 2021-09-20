@@ -26,19 +26,10 @@ const App = (props) => {
   const blackList = useSelector((state) => state.blackList);
   const auth = useSelector((state) => state.auth);
   if (blackList.length) {
-    setStoredBlackList(blackList).then(
-      getStoredBlackList().then((blackList) => {
-        console.log('from storage.local:', blackList);
-      })
-    );
+    setStoredBlackList(blackList).then(getStoredBlackList());
   }
   if (auth.id) {
-    setStoredAuth(auth).then(
-      getStoredAuth().then((auth) => {
-        console.log('from storage.local auth:', auth);
-      })
-    );
-    console.log('yay auth!', auth);
+    setStoredAuth(auth).then(getStoredAuth());
   }
 
   const [intervalID, setIntervalID] = useState('');
@@ -46,6 +37,7 @@ const App = (props) => {
     const timeLeft = localStorage.getItem('sessionTime');
     if (parseInt(timeLeft) < 0) return;
     if (!parseInt(timeLeft) && currentSession.id && countDown) {
+      chrome.alarms.create('studyTimer', { when: 1000 });
       props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);
