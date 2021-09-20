@@ -18,7 +18,7 @@ const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
 
 module.exports = {
   entry: {
-    tab: path.resolve('./client/index.js'),
+    bundle: path.resolve('./client/index.js'),
     background: path.resolve('./client/background.js'),
   },
   output: {

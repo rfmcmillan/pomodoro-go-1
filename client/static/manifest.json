@@ -4,7 +4,6 @@
   "version": "1.0",
   "manifest_version": 3,
   "chrome_url_overrides": {
-    "newtab": "index.html"
   },
   "icons": {
     "128": "logo-pomo.png"
@@ -15,12 +14,10 @@
     "alarms",
     "notifications",
     "unlimitedStorage",
-    "scripting",
-    "http://*/",
-    "https://*/",
-    "<URL>"
+    "scripting"
   ],
   "host_permissions": ["http://*/", "https://*/"],
+  "content_security_policy": {},
   "background": {
     "service_worker": "background.js"
   },

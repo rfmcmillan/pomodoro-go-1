@@ -44,13 +44,14 @@ export const addSite = (site, userId) => {
   };
 };
 
-
 //delete a site from a user
 export const deleteSite = (userId, siteId) => {
   console.log('userId', userId, 'siteId', siteId);
   return async (dispatch) => {
     try {
-      await axios.delete(`${process.env.API_URL}/api/sites/${userId}/${siteId}`);
+      await axios.delete(
+        `${process.env.API_URL}/api/sites/${userId}/${siteId}`
+      );
       dispatch(getSites(userId));
     } catch (err) {
       console.log(err);
@@ -62,7 +63,9 @@ export const deleteSite = (userId, siteId) => {
 export const updateBlocking = (userId, siteId) => {
   return async (dispatch) => {
     try {
-      await axios.put(`${process.env.API_URL}/api/blackList/${userId}/${siteId}`);
+      await axios.put(
+        `${process.env.API_URL}/api/blackList/${userId}/${siteId}`
+      );
       dispatch(getSites(userId));
     } catch (err) {
       console.log(err);

@@ -12,6 +12,19 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const blackList = await BlackList.findAll({
+      where: {
+        userId: req.params.userId,
+      },
+    });
+  } catch (err) {
+    console.error('Error in blackList "get by userId" route');
+    next(err);
+  }
+});
+
 router.put('/:blackListId', async (req, res, next) => {
   try {
     const blackList = await BlackList.findByPk(req.params.blackListId, {

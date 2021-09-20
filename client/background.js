@@ -1,8 +1,6 @@
 'use strict';
 const { storage, tabs, runtime, alarms, scripting } = chrome;
-import { getStoredBlackList } from './storage';
-//Can I get blackList from server from background.js?
-console.log(getStoredBlackList);
+import { getStoredAuth, getStoredBlackList } from './storage';
 
 chrome.action.onClicked.addListener((tab) => {
   console.log('new tab created');
@@ -10,6 +8,16 @@ chrome.action.onClicked.addListener((tab) => {
     url: 'index.html',
   });
 });
+
+const filterBlackListByUser = (blackList, auth) => {
+  const filtered = blackList.filter((listItem) => {
+    return listItem.userId === auth.id;
+  });
+  console.log('filtered:,', filtered);
+  const mapped = filtered.map((item) => item.site.siteUrl);
+  console.log('mapped:,', mapped);
+  return mapped;
+};
 
 const background = {
   active: false,
@@ -231,11 +239,30 @@ const background = {
   // },
 
   listenForBlockedSite: function () {
-    console.log('starting listenForBlockedSite');
-    getStoredBlackList().then((blackList) => {
-      console.log('blackList in background:', blackList);
+    return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+      console.log('changeInfo', changeInfo);
+      console.log('changeInfo.url:', changeInfo.url);
+
+      if (changeInfo.url) {
+        getStoredBlackList().then((blackList) => {
+          if (blackList) {
+            getStoredAuth().then((auth) => {
+              if (auth) {
+                const filtered = filterBlackListByUser(blackList, auth);
+                if (filtered.includes(changeInfo.url)) {
+                  console.log('we have a match');
+                  chrome.tabs.update(tabId, {
+                    url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
+                  });
+                }
+              }
+            });
+          }
+        });
+      }
     });
   },
+
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
       // notifies the user when the session is over
