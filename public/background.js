@@ -378,16 +378,20 @@ const background = {
 
       if (changeInfo.url) {
         (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList)().then(blackList => {
-          (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredAuth)().then(auth => {
-            const filtered = filterBlackListByUser(blackList, auth);
+          if (blackList) {
+            (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredAuth)().then(auth => {
+              if (auth) {
+                const filtered = filterBlackListByUser(blackList, auth);
 
-            if (filtered.includes(changeInfo.url)) {
-              console.log('we have a match');
-              chrome.tabs.update(tabId, {
-                url: 'https://pomodoro-go-1.herokuapp.com/uhoh'
-              });
-            }
-          });
+                if (filtered.includes(changeInfo.url)) {
+                  console.log('we have a match');
+                  chrome.tabs.update(tabId, {
+                    url: 'https://pomodoro-go-1.herokuapp.com/uhoh'
+                  });
+                }
+              }
+            });
+          }
         });
       }
     });

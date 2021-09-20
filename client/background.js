@@ -245,15 +245,19 @@ const background = {
 
       if (changeInfo.url) {
         getStoredBlackList().then((blackList) => {
-          getStoredAuth().then((auth) => {
-            const filtered = filterBlackListByUser(blackList, auth);
-            if (filtered.includes(changeInfo.url)) {
-              console.log('we have a match');
-              chrome.tabs.update(tabId, {
-                url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
-              });
-            }
-          });
+          if (blackList) {
+            getStoredAuth().then((auth) => {
+              if (auth) {
+                const filtered = filterBlackListByUser(blackList, auth);
+                if (filtered.includes(changeInfo.url)) {
+                  console.log('we have a match');
+                  chrome.tabs.update(tabId, {
+                    url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
+                  });
+                }
+              }
+            });
+          }
         });
       }
     });

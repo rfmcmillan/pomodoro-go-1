@@ -23,7 +23,12 @@ import MuiAlert from '@material-ui/lab/Alert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import { Paper } from '@material-ui/core';
-import { getSites, addSite, deleteSite, updateBlocking } from '../store/blockSites';
+import {
+  getSites,
+  addSite,
+  deleteSite,
+  updateBlocking,
+} from '../store/blockSites';
 
 // material-ui style definitions
 const LightGreenSwitch = withStyles({
@@ -75,7 +80,7 @@ const useStyles = makeStyles({
   button: {
     height: 55,
     marginRight: '30px',
-    marginLeft: '10px'
+    marginLeft: '10px',
   },
 });
 //
@@ -105,16 +110,19 @@ const BlockSites = (props) => {
   //user interactions > change state, dispatch to store
   const handleChange = (event) => {
     const siteId = event.target.name.slice(4);
-    const toggleSite = props.blockedSites.filter(each => each.id === siteId);
+    const toggleSite = props.blockedSites.filter((each) => each.id === siteId);
 
     chrome?.runtime?.sendMessage('kaghhmclljbnigfffgjhfbbbcpgenjoi', {
       message: 'toggle-block-or-not',
-      toggleSite: toggleSite[0]?.siteUrl
+      toggleSite: toggleSite[0]?.siteUrl,
     });
     props.updateBlocking(props.auth.id, siteId);
   };
 
   const submitNewUrl = () => {
+    // at top, use useSelector: const blackList = useSelector('blackList')
+    //here, const updatedBlackList = [...blackList, urlInput]
+    //setStoredBlackList(updatedBlackList)
     props.addSite(urlInput, props.auth.id);
   };
 
@@ -195,9 +203,7 @@ const BlockSites = (props) => {
                   <FormControlLabel
                     control={
                       <LightGreenSwitch
-                        checked={
-                          each.blacklist?.blockingEnabled
-                        }
+                        checked={each.blacklist?.blockingEnabled}
                         onChange={handleChange}
                         name={`item${each.id}`}
                       />
@@ -240,7 +246,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateBlocking: (userId, siteId) => {
       dispatch(updateBlocking(userId, siteId));
-    }
+    },
   };
 };
 

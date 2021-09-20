@@ -11,6 +11,7 @@ const Site = db.define('site', {
   name: { type: STRING },
   siteUrl: {
     type: STRING,
+    unique: true,
     validate: {
       notEmpty: true,
     },
