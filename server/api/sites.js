@@ -40,15 +40,30 @@ router.get('/user/:userId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const { siteUrl, category, userId } = req.body;
-    const newSite = await Site.create({
-      siteUrl,
-      category,
+    const sites = await Site.findAll({
+      where: {
+        siteUrl,
+      },
     });
-    await BlackList.create({
-      siteId: newSite.id,
-      userId,
-    });
-    res.send(newSite);
+    console.log('sites:', sites);
+    if (!sites.length) {
+      const newSite = await Site.create({
+        siteUrl,
+        category,
+      });
+      await BlackList.create({
+        siteId: newSite.id,
+        userId,
+      });
+      res.send(newSite);
+    } else {
+      const existingSite = sites[0];
+      await BlackList.create({
+        siteId: existingSite.id,
+        userId,
+      });
+      res.send(existingSite);
+    }
   } catch (err) {
     next(err);
   }
