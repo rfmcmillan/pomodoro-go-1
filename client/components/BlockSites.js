@@ -121,13 +121,23 @@ const BlockSites = (props) => {
     props.updateBlocking(props.auth.id, siteId);
   };
 
-  const submitNewUrl = async () => {
+  const submitNewUrl = () => {
     getStoredBlackList().then((blackList) => {
       const newBlackList = [...blackList, urlInput.siteUrl];
       console.log('newBlackList:', newBlackList);
       setStoredBlackList(newBlackList);
     });
     props.addSite(urlInput, props.auth.id);
+  };
+
+  const deleteUrl = (indexToDelete) => {
+    console.log('indexToDelete:', indexToDelete);
+    getStoredBlackList().then((blackList) => {
+      const newBlackList = blackList.splice(indexToDelete, 1);
+      console.log('newBlackList:', newBlackList);
+      setStoredBlackList(newBlackList);
+    });
+    props.deleteSite(props.auth.id, each.id);
   };
 
   const paperStyle = {
@@ -217,7 +227,7 @@ const BlockSites = (props) => {
                   <LightGreenButton
                     variant="contained"
                     startIcon={<DeleteIcon />}
-                    onClick={() => props.deleteSite(props.auth.id, each.id)}
+                    onClick={() => deleteUrl(idx)}
                   >
                     Delete
                   </LightGreenButton>
