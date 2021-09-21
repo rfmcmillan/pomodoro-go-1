@@ -3,7 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  root: { minHeight: '80vh', width: '80vw', margin: 'auto', paddingTop: 25 },
+  root: {
+    minHeight: '80vh',
+    width: '80vw',
+    margin: 'auto',
+    paddingTop: 25,
+  },
   quote: {},
   person: { marginTop: '30px' },
 }));
