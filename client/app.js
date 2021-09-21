@@ -25,8 +25,22 @@ const App = (props) => {
   const [countDown, setCountDown] = useState(false);
   const blackList = useSelector((state) => state.blackList);
   const auth = useSelector((state) => state.auth);
-  if (blackList.length) {
-    setStoredBlackList(blackList).then(getStoredBlackList());
+  if (blackList.length && auth) {
+    console.log('blackList:', blackList);
+    console.log('auth:', auth);
+    const blackListAuth = blackList.filter((item) => {
+      return item.userId === auth.id;
+    });
+    console.log('filtered:', blackListAuth);
+    const blackListedSiteUrls = blackListAuth.map((item, index) => {
+      return item.site.siteUrl;
+    });
+    console.log('blackListedSiteUrls:', blackListedSiteUrls);
+    setStoredBlackList(blackListedSiteUrls).then(
+      getStoredBlackList().then((blackList) => {
+        console.log('blackListedSiteUrls from getter:', blackList);
+      })
+    );
   }
   if (auth.id) {
     setStoredAuth(auth).then(getStoredAuth());
@@ -37,6 +51,7 @@ const App = (props) => {
     const timeLeft = localStorage.getItem('sessionTime');
     if (parseInt(timeLeft) < 0) return;
     if (!parseInt(timeLeft) && currentSession.id && countDown) {
+      console.log('props.endSession:', props.endSession);
       chrome.alarms.create('studyTimer', { when: 1000 });
       props.endSession(currentSession.id, true);
     }

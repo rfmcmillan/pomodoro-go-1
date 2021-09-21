@@ -131,20 +131,7 @@ chrome.action.onClicked.addListener(tab => {
   chrome.tabs.create({
     url: 'index.html'
   });
-}); // chrome.alarms.onAlarm.addListener((alarm) => {
-//   console.log('alarm has sounded');
-// });
-
-const filterBlackListByUser = (blackList, auth) => {
-  const filtered = blackList.filter(listItem => {
-    return listItem.userId === auth.id;
-  });
-  console.log('filtered:,', filtered);
-  const mapped = filtered.map(item => item.site.siteUrl);
-  console.log('mapped:,', mapped);
-  return mapped;
-};
-
+});
 const background = {
   active: false,
   currentTab: null,
@@ -378,17 +365,11 @@ const background = {
       if (changeInfo.url) {
         (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList)().then(blackList => {
           if (blackList) {
-            (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredAuth)().then(auth => {
-              if (auth) {
-                const filtered = filterBlackListByUser(blackList, auth);
-
-                if (filtered.includes(changeInfo.url)) {
-                  chrome.tabs.update(tabId, {
-                    url: 'https://pomodoro-go-1.herokuapp.com/uhoh'
-                  });
-                }
-              }
-            });
+            if (blackList.includes(changeInfo.url)) {
+              chrome.tabs.update(tabId, {
+                url: 'https://pomodoro-go-1.herokuapp.com/uhoh'
+              });
+            }
           }
         });
       }
