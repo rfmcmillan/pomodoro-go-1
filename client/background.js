@@ -9,16 +9,6 @@ chrome.action.onClicked.addListener((tab) => {
   });
 });
 
-const filterBlackListByUser = (blackList, auth) => {
-  const filtered = blackList.filter((listItem) => {
-    return listItem.userId === auth.id;
-  });
-  console.log('filtered:,', filtered);
-  const mapped = filtered.map((item) => item.site.siteUrl);
-  console.log('mapped:,', mapped);
-  return mapped;
-};
-
 const background = {
   active: false,
   currentTab: null,
@@ -240,23 +230,14 @@ const background = {
 
   listenForBlockedSite: function () {
     return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
-      console.log('changeInfo', changeInfo);
-      console.log('changeInfo.url:', changeInfo.url);
-
       if (changeInfo.url) {
         getStoredBlackList().then((blackList) => {
           if (blackList) {
-            getStoredAuth().then((auth) => {
-              if (auth) {
-                const filtered = filterBlackListByUser(blackList, auth);
-                if (filtered.includes(changeInfo.url)) {
-                  console.log('we have a match');
-                  chrome.tabs.update(tabId, {
-                    url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
-                  });
-                }
-              }
-            });
+            if (blackList.includes(changeInfo.url)) {
+              chrome.tabs.update(tabId, {
+                url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
+              });
+            }
           }
         });
       }
@@ -266,14 +247,16 @@ const background = {
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
       // notifies the user when the session is over
+      console.log('alarm in background');
       chrome.notifications.create(
         undefined,
         {
           type: 'basic',
-          title: 'Pomodoro-Go',
-          message: 'Time has elasped, head back to Pomorodo-Go to review',
-          iconUrl: 'https://img.icons8.com/android/24/000000/timer.png',
-          buttons: [{ title: 'Go to dashboard' }],
+          title: 'Your focus session is complete!',
+          message: 'Nice job! You deserve a break!',
+          iconUrl: 'logo-pomo.png',
+          requireInteraction: true,
+          silent: false,
         },
         () => {
           console.log('last error: ', chrome.runtime.lastError);

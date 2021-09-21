@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Grid,
   FormControl,
@@ -13,6 +13,7 @@ import {
   Checkbox,
 } from '@material-ui/core';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { loadSessions } from '../../store/sessions';
 import LastSession from './LastSession';
 import TotalSessions from './TotalSessions';
 import AverageSession from './AverageSession';
@@ -52,12 +53,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   let sessions = useSelector((state) => state.sessions);
   const auth = useSelector((state) => state.auth);
   let blackList = useSelector((state) => state.blackList);
   let blocks = useSelector((state) => state.blocks);
   const sites = useSelector((state) => state.sites);
   const theme = useTheme();
+
+  useEffect(() => {
+    dispatch(loadSessions());
+  }, []);
+
   if (auth) {
     sessions = sessions.filter((session) => session.userId === auth.id);
     blackList = blackList.filter((entry) => entry.userId === auth.id);

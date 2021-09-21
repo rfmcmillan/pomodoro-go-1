@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { lightGreen } from '@material-ui/core/colors';
@@ -29,6 +29,7 @@ import {
   deleteSite,
   updateBlocking,
 } from '../store/blockSites';
+import { setStoredBlackList, getStoredBlackList } from '../storage.js';
 
 // material-ui style definitions
 const LightGreenSwitch = withStyles({
@@ -96,6 +97,7 @@ const BlockSites = (props) => {
     siteUrl: '',
     category: '',
   });
+  const dispatch = useDispatch();
   //
 
   //style control
@@ -119,10 +121,12 @@ const BlockSites = (props) => {
     props.updateBlocking(props.auth.id, siteId);
   };
 
-  const submitNewUrl = () => {
-    // at top, use useSelector: const blackList = useSelector('blackList')
-    //here, const updatedBlackList = [...blackList, urlInput]
-    //setStoredBlackList(updatedBlackList)
+  const submitNewUrl = async () => {
+    getStoredBlackList().then((blackList) => {
+      const newBlackList = [...blackList, urlInput.siteUrl];
+      console.log('newBlackList:', newBlackList);
+      setStoredBlackList(newBlackList);
+    });
     props.addSite(urlInput, props.auth.id);
   };
 

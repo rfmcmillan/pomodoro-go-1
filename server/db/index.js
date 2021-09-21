@@ -36,8 +36,7 @@ User.belongsToMany(User, {
 Block.belongsTo(Site);
 Site.hasMany(Block);
 Block.belongsTo(User);
-User.hasMany(Block)
-
+User.hasMany(Block);
 
 module.exports = {
   db,
@@ -48,6 +47,6 @@ module.exports = {
     Site,
     BlackList,
     Friendship,
-    Block
+    Block,
   },
 };
