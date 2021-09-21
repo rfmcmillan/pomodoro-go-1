@@ -130,14 +130,15 @@ const BlockSites = (props) => {
     props.addSite(urlInput, props.auth.id);
   };
 
-  const deleteUrl = (indexToDelete) => {
+  const deleteUrl = (urlToDelete, indexToDelete) => {
     console.log('indexToDelete:', indexToDelete);
     getStoredBlackList().then((blackList) => {
-      const newBlackList = blackList.splice(indexToDelete, 1);
-      console.log('newBlackList:', newBlackList);
-      setStoredBlackList(newBlackList);
+      blackList.splice(indexToDelete, 1);
+
+      console.log('blackList after splice:', blackList);
+      setStoredBlackList(blackList);
     });
-    props.deleteSite(props.auth.id, each.id);
+    props.deleteSite(props.auth.id, urlToDelete);
   };
 
   const paperStyle = {
@@ -227,7 +228,7 @@ const BlockSites = (props) => {
                   <LightGreenButton
                     variant="contained"
                     startIcon={<DeleteIcon />}
-                    onClick={() => deleteUrl(idx)}
+                    onClick={() => deleteUrl(each.id, idx)}
                   >
                     Delete
                   </LightGreenButton>
