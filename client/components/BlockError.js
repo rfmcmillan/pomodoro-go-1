@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  root: { height: '100%', width: '80%', margin: '150px 0px 0px 150px' },
+  root: { minHeight: '80vh', width: '80vw', margin: 'auto', paddingTop: 25 },
   quote: {},
   person: { marginTop: '30px' },
 }));
@@ -45,6 +45,7 @@ const BlockError = (props) => {
       container
       direction="column"
       alignItems="flex-start"
+      justifyContent="center"
       className={classes.root}
     >
       <Grid item>
