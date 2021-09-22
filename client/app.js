@@ -26,20 +26,16 @@ const App = (props) => {
   const blackList = useSelector((state) => state.blackList);
   const auth = useSelector((state) => state.auth);
   if (blackList.length && auth) {
-    console.log('blackList:', blackList);
-    console.log('auth:', auth);
     const blackListAuth = blackList.filter((item) => {
       return item.userId === auth.id;
     });
-    console.log('filtered:', blackListAuth);
+
     const blackListedSiteUrls = blackListAuth.map((item, index) => {
       return item.site.siteUrl;
     });
-    console.log('blackListedSiteUrls:', blackListedSiteUrls);
+
     setStoredBlackList(blackListedSiteUrls).then(
-      getStoredBlackList().then((blackList) => {
-        console.log('blackListedSiteUrls from getter:', blackList);
-      })
+      getStoredBlackList().then((blackList) => {})
     );
   }
   if (auth.id) {
@@ -51,8 +47,6 @@ const App = (props) => {
     const timeLeft = localStorage.getItem('sessionTime');
     if (parseInt(timeLeft) < 0) return;
     if (!parseInt(timeLeft) && currentSession.id && countDown) {
-      console.log('props.endSession:', props.endSession);
-      chrome.alarms.create('studyTimer', { when: 1000 });
       props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);

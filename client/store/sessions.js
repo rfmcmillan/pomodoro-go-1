@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const LOAD_SESSIONS = 'LOAD_SESSIONS';
 const loadSessionsActionCreator = (sessions) => {
   return {
@@ -43,6 +44,20 @@ const sessionsReducer = (state = [], action) => {
   if (action.type === LOAD_SESSIONS) {
     state = action.sessions;
   }
+  if (action.type === END_SESSION) {
+    console.log('in sessionsReducer, action', action);
+    console.log('state:', state);
+    console.log('action.session.id', action.session.id);
+    const otherSessions = state.filter((session) => {
+      return session.id !== action.session.id;
+    });
+    console.log(
+      'last item in otherSessions:',
+      otherSessions[otherSessions.length - 1]
+    );
+    state = [...otherSessions, action.session];
+    console.log('state:', state);
+  }
   return state;
 };
 
@@ -79,12 +94,15 @@ const updateSessionActionCreator = (session) => {
 };
 const updateSession = (sessionId, sessionInfo) => async (dispatch) => {
   try {
+    console.log('in store: sessionInfo:', sessionInfo);
     const response = await axios.put(
       `${process.env.API_URL}/api/sessions/${sessionId}`,
       sessionInfo
     );
     const { data } = response;
+    console.log('in store, response.data:', response.data);
     window.localStorage.setItem('currentSession', JSON.stringify(data));
+    console.log('window.localStorage:', window.localStorage);
     dispatch(updateSessionActionCreator(data));
   } catch (error) {
     console.log(error);
@@ -98,6 +116,7 @@ export const removeSession = () => {
 export const _endSession = (session) => {
   return {
     type: END_SESSION,
+    session,
   };
 };
 
@@ -120,7 +139,8 @@ export const endSession =
       });
 
       const updatedSession = response.data;
-      dispatch(_endSession());
+      console.log('updatedSession in store:', updatedSession);
+      dispatch(_endSession(updatedSession));
       localStorage.setItem('currentSession', null);
     } catch (error) {
       console.log(error);

@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Grid, Typography, Fade } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '80vh',
-    width: '80vw',
-    margin: 'auto',
-    paddingTop: 25,
-  },
-  quote: {},
-  person: { marginTop: '30px' },
-}));
-
 const BlockError = (props) => {
+  const theme = useTheme();
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      minHeight: '80vh',
+      width: '80vw',
+      margin: 'auto',
+      paddingTop: 25,
+    },
+    quote: { color: theme.palette.text.primary },
+    person: { color: theme.palette.text.primary, marginTop: '30px' },
+  }));
   const classes = useStyles();
+
   const [quoteToDisplay, setQuoteToDisplay] = useState('');
   useEffect(() => {
     const quotes = [

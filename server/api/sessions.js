@@ -9,6 +9,7 @@ router.get('/', async (req, res, next) => {
   try {
     const sessions = await Session.findAll({
       include: [{ model: User }],
+      order: [['actualEndTime']],
     });
     res.send(sessions);
   } catch (err) {
@@ -71,10 +72,12 @@ router.put('/:sessionId/end', async (req, res, next) => {
     const { sessionId } = req.params;
     const { successful } = req.body;
     const session = await Session.findByPk(sessionId);
-    session.end({ successful, status: 'Done' });
+    await session.end({ successful, status: 'Done' });
+    console.log('session in api:', session);
     const updatedSession = await Session.findByPk(sessionId, {
       include: [User, Task],
     });
+    console.log('updatedSession in api:', updatedSession);
     res.send(updatedSession);
   } catch (error) {
     next(error);

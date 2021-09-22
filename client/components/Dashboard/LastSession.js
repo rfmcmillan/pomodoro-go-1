@@ -21,6 +21,7 @@ const useStyles = makeStyles({
 const LastSession = (props) => {
   const classes = useStyles();
   const { sessions } = props;
+  console.log('sessions:', sessions);
   let lastSession;
   if (sessions.length) {
     lastSession = sessions[sessions.length - 1];
@@ -33,11 +34,14 @@ const LastSession = (props) => {
   if (lastSession) {
     startTime = dayjs(lastSession.startTime).format('LT');
     expectedEndTime = dayjs(lastSession.expectedEndTime).format('LT');
-    actualEndTime = dayjs(lastSession.actualEndTime).format('LT');
+    console.log('lastSession.actualEndTime:', lastSession.actualEndTime);
+    actualEndTime = lastSession.actualEndTime
+      ? dayjs(lastSession.actualEndTime).format('LT')
+      : 'N/A';
   }
 
   return (
-    <Paper className={classes.contain} elevation={10} >
+    <Paper className={classes.contain} elevation={10}>
       <Typography className={classes.lsItem} variant="h5" color="textPrimary">
         Last Session
       </Typography>
@@ -47,7 +51,9 @@ const LastSession = (props) => {
             Length
           </Typography>
           <Typography variant="h5">
-            {lastSession ? `${Math.round(lastSession.sessionTime / 60000)}min` : ''}
+            {lastSession
+              ? `${Math.round(lastSession.sessionTime / 60000)}min`
+              : ''}
           </Typography>
         </Grid>
         <Grid item className={classes.lsItem} xs={6}>
