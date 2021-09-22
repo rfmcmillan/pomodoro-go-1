@@ -13,7 +13,7 @@ const loadBlackList = () => {
       const response = await axios.get(`${process.env.API_URL}/api/blackList`);
       const blackList = response.data;
       dispatch(loadBlackListActionCreator(blackList));
-    } catch (error)
+    } catch (error) {
       console.log(error);
     }
   };
