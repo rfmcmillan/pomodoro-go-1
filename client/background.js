@@ -235,7 +235,8 @@ const background = {
           if (blackList) {
             if (blackList.includes(changeInfo.url)) {
               chrome.tabs.update(tabId, {
-                url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
+                url: `${process.env.API_URL}/uhoh`,
+                //url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
               });
             }
           }
