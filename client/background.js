@@ -221,6 +221,10 @@ const background = {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
       // notifies the user when the session is over
       console.log('alarm in background');
+      getStoredBlackList().then((blackList) => {
+        console.log('blackList:', blackList);
+      });
+
       chrome.notifications.create(
         undefined,
         {
