@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Fade } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,14 +54,18 @@ const BlockError = (props) => {
       className={classes.root}
     >
       <Grid item>
-        <Typography className={classes.quote} variant="h1">
-          {quoteToDisplay.quote}
-        </Typography>
+        <Fade easing="ease-in" timeout={2000} in={true}>
+          <Typography className={classes.quote} variant="h1">
+            {quoteToDisplay.quote}
+          </Typography>
+        </Fade>
       </Grid>
       <Grid item>
-        <Typography className={classes.person} variant="h1">
-          - {quoteToDisplay.person}
-        </Typography>
+        <Fade easing="ease-in" timeout={2000} in={true}>
+          <Typography className={classes.person} variant="h1">
+            - {quoteToDisplay.person}
+          </Typography>
+        </Fade>
       </Grid>
     </Grid>
   );

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { lightGreen } from '@material-ui/core/colors';
 import {
   Typography,
   FormControlLabel,
@@ -130,14 +128,14 @@ const BlockSites = (props) => {
     props.addSite(urlInput, props.auth.id);
   };
 
-  const deleteUrl = (indexToDelete) => {
-    console.log('indexToDelete:', indexToDelete);
+  const deleteUrl = (siteToDelete) => {
     getStoredBlackList().then((blackList) => {
-      const newBlackList = blackList.splice(indexToDelete, 1);
-      console.log('newBlackList:', newBlackList);
-      setStoredBlackList(newBlackList);
+      const filtered = blackList.filter((site) => {
+        return site !== siteToDelete.siteUrl;
+      });
+      setStoredBlackList(filtered);
     });
-    props.deleteSite(props.auth.id, each.id);
+    props.deleteSite(props.auth.id, siteToDelete.id);
   };
 
   const paperStyle = {
@@ -227,7 +225,7 @@ const BlockSites = (props) => {
                   <LightGreenButton
                     variant="contained"
                     startIcon={<DeleteIcon />}
-                    onClick={() => deleteUrl(idx)}
+                    onClick={() => deleteUrl(each)}
                   >
                     Delete
                   </LightGreenButton>
