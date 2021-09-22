@@ -32,7 +32,6 @@ const background = {
         this.listenToExternalMessages();
         this.listenToStorage();
         this.listenToTabs();
-        // this.listenForBlackListIncrement();
         this.listenForBlockedSite();
         this.listenForDashboardRedirect();
         this.active = true;
@@ -200,33 +199,6 @@ const background = {
       });
     });
   },
-  // listenForBlackListIncrement: function () {
-  //   // increment blocks in Blacklist table when a blacklisted site is blocked
-
-  //   return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
-  //     chrome.storage.sync.get(['auth', 'blackList'], function (result) {
-  //       const { auth, blackList } = result;
-  //       console.log('blackList in background:', blackList);
-  //       if (blackList) {
-  //         const blackListAuth = blackList.filter((entry) => {
-  //           return entry.userId === auth.id;
-  //         });
-  //         const url = changeInfo.pendingUrl || changeInfo.url;
-  //         if (url) {
-  //           const matchingBlackList = blackListAuth.find((entry) => {
-  //             return entry.site.siteUrl === url;
-  //           });
-
-  //           if (matchingBlackList) {
-  //             matchingBlackList.blocks++;
-  //             console.log('matchingBlackList:', matchingBlackList);
-  //             chrome.storage.sync.set({ updatedBlackList: matchingBlackList });
-  //           }
-  //         }
-  //       }
-  //     });
-  //   });
-  // },
 
   listenForBlockedSite: function () {
     return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {

@@ -67,15 +67,19 @@ const Stopwatch = (props) => {
   const toggleTimer = (ev) => {
     const button = ev.target.innerText;
     if (button === 'START') {
+      console.log('currentSession:', currentSession);
       if (!currentSession.sessionTime) {
         updateSession(currentSession.id, { sessionTime });
       }
+      console.log('currentSession after update:', currentSession);
       localStorage.setItem('currentSession', JSON.stringify(currentSession));
+      console.log('localStorage:', localStorage);
       setCountDown(true);
     }
     if (button === 'STOP' || button === 'PAUSE') {
       setCountDown(false);
     }
+    console.log('countDown:', countDown);
   };
   return (
     <div>

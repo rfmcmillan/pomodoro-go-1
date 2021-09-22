@@ -79,12 +79,15 @@ const updateSessionActionCreator = (session) => {
 };
 const updateSession = (sessionId, sessionInfo) => async (dispatch) => {
   try {
+    console.log('in store: sessionInfo:', sessionInfo);
     const response = await axios.put(
       `${process.env.API_URL}/api/sessions/${sessionId}`,
       sessionInfo
     );
     const { data } = response;
+    console.log('in store, response.data:', response.data);
     window.localStorage.setItem('currentSession', JSON.stringify(data));
+    console.log('window.localStorage:', window.localStorage);
     dispatch(updateSessionActionCreator(data));
   } catch (error) {
     console.log(error);
