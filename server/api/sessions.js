@@ -73,9 +73,11 @@ router.put('/:sessionId/end', async (req, res, next) => {
     const { successful } = req.body;
     const session = await Session.findByPk(sessionId);
     await session.end({ successful, status: 'Done' });
+    console.log('session in api:', session);
     const updatedSession = await Session.findByPk(sessionId, {
       include: [User, Task],
     });
+    console.log('updatedSession in api:', updatedSession);
     res.send(updatedSession);
   } catch (error) {
     next(error);

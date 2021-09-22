@@ -44,6 +44,20 @@ const sessionsReducer = (state = [], action) => {
   if (action.type === LOAD_SESSIONS) {
     state = action.sessions;
   }
+  if (action.type === END_SESSION) {
+    console.log('in sessionsReducer, action', action);
+    console.log('state:', state);
+    console.log('action.session.id', action.session.id);
+    const otherSessions = state.filter((session) => {
+      return session.id !== action.session.id;
+    });
+    console.log(
+      'last item in otherSessions:',
+      otherSessions[otherSessions.length - 1]
+    );
+    state = [...otherSessions, action.session];
+    console.log('state:', state);
+  }
   return state;
 };
 
@@ -102,6 +116,7 @@ export const removeSession = () => {
 export const _endSession = (session) => {
   return {
     type: END_SESSION,
+    session,
   };
 };
 
@@ -124,7 +139,8 @@ export const endSession =
       });
 
       const updatedSession = response.data;
-      dispatch(_endSession());
+      console.log('updatedSession in store:', updatedSession);
+      dispatch(_endSession(updatedSession));
       localStorage.setItem('currentSession', null);
     } catch (error) {
       console.log(error);
