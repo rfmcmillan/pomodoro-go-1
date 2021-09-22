@@ -47,8 +47,6 @@ const App = (props) => {
     const timeLeft = localStorage.getItem('sessionTime');
     if (parseInt(timeLeft) < 0) return;
     if (!parseInt(timeLeft) && currentSession.id && countDown) {
-      console.log('props.endSession:', props.endSession);
-      chrome.alarms.create('studyTimer', { when: 1000 });
       props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);

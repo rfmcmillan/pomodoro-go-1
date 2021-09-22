@@ -1,6 +1,6 @@
 'use strict';
 const { storage, tabs, runtime, alarms, scripting } = chrome;
-import { getStoredAuth, getStoredBlackList } from './storage';
+import { getStoredBlackList } from './storage';
 
 chrome.action.onClicked.addListener((tab) => {
   console.log('new tab created');

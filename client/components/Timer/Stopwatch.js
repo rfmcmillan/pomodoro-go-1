@@ -3,6 +3,7 @@ import { Button, Typography, makeStyles, Card, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { updateSession } from '../../store/sessions';
+
 import StopButton from './StopButton';
 import { SessionContext } from '../../app';
 import { TimerContext } from './CreateSession';
@@ -67,19 +68,16 @@ const Stopwatch = (props) => {
   const toggleTimer = (ev) => {
     const button = ev.target.innerText;
     if (button === 'START') {
-      console.log('currentSession:', currentSession);
       if (!currentSession.sessionTime) {
         updateSession(currentSession.id, { sessionTime });
       }
-      console.log('currentSession after update:', currentSession);
+      chrome.alarms.create('startTimer', { when: Date.now() + sessionTime });
       localStorage.setItem('currentSession', JSON.stringify(currentSession));
-      console.log('localStorage:', localStorage);
       setCountDown(true);
     }
     if (button === 'STOP' || button === 'PAUSE') {
       setCountDown(false);
     }
-    console.log('countDown:', countDown);
   };
   return (
     <div>

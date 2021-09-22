@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const LOAD_SESSIONS = 'LOAD_SESSIONS';
 const loadSessionsActionCreator = (sessions) => {
   return {
