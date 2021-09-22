@@ -56,7 +56,6 @@ class Routes extends Component {
 
     return (
       <div>
-        {/* {chrome.storage ? <RedirectToSite /> : null} */}
         {isLoggedIn ? (
           <Switch>
             <Route path="/timer" component={Timer} />

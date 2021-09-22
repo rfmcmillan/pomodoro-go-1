@@ -127,7 +127,6 @@ const {
 } = chrome;
 
 chrome.action.onClicked.addListener(tab => {
-  console.log('new tab created');
   chrome.tabs.create({
     url: 'index.html'
   });
@@ -175,7 +174,6 @@ const background = {
     chrome.storage.sync.set({
       alarmCreated: true
     });
-    console.log('alarm creeated!!!');
   },
 
   resetStorage() {
@@ -234,7 +232,6 @@ const background = {
         }
 
         if (message.message === 'toggle-block-or-not') {
-          console.log('user is toggleing a blocked site', message.toggleSite);
           chrome.storage.sync.get(['blocked'], results => {
             const doesItExist = results.blocked.find(url => {
               return url === message.toggleSite;
@@ -306,8 +303,6 @@ const background = {
             blocked,
             currUser
           } = sync;
-          console.log('blocked:', blocked);
-          console.log('currUser:', currUser);
 
           if (Array.isArray(blocked) && blocked.find(domain => {
             return domain.includes(hostname);
@@ -341,8 +336,7 @@ const background = {
           if (blackList) {
             if (blackList.includes(changeInfo.url)) {
               chrome.tabs.update(tabId, {
-                url: `${"http://localhost:8080"}/uhoh` //url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
-
+                url: `${"http://localhost:8080"}/uhoh`
               });
             }
           }
@@ -352,11 +346,6 @@ const background = {
   },
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
-      // notifies the user when the session is over
-      console.log('alarm in background');
-      (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList)().then(blackList => {
-        console.log('blackList:', blackList);
-      });
       chrome.notifications.create(undefined, {
         type: 'basic',
         title: 'Your focus session is complete!',

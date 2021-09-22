@@ -41,7 +41,6 @@ const BlockError = (props) => {
       },
     ];
     const quoteToDisplayIdx = Math.floor(Math.random() * quotes.length);
-    console.log(quoteToDisplayIdx);
 
     setQuoteToDisplay(quotes[quoteToDisplayIdx]);
   }, []);

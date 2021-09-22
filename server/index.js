@@ -21,14 +21,10 @@ const init = async () => {
     let usersTracking = {};
     socketServer.on('connection', (socket) => {
       sockets.push(socket.id);
-      console.log('a socket started!', sockets.length);
-      console.log('new socket', socket.id, 'all sockets', sockets);
 
       socket.on('login', (data) => {
-        console.log('user ' + data.userId + ' connected');
         const socketId = socket.id + '';
         if (socketId in usersTracking) {
-          console.log('user already has socket open');
         } else {
           usersTracking[socketId] = data.userId;
         }
@@ -41,14 +37,12 @@ const init = async () => {
       });
 
       socket.on('get all loggedin users', () => {
-        console.log(usersTracking);
         socketServer.to(socket.id).emit('send all logged in users', {
           ...usersTracking,
         });
       });
 
       socket.on('logout', (data) => {
-        console.log('user ' + data.userId + ' left');
         delete usersTracking[socket.id];
         for (let key in usersTracking) {
           if (usersTracking[key] === data.userId) {
@@ -58,7 +52,6 @@ const init = async () => {
         socket.broadcast.emit('send all logged in users', {
           ...usersTracking,
         });
-        console.log(usersTracking, sockets.length);
       });
     });
   } catch (ex) {

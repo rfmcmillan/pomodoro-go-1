@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 const LastSession = (props) => {
   const classes = useStyles();
   const { sessions } = props;
-  console.log('sessions:', sessions);
   let lastSession;
   if (sessions.length) {
     lastSession = sessions[sessions.length - 1];
@@ -34,7 +33,6 @@ const LastSession = (props) => {
   if (lastSession) {
     startTime = dayjs(lastSession.startTime).format('LT');
     expectedEndTime = dayjs(lastSession.expectedEndTime).format('LT');
-    console.log('lastSession.actualEndTime:', lastSession.actualEndTime);
     actualEndTime = lastSession.actualEndTime
       ? dayjs(lastSession.actualEndTime).format('LT')
       : 'N/A';

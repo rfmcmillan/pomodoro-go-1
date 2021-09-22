@@ -3,7 +3,6 @@ const { storage, tabs, runtime, alarms, scripting } = chrome;
 import { getStoredBlackList } from './storage';
 
 chrome.action.onClicked.addListener((tab) => {
-  console.log('new tab created');
   chrome.tabs.create({
     url: 'index.html',
   });
@@ -47,7 +46,6 @@ const background = {
     });
     this.alarmCreated = true;
     chrome.storage.sync.set({ alarmCreated: true });
-    console.log('alarm creeated!!!');
   },
   resetStorage() {
     storage.local.set({
@@ -100,7 +98,6 @@ const background = {
             });
           }
           if (message.message === 'toggle-block-or-not') {
-            console.log('user is toggleing a blocked site', message.toggleSite);
             chrome.storage.sync.get(['blocked'], (results) => {
               const doesItExist = results.blocked.find((url) => {
                 return url === message.toggleSite;
@@ -165,8 +162,6 @@ const background = {
 
         storage.sync.get(['blocked', 'currUser'], async function (sync) {
           const { blocked, currUser } = sync;
-          console.log('blocked:', blocked);
-          console.log('currUser:', currUser);
           if (
             Array.isArray(blocked) &&
             blocked.find((domain) => {
@@ -208,7 +203,6 @@ const background = {
             if (blackList.includes(changeInfo.url)) {
               chrome.tabs.update(tabId, {
                 url: `${process.env.API_URL}/uhoh`,
-                //url: 'https://pomodoro-go-1.herokuapp.com/uhoh',
               });
             }
           }
@@ -219,12 +213,6 @@ const background = {
 
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
-      // notifies the user when the session is over
-      console.log('alarm in background');
-      getStoredBlackList().then((blackList) => {
-        console.log('blackList:', blackList);
-      });
-
       chrome.notifications.create(
         undefined,
         {

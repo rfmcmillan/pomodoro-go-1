@@ -14,7 +14,6 @@ const loadBlocks = () => {
       const blocks = response.data;
       dispatch(loadBlocksActionCreator(blocks));
     } catch (error) {
-      console.log('error in loadBlocks thunk');
       console.log(error);
     }
   };
@@ -22,7 +21,7 @@ const loadBlocks = () => {
 
 //CREATE BLOCK
 
-const CREATE_BLOCK= 'CREATE_BLOCK';
+const CREATE_BLOCK = 'CREATE_BLOCK';
 
 const createBlockActionCreator = (block) => {
   return {
@@ -39,7 +38,6 @@ const createBlock = (userId, siteId) => async (dispatch) => {
     const { data } = response;
     dispatch(createBlockActionCreator(data));
   } catch (error) {
-    console.log('error in createBlock thunk');
     console.log(error);
   }
 };
