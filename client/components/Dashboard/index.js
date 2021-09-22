@@ -101,10 +101,6 @@ const Dashboard = () => {
     mostBlocked,
   } = state;
 
-  const handleCheckboxChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
   const handleTimeFrameChange = (event) => {
     setTimeFrame(event.target.value);
   };
@@ -151,6 +147,7 @@ const Dashboard = () => {
       capitalized += char.toUpperCase();
     } else capitalized += char;
   }
+  console.log('lastSession', sessions[sessions.length - 1]);
 
   return (
     <div className={classes.dashboardContain}>

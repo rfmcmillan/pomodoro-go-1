@@ -105,7 +105,9 @@ const calcStartTime = (session) => {
 const calcExpectedEndTime = (session) => {
   const { startTime, sessionTime } = session;
   const startDate = new Date(startTime);
-  session.expectedEndTime = startDate.setMilliseconds(sessionTime);
+  const startTimeInMS = startDate.setMilliseconds(sessionTime);
+  session.expectedEndTime = startTimeInMS;
+  //session.actualEndTime = startDate.setMilliseconds(sessionTime);
 };
 
 Session.afterCreate((session) => {
