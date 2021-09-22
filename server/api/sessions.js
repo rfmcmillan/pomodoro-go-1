@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
   try {
     const sessions = await Session.findAll({
       include: [{ model: User }],
-      order: [['actualEndTime']],
+      order: [['createdAt']],
     });
     res.send(sessions);
   } catch (err) {

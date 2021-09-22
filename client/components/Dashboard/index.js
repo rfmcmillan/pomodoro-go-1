@@ -61,9 +61,9 @@ const Dashboard = () => {
   const sites = useSelector((state) => state.sites);
   const theme = useTheme();
 
-  useEffect(() => {
-    dispatch(loadSessions());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadSessions());
+  // }, []);
 
   if (auth) {
     sessions = sessions.filter((session) => session.userId === auth.id);

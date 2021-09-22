@@ -58,7 +58,8 @@ const AverageSession = (props) => {
       return session.successful === true;
     });
     sessionsFailed = sessions.filter((session) => {
-      return session.successful === false;
+      const { successful, actualEndTime } = session;
+      return successful === false && actualEndTime;
     });
   }
 
@@ -132,7 +133,6 @@ const AverageSession = (props) => {
       return total;
     }, 0);
   }
-  //console.log('totalFailedSessionLength:', totalFailedSessionLength);
   const avgFailedSessionLength =
     totalFailedSessionLength / sessionsFailed.length;
   const avgFailedSessionMinutes = Math.round(avgFailedSessionLength / 60000);
