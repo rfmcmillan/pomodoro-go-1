@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
-// import GoogleButton from 'react-google-button';
-// refresh token
+import GoogleButton from 'react-google-button';
+//refresh token
 import { Button } from '@material-ui/core';
 import { refreshTokenSetup } from './RefreshToken';
 
@@ -24,21 +24,21 @@ function GLogin() {
   };
   return (
     <div className={'Google-button'}>
-      {/* <GoogleLogin
+      <GoogleLogin
         clientId={clientId}
         buttonText="Login"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={'single_host_origin'}
-        // render={(renderProps) => (
-        //   <GoogleButton
-        //     id="googleButton"
-        //     onClick={renderProps.onClick}
-        //     disabled={renderProps.disabled}
-        //   />
-        // )}
+        render={(renderProps) => (
+          <GoogleButton
+            id="googleButton"
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          />
+        )}
         isGoogleLogedIn={true}
-      /> */}
+      />
       <Button onClick={handleClick}>Login</Button>
     </div>
   );

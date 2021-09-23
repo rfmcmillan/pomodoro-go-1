@@ -122,7 +122,6 @@ const BlockSites = (props) => {
   const submitNewUrl = () => {
     getStoredBlackList().then((blackList) => {
       const newBlackList = [...blackList, urlInput.siteUrl];
-      console.log('newBlackList:', newBlackList);
       setStoredBlackList(newBlackList);
     });
     props.addSite(urlInput, props.auth.id);

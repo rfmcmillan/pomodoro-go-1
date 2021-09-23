@@ -6,8 +6,12 @@ import { makeStyles } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { me } from './store';
 import { endSession, removeSession } from './store/sessions';
-import { setStoredBlackList, getStoredBlackList } from './storage.js';
-import { setStoredAuth, getStoredAuth } from './storage.js';
+import {
+  setStoredBlackList,
+  getStoredBlackList,
+  setStoredAuth,
+  getStoredAuth,
+} from './storage.js';
 export const SessionContext = createContext();
 
 const useStyles = makeStyles(() => ({
@@ -34,9 +38,7 @@ const App = (props) => {
       return item.site.siteUrl;
     });
 
-    setStoredBlackList(blackListedSiteUrls).then(
-      getStoredBlackList().then((blackList) => {})
-    );
+    setStoredBlackList(blackListedSiteUrls);
   }
   if (auth.id) {
     setStoredAuth(auth).then(getStoredAuth());

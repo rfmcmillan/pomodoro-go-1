@@ -4,7 +4,6 @@ const GET_CURRPLAYBACK = 'GET_CURRPLAYBACK';
 
 //get current playback
 export const getCurrPlayback = (accessToken) => {
-  // console.log('access token', accessToken);
   return async (dispatch) => {
     try {
       const params = 'market=from_token';

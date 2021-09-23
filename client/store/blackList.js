@@ -14,7 +14,6 @@ const loadBlackList = () => {
       const blackList = response.data;
       dispatch(loadBlackListActionCreator(blackList));
     } catch (error) {
-      console.log('error in loadBlackList thunk');
       console.log(error);
     }
   };

@@ -61,10 +61,6 @@ const Dashboard = () => {
   const sites = useSelector((state) => state.sites);
   const theme = useTheme();
 
-  // useEffect(() => {
-  //   dispatch(loadSessions());
-  // }, []);
-
   if (auth) {
     sessions = sessions.filter((session) => session.userId === auth.id);
     blackList = blackList.filter((entry) => entry.userId === auth.id);
@@ -147,7 +143,6 @@ const Dashboard = () => {
       capitalized += char.toUpperCase();
     } else capitalized += char;
   }
-  console.log('lastSession', sessions[sessions.length - 1]);
 
   return (
     <div className={classes.dashboardContain}>

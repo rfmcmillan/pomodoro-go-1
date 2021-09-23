@@ -46,7 +46,6 @@ export const addSite = (site, userId) => {
 
 //delete a site from a user
 export const deleteSite = (userId, siteId) => {
-  console.log('userId', userId, 'siteId', siteId);
   return async (dispatch) => {
     try {
       await axios.delete(

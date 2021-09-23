@@ -154,7 +154,7 @@ const Navbar = (props) => {
                 <Grid item>
                   <Button onClick={handleLogOut}>Logout</Button>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <GoogleLogout
                     clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
                     buttonText="Logout"
@@ -167,7 +167,7 @@ const Navbar = (props) => {
                       />
                     )}
                   ></GoogleLogout>
-                </Grid>
+                </Grid> */}
               </Grid>
             ) : (
               <Grid container className={classes.loggedOut}>
@@ -201,7 +201,7 @@ const Navbar = (props) => {
                     Sign Up
                   </NavButton>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <GoogleLogin
                     clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
                     buttonText="Login"
@@ -217,7 +217,7 @@ const Navbar = (props) => {
                       />
                     )}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             )}
           </Toolbar>

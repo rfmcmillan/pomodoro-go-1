@@ -33,7 +33,6 @@ router.put('/:blackListId', async (req, res, next) => {
     const updated = await blackList.update(req.body);
     res.status(200).send(updated);
   } catch (error) {
-    console.log('error in blackList put route');
     next(error);
   }
 });
@@ -55,7 +54,6 @@ router.put('/:userId/:siteId', async (req, res, next) => {
     }
     res.sendStatus(201);
   } catch (error) {
-    console.log('error in blackList put route');
     next(error);
   }
 });

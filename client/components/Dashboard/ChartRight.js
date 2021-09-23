@@ -348,9 +348,13 @@ const ChartRight = (props) => {
   ];
 
   if (sessions.length) {
-    for (let i = 0; i < sessions.length; i++) {
-      const dayOfWeek = dayjs(sessions[i].startTime).format('ddd');
-      const time = dayjs(sessions[i].startTime).format('H');
+    const filtered = sessions.filter((session) => {
+      return session.startTime !== null;
+    });
+    for (let i = 0; i < filtered.length; i++) {
+      const currentSession = filtered[i];
+      const dayOfWeek = dayjs(currentSession.startTime).format('ddd');
+      const time = dayjs(currentSession.startTime).format('H');
       const timeSlot = distHours[time];
       const slotData = timeSlot.data;
       for (let j = 0; j < slotData.length; j++) {
@@ -491,7 +495,11 @@ const ChartRight = (props) => {
     Nov: { successful: 0, failed: 0 },
     Dec: { successful: 0, failed: 0 },
   };
-  sessions.forEach((session) => {
+
+  const filtered = sessions.filter((session) => {
+    return session.startTime !== null;
+  });
+  filtered.forEach((session) => {
     const { startTime, successful } = session;
     const month = dayjs(startTime).format('MMM');
     if (successful === true) {

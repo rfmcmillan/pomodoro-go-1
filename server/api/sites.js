@@ -45,7 +45,7 @@ router.post('/', async (req, res, next) => {
         siteUrl,
       },
     });
-    console.log('sites:', sites);
+
     if (!sites.length) {
       const newSite = await Site.create({
         siteUrl,
@@ -70,7 +70,6 @@ router.post('/', async (req, res, next) => {
 });
 
 router.delete('/:userId/:siteId', async (req, res, next) => {
-  console.log('userId:', req.params.userId, 'siteId:', req.params.siteId);
   try {
     const associationToDelete = await BlackList.findOne({
       where: {
@@ -91,7 +90,6 @@ router.put('/:siteId', async (req, res, next) => {
     const updated = await site.update(req.body);
     res.status(200).send(updated);
   } catch (error) {
-    console.log('error in sites put route');
     next(error);
   }
 });
