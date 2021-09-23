@@ -60,10 +60,10 @@ class Routes extends Component {
           <Switch>
             <Route path="/timer" component={Timer} />
             <Route path="/login">
-              <Redirect to="/dashboard" />
+              <Redirect to="/timer" />
             </Route>
             <Route path="/sandboxLogin">
-              <Redirect to="/dashboard" />
+              <Redirect to="/timer" />
             </Route>
             <Route path="/" exact component={Timer} />
             <Route path="/dashboard" component={Dashboard} />

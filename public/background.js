@@ -332,6 +332,8 @@ const background = {
   listenForBlockedSite: function () {
     return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
       if (changeInfo.url) {
+        const hostname = new URL(url).hostname;
+        console.log(hostname);
         (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList)().then(blackList => {
           if (blackList) {
             if (blackList.includes(changeInfo.url)) {
