@@ -1,6 +1,27 @@
 'use strict';
 const { storage, tabs, runtime, alarms, scripting } = chrome;
 import { getStoredBlackList } from './storage';
+import {
+  setStoredIsRunning,
+  setStoredTimer,
+  setStoredDisplayTime,
+} from './storage';
+
+const msToHMS = (ms) => {
+  let seconds = ms / 1000;
+
+  let hours = parseInt(seconds / 3600);
+  seconds = seconds % 3600;
+
+  let minutes = parseInt(seconds / 60);
+  seconds = seconds % 60;
+
+  hours = hours < 10 ? '0' + hours : hours;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  seconds = seconds < 10 ? (seconds >= 0 ? '0' + seconds : '00') : seconds;
+
+  return hours + ':' + minutes + ':' + seconds;
+};
 
 chrome.action.onClicked.addListener((tab) => {
   chrome.tabs.create({
@@ -23,6 +44,8 @@ const background = {
       if (!this.active) {
         console.log('running app!');
         storage.sync.clear();
+        setStoredIsRunning(false);
+        setStoredTimer(null);
         alarms.clearAll(() => {
           console.log('alarms are cleared');
         });
@@ -215,27 +238,29 @@ const background = {
 
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
-      chrome.notifications.create(
-        undefined,
-        {
-          type: 'basic',
-          title: 'Your focus session is complete!',
-          message: 'Nice job! You deserve a break!',
-          iconUrl: 'logo-pomo.png',
-          requireInteraction: true,
-          silent: false,
-        },
-        () => {
-          console.log('last error: ', chrome.runtime.lastError);
-        }
-      );
-      chrome.storage.local.set({
-        alarmCreated: false,
-        currentSession: {},
-        timerOn: false,
-        sessionTime: 0,
-        sessionComplete: true,
-      });
+      if (alarm.name === 'startTimer') {
+        chrome.notifications.create(
+          undefined,
+          {
+            type: 'basic',
+            title: 'Your focus session is complete!',
+            message: 'Nice job! You deserve a break!',
+            iconUrl: 'logo-pomo.png',
+            requireInteraction: true,
+            silent: false,
+          },
+          () => {
+            console.log('last error: ', chrome.runtime.lastError);
+          }
+        );
+        chrome.storage.local.set({
+          alarmCreated: false,
+          currentSession: {},
+          timerOn: false,
+          sessionTime: 0,
+          sessionComplete: true,
+        });
+      }
     });
   },
   listenForDashboardRedirect: function () {
@@ -253,3 +278,27 @@ const background = {
 };
 
 background.init();
+
+//Timer in Background
+chrome.alarms.create('oneSecond', {
+  periodInMinutes: 1 / 60,
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'oneSecond') {
+    chrome.storage.local.get(['isRunning', 'timer'], (res) => {
+      console.log('res.isRunning:', res.isRunning);
+      const time = res.timer ?? 0;
+
+      if (time === 0) {
+        setStoredIsRunning(false);
+        return;
+      }
+      if (!res.isRunning) {
+        return;
+      }
+      const displayTime = msToHMS(time);
+      setStoredTimer(time - 1000).then(setStoredDisplayTime(displayTime));
+    });
+  }
+});

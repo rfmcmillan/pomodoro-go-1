@@ -1,13 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Typography, makeStyles, Card, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { updateSession } from '../../store/sessions';
-
 import StopButton from './StopButton';
 import { SessionContext } from '../../app';
 import { TimerContext } from './CreateSession';
 import { Circle } from 'rc-progress';
+import {
+  setStoredIsRunning,
+  setStoredTimer,
+  getStoredDisplayTime,
+} from '../../storage';
 
 const useStyles = makeStyles(() => ({
   timerContainer: {
@@ -22,14 +26,29 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const msToHMS = (ms) => {
+  let seconds = ms / 1000;
+
+  let hours = parseInt(seconds / 3600);
+  seconds = seconds % 3600;
+
+  let minutes = parseInt(seconds / 60);
+  seconds = seconds % 60;
+
+  hours = hours < 10 ? '0' + hours : hours;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  seconds = seconds < 10 ? (seconds >= 0 ? '0' + seconds : '00') : seconds;
+  return hours + ':' + minutes + ':' + seconds;
+};
+
 const Stopwatch = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const { info, primary, secondary, text, error } = theme.palette;
   const dispatch = useDispatch();
   const currentSession = useSelector((state) => state.currentSession);
+  const [displayTime, setDisplayTime] = useState('00:00:00');
   const { setHours, setMinutes, setSeconds } = useContext(TimerContext);
-
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);
@@ -37,37 +56,24 @@ const Stopwatch = (props) => {
     useContext(SessionContext);
   const targetTime = end - start;
   const { updateSession } = props;
-  let seconds;
-  const msToHMS = (ms) => {
-    seconds = ms / 1000;
 
-    let hours = parseInt(seconds / 3600);
-    seconds = seconds % 3600;
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    chrome.storage.local.get(['displayTime'], (res) => {
+      setDisplayTime(res.displayTime);
+      console.log('displayTime:', displayTime);
+    });
+  });
 
-    let minutes = parseInt(seconds / 60);
-    seconds = seconds % 60;
-
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    seconds = seconds < 10 ? (seconds >= 0 ? '0' + seconds : '00') : seconds;
-    return hours + ':' + minutes + ':' + seconds;
-  };
-
-  const msToS = (ms) => {
-    seconds = ms / 1000;
-    seconds = seconds % 3600;
-    seconds = seconds % 60;
-    seconds = seconds < 10 ? (seconds >= 0 ? '0' + seconds : '00') : seconds;
-    if (seconds === '00') {
-      return 100;
-    } else {
-      return (seconds / 60) * 100;
-    }
+  const stopBackgroundTimer = () => {
+    chrome.storage.local.set({ isRunning: false });
   };
 
   const toggleTimer = (ev) => {
     const button = ev.target.innerText;
+
     if (button === 'START') {
+      setStoredIsRunning(true);
+      setStoredTimer(sessionTime);
       if (!currentSession.sessionTime) {
         updateSession(currentSession.id, { sessionTime });
       }
@@ -76,9 +82,11 @@ const Stopwatch = (props) => {
       setCountDown(true);
     }
     if (button === 'STOP' || button === 'PAUSE') {
+      stopBackgroundTimer();
       setCountDown(false);
     }
   };
+
   return (
     <div>
       <Card className={classes.timerContainer} elevation={10}>
@@ -92,7 +100,7 @@ const Stopwatch = (props) => {
                 top: '185px',
               }}
             >
-              {msToHMS(sessionTime)}{' '}
+              {displayTime}{' '}
             </Typography>
           </Grid>
           {countDown ? (
@@ -137,7 +145,7 @@ const Stopwatch = (props) => {
           )}
         </Grid>
         <Circle
-          percent={(sessionTime / targetTime) * 100}
+          percent={(displayTime / targetTime) * 100}
           strokeWidth="3"
           strokeColor={{
             '0%': '#5061a9',
@@ -163,3 +171,5 @@ export default connect(
     };
   }
 )(Stopwatch);
+
+export { msToHMS };

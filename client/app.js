@@ -5,13 +5,9 @@ import Routes from './routes';
 import { makeStyles } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { me } from './store';
-import { endSession, removeSession } from './store/sessions';
-import {
-  setStoredBlackList,
-  getStoredBlackList,
-  setStoredAuth,
-  getStoredAuth,
-} from './storage.js';
+import { endSession } from './store/sessions';
+import { setStoredBlackList, setStoredAuth, getStoredAuth } from './storage.js';
+import { setStoredIsRunning } from './storage';
 export const SessionContext = createContext();
 
 const useStyles = makeStyles(() => ({
@@ -49,6 +45,7 @@ const App = (props) => {
     const timeLeft = localStorage.getItem('sessionTime');
     if (parseInt(timeLeft) < 0) return;
     if (!parseInt(timeLeft) && currentSession.id && countDown) {
+      setStoredIsRunning(false);
       props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);
