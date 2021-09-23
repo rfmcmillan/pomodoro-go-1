@@ -354,11 +354,8 @@ const ChartRight = (props) => {
     for (let i = 0; i < filtered.length; i++) {
       const currentSession = filtered[i];
       const dayOfWeek = dayjs(currentSession.startTime).format('ddd');
-      console.log(currentSession.startTime);
       const time = dayjs(currentSession.startTime).format('H');
-      console.log('time:', time);
       const timeSlot = distHours[time];
-      console.log('timeSlot:', timeSlot);
       const slotData = timeSlot.data;
       for (let j = 0; j < slotData.length; j++) {
         if (slotData[j].x === dayOfWeek) slotData[j].y++;

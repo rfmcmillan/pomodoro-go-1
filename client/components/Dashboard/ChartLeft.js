@@ -61,9 +61,12 @@ const ChartLeft = (props) => {
   const distDays = { Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0 };
   if (sessions.length) {
     for (let i = 0; i < sessionDays.length; i++) {
-      distDays[sessionDays[i]]++;
+      if (sessionDays[i] !== 'Invalid Date') {
+        distDays[sessionDays[i]]++;
+      }
     }
   }
+  console.log('distDays:', distDays);
 
   let daysArr = [];
   for (const [key, val] of Object.entries(distDays)) {
