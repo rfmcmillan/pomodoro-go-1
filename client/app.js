@@ -83,14 +83,15 @@ const App = (props) => {
       dispatch(endSession(currentSession.id, true));
     }
   }, [timer]);
-
-  chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (changes.timer) {
-      chrome.storage.local.get(['timer'], (res) => {
-        setTimer(res.timer);
-      });
-    }
-  });
+  if (chrome.storage) {
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (changes.timer) {
+        chrome.storage.local.get(['timer'], (res) => {
+          setTimer(res.timer);
+        });
+      }
+    });
+  }
 
   return (
     <div className={classes.main}>
