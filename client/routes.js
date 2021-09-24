@@ -40,7 +40,7 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, auth, blackList, updateB, timer } = this.props;
-    console.log('timer in routes.js:', timer);
+
     if (chrome.storage)
       chrome.storage.onChanged.addListener(async (changes, areaName) => {
         if (changes.updatedBlackList) {

@@ -1,13 +1,17 @@
 import React, { useEffect, useState, createContext } from 'react';
-
 import Nav from './components/Nav';
 import Routes from './routes';
 import { makeStyles } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { me } from './store';
 import { endSession } from './store/sessions';
-import { setStoredBlackList, setStoredAuth, getStoredAuth } from './storage.js';
-import { setStoredIsRunning } from './storage';
+import {
+  setStoredBlackList,
+  setStoredAuth,
+  getStoredAuth,
+  setStoredIsRunning,
+} from './storage.js';
+
 export const SessionContext = createContext();
 
 const useStyles = makeStyles(() => ({
@@ -73,11 +77,17 @@ const App = (props) => {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log('timer in useEffect:', timer);
+    if (timer === 0 && currentSession.id) {
+      dispatch(endSession(currentSession.id, true));
+    }
+  }, [timer]);
+
   chrome.storage.onChanged.addListener((changes, areaName) => {
     if (changes.timer) {
-      chrome.storage.local.get(['timer', 'displayTime'], (res) => {
+      chrome.storage.local.get(['timer'], (res) => {
         setTimer(res.timer);
-        // setDisplayTime(res.displayTime);
       });
     }
   });
