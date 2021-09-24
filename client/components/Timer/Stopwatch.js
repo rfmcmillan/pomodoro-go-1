@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button, Typography, makeStyles, Card, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { updateSession } from '../../store/sessions';
+import { updateSession, endSession } from '../../store/sessions';
 import StopButton from './StopButton';
 import { SessionContext } from '../../app';
 import { TimerContext } from './CreateSession';
@@ -57,6 +57,13 @@ const Stopwatch = (props) => {
     useContext(SessionContext);
   const targetTime = end - start;
   const { updateSession } = props;
+
+  useEffect(() => {
+    console.log('timer:', timer);
+    if (timer === 0) {
+      dispatch(endSession(currentSession.id, true));
+    }
+  }, [timer]);
 
   chrome.storage.onChanged.addListener((changes, areaName) => {
     if (changes.timer) {

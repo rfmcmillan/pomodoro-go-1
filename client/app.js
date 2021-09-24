@@ -46,7 +46,7 @@ const App = (props) => {
     if (parseInt(timeLeft) < 0) return;
     if (!parseInt(timeLeft) && currentSession.id && countDown) {
       setStoredIsRunning(false);
-      props.endSession(currentSession.id, true);
+      // props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);
   useEffect(() => {
