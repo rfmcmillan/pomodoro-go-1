@@ -462,8 +462,9 @@ chrome.alarms.onAlarm.addListener(alarm => {
         return;
       }
 
-      const displayTime = msToHMS(time);
-      (0,_storage__WEBPACK_IMPORTED_MODULE_0__.setStoredTimer)(time - 1000).then((0,_storage__WEBPACK_IMPORTED_MODULE_0__.setStoredDisplayTime)(displayTime));
+      const displayTime = msToHMS(time - 1000);
+      (0,_storage__WEBPACK_IMPORTED_MODULE_0__.setStoredDisplayTime)(displayTime);
+      (0,_storage__WEBPACK_IMPORTED_MODULE_0__.setStoredTimer)(time - 1000);
     });
   }
 });

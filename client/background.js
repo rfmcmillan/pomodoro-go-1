@@ -297,8 +297,9 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       if (!res.isRunning) {
         return;
       }
-      const displayTime = msToHMS(time);
-      setStoredTimer(time - 1000).then(setStoredDisplayTime(displayTime));
+      const displayTime = msToHMS(time - 1000);
+      setStoredDisplayTime(displayTime);
+      setStoredTimer(time - 1000);
     });
   }
 });
