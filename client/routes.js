@@ -37,9 +37,10 @@ class Routes extends Component {
       currUser: this.props.auth.id,
     });
   }
-  render() {
-    const { isLoggedIn, auth, blackList, updateB } = this.props;
 
+  render() {
+    const { isLoggedIn, auth, blackList, updateB, timer } = this.props;
+    console.log('timer in routes.js:', timer);
     if (chrome.storage)
       chrome.storage.onChanged.addListener(async (changes, areaName) => {
         if (changes.updatedBlackList) {
@@ -58,7 +59,9 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/timer" component={Timer} />
+            <Route path="/timer">
+              <Timer timer={timer} />
+            </Route>
             <Route path="/login">
               <Redirect to="/timer" />
             </Route>
@@ -67,7 +70,9 @@ class Routes extends Component {
             </Route>
             <Route path="/" exact component={Timer} />
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/timer" exact component={CreateSession} />
+            <Route path="/timer" exact>
+              <CreateSession />
+            </Route>
             <Route exact path="/blocksites" component={BlockSites} />
             <Route exact path="/friends" component={Friends} />
             <Route exact path="/uhoh" component={BlockError} />

@@ -22,25 +22,26 @@ const App = (props) => {
   const currentSession = useSelector((state) => state.currentSession);
   const [sessionTime, setSessionTime] = useState(0);
   const [goal, setGoal] = useState('');
+  const [timer, setTimer] = useState(0);
   const [countDown, setCountDown] = useState(false);
   const blackList = useSelector((state) => state.blackList);
   const auth = useSelector((state) => state.auth);
+  const [intervalID, setIntervalID] = useState('');
+
   if (blackList.length && auth) {
     const blackListAuth = blackList.filter((item) => {
       return item.userId === auth.id;
     });
-
     const blackListedSiteUrls = blackListAuth.map((item, index) => {
       return item.site.siteUrl;
     });
-
     setStoredBlackList(blackListedSiteUrls);
   }
+
   if (auth.id) {
     setStoredAuth(auth).then(getStoredAuth());
   }
 
-  const [intervalID, setIntervalID] = useState('');
   useEffect(() => {
     const timeLeft = localStorage.getItem('sessionTime');
     if (parseInt(timeLeft) < 0) return;
@@ -49,6 +50,7 @@ const App = (props) => {
       // props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);
+
   useEffect(() => {
     if ((sessionTime, countDown)) {
       const id = setInterval(() => {
@@ -64,11 +66,21 @@ const App = (props) => {
       setSessionTime(0);
     }
   }, [dispatch]);
+
   useEffect(() => {
     if (window.localStorage.getItem('token')) {
       dispatch(me());
     }
   }, [dispatch]);
+
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (changes.timer) {
+      chrome.storage.local.get(['timer', 'displayTime'], (res) => {
+        setTimer(res.timer);
+        // setDisplayTime(res.displayTime);
+      });
+    }
+  });
 
   return (
     <div className={classes.main}>
@@ -85,7 +97,7 @@ const App = (props) => {
         }}
       >
         <Nav />
-        <Routes />
+        <Routes timer={timer} />
       </SessionContext.Provider>
     </div>
   );

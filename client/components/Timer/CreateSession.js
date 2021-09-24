@@ -25,6 +25,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 const CreateSession = (props) => {
+  console.log('props in CreateSession:', props);
   const classes = useStyles();
   const currentSession = useSelector((state) => state.currentSession);
   const [hours, setHours] = useState(0);

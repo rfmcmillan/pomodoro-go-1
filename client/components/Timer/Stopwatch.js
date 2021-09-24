@@ -48,7 +48,7 @@ const Stopwatch = (props) => {
   const dispatch = useDispatch();
   const currentSession = useSelector((state) => state.currentSession);
   const [displayTime, setDisplayTime] = useState('00:00:00');
-  const [timer, setTimer] = useState(0);
+  // const [timer, setTimer] = useState(0);
   const { setHours, setMinutes, setSeconds } = useContext(TimerContext);
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
@@ -58,21 +58,21 @@ const Stopwatch = (props) => {
   const targetTime = end - start;
   const { updateSession } = props;
 
-  useEffect(() => {
-    console.log('timer:', timer);
-    if (timer === 0 && currentSession.id) {
-      dispatch(endSession(currentSession.id, true));
-    }
-  }, [timer]);
+  // useEffect(() => {
+  //   console.log('timer:', timer);
+  //   if (timer === 0 && currentSession.id) {
+  //     dispatch(endSession(currentSession.id, true));
+  //   }
+  // }, [timer]);
 
-  chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (changes.timer) {
-      chrome.storage.local.get(['timer', 'displayTime'], (res) => {
-        setTimer(res.timer);
-        setDisplayTime(res.displayTime);
-      });
-    }
-  });
+  // chrome.storage.onChanged.addListener((changes, areaName) => {
+  //   if (changes.timer) {
+  //     chrome.storage.local.get(['timer', 'displayTime'], (res) => {
+  //       setTimer(res.timer);
+  //       setDisplayTime(res.displayTime);
+  //     });
+  //   }
+  // });
 
   const stopBackgroundTimer = () => {
     chrome.storage.local.set({ isRunning: false });
@@ -155,7 +155,7 @@ const Stopwatch = (props) => {
           )}
         </Grid>
         <Circle
-          percent={(timer / targetTime) * 100}
+          percent={(1 / targetTime) * 100}
           strokeWidth="3"
           strokeColor={{
             '0%': '#5061a9',
