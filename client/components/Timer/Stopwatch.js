@@ -60,7 +60,7 @@ const Stopwatch = (props) => {
 
   useEffect(() => {
     console.log('timer:', timer);
-    if (timer === 0) {
+    if (timer === 0 && currentSession.id) {
       dispatch(endSession(currentSession.id, true));
     }
   }, [timer]);
