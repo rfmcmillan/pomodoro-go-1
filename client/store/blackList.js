@@ -1,25 +1,67 @@
 import axios from 'axios';
-const LOAD_BLACKLIST = 'LOAD_BLACKLIST';
-const loadBlackListActionCreator = (blackList) => {
+
+const LOAD_BLACKLISTS = 'LOAD_BLACKLISTS';
+const UPDATE_BLACKLIST = 'UPDATE_BLACKLIST';
+const CREATE_BLACKLIST = 'CREATE_BLACKLIST';
+
+const loadBlackListsActionCreator = (blackLists) => {
   return {
-    type: LOAD_BLACKLIST,
-    blackList,
+    type: LOAD_BLACKLISTS,
+    blackLists,
   };
 };
 
-const loadBlackList = () => {
+const loadBlackLists = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${process.env.API_URL}/api/blackList`);
-      const blackList = response.data;
-      dispatch(loadBlackListActionCreator(blackList));
+      const blackLists = response.data;
+      dispatch(loadBlackListsActionCreator(blackLists));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-const UPDATE_BLACKLIST = 'UPDATE_BLACKLIST';
+const createBlackListActionCreator = (blackList) => {
+  console.log('blackList in AC:', blackList);
+  return {
+    type: CREATE_BLACKLIST,
+    blackList,
+  };
+};
+
+const createBlackList = (siteUrl, category, userId) => {
+  return async (dispatch) => {
+    console.log(
+      'in createBlackList: siteUrl, category, userId',
+      siteUrl,
+      category,
+      userId
+    );
+    const response = await axios.get(`${process.env.API_URL}/api/sites`);
+    const existingSites = response.data;
+    const existingSiteUrls = existingSites.map((site) => {
+      return site.siteUrl;
+    });
+    if (existingSiteUrls.includes(siteUrl)) {
+      console.log('yes, theres already a site');
+    } else {
+      const response = await axios.post(`${process.env.API_URL}/api/sites`, {
+        siteUrl,
+        category,
+        userId,
+      });
+      const newSite = response.data.newSite;
+      const bLresponse = await axios.post(
+        `${process.env.API_URL}/api/blackList`,
+        { siteId: newSite.id, userId }
+      );
+      const blackList = bLresponse.data;
+      dispatch(createBlackListActionCreator(blackList));
+    }
+  };
+};
 
 const updateBlackListActionCreator = (blackList) => {
   return {
@@ -41,8 +83,11 @@ const updateBlackList = (blackListId, blackListInfo) => {
 };
 
 const blackListReducer = (state = [], action) => {
-  if (action.type === LOAD_BLACKLIST) {
-    state = action.blackList;
+  if (action.type === LOAD_BLACKLISTS) {
+    state = action.blackLists;
+  }
+  if (action.type === CREATE_BLACKLIST) {
+    state = [...state, action.blackList];
   }
   if (action.type === UPDATE_BLACKLIST) {
     const blackLists = state.map((blackList) => {
@@ -56,4 +101,4 @@ const blackListReducer = (state = [], action) => {
   return state;
 };
 
-export { loadBlackList, updateBlackList, blackListReducer };
+export { loadBlackLists, createBlackList, updateBlackList, blackListReducer };

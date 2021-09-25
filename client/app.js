@@ -32,15 +32,17 @@ const App = (props) => {
   const auth = useSelector((state) => state.auth);
   const [intervalID, setIntervalID] = useState('');
 
-  if (blackList.length && auth) {
-    const blackListAuth = blackList.filter((item) => {
-      return item.userId === auth.id;
-    });
-    const blackListedSiteUrls = blackListAuth.map((item, index) => {
-      return item.site.siteUrl;
-    });
-    setStoredBlackList(blackListedSiteUrls);
-  }
+  // if (blackList.length && auth) {
+  //   const blackListAuth = blackList.filter((item) => {
+  //     return item.userId === auth.id;
+  //   });
+  //   const blackListedSiteUrls = blackListAuth.map((item, index) => {
+  //     console.log('item in app.js:', item);
+  //     return item.site.siteUrl;
+  //   });
+  //   console.log('blackListedSiteUrls:', blackListedSiteUrls);
+  //   setStoredBlackList(blackListedSiteUrls);
+  // }
 
   if (auth.id) {
     setStoredAuth(auth).then(getStoredAuth());

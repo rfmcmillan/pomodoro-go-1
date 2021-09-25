@@ -5,8 +5,8 @@ const {
 
 router.get('/', async (req, res, next) => {
   try {
-    const blacklist = await BlackList.findAll({ include: [User, Site] });
-    res.send(blacklist);
+    const blackLists = await BlackList.findAll({ include: [User, Site] });
+    res.send(blackLists);
   } catch (err) {
     next(err);
   }
@@ -14,14 +14,26 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const blackList = await BlackList.findAll({
+    const blackLists = await BlackList.findAll({
       where: {
         userId: req.params.userId,
       },
+      include: [User, Site],
     });
+    res.send(blackLists);
   } catch (err) {
     console.error('Error in blackList "get by userId" route');
     next(err);
+  }
+});
+
+router.post('/', async (req, res, next) => {
+  try {
+    const { siteId, userId } = req.body;
+    const blackList = await BlackList.create({ siteId, userId });
+    res.status(201).send(blackList);
+  } catch (error) {
+    next(error);
   }
 });
 
