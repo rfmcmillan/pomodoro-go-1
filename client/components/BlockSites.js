@@ -100,13 +100,17 @@ const BlockSites = (props) => {
   const auth = useSelector((state) => state.auth);
   const blackList = useSelector((state) => state.blackList);
   console.log('blackList:', blackList);
+  const blackListUser = blackList.filter((blackListItem) => {
+    return blackListItem.userId === auth.id;
+  });
+  console.log('blackList after filter:', blackListUser);
   //style control
   const classes = useStyles();
 
   //lifecycles
   useEffect(() => {
     props.getSites(props.auth.id);
-  }, []);
+  }, [blackList]);
 
   //user interactions > change state, dispatch to store
   const handleChange = (event) => {
