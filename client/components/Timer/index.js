@@ -4,6 +4,7 @@ import { Grid } from '@material-ui/core';
 import CreateSession from './CreateSession';
 
 export const Timer = (props) => {
+  const { timer } = props;
   return (
     <Grid
       container
@@ -11,7 +12,7 @@ export const Timer = (props) => {
       justifyContent="center"
       alignItems="flex-start"
     >
-      <CreateSession />
+      <CreateSession timer={timer} />
     </Grid>
   );
 };

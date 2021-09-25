@@ -1,13 +1,17 @@
 import React, { useEffect, useState, createContext } from 'react';
-
 import Nav from './components/Nav';
 import Routes from './routes';
 import { makeStyles } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { me } from './store';
 import { endSession } from './store/sessions';
-import { setStoredBlackList, setStoredAuth, getStoredAuth } from './storage.js';
-import { setStoredIsRunning } from './storage';
+import {
+  setStoredBlackList,
+  setStoredAuth,
+  getStoredAuth,
+  setStoredIsRunning,
+} from './storage.js';
+
 export const SessionContext = createContext();
 
 const useStyles = makeStyles(() => ({
@@ -22,25 +26,26 @@ const App = (props) => {
   const currentSession = useSelector((state) => state.currentSession);
   const [sessionTime, setSessionTime] = useState(0);
   const [goal, setGoal] = useState('');
+  const [timer, setTimer] = useState(0);
   const [countDown, setCountDown] = useState(false);
   const blackList = useSelector((state) => state.blackList);
   const auth = useSelector((state) => state.auth);
+  const [intervalID, setIntervalID] = useState('');
+
   if (blackList.length && auth) {
     const blackListAuth = blackList.filter((item) => {
       return item.userId === auth.id;
     });
-
     const blackListedSiteUrls = blackListAuth.map((item, index) => {
       return item.site.siteUrl;
     });
-
     setStoredBlackList(blackListedSiteUrls);
   }
+
   if (auth.id) {
     setStoredAuth(auth).then(getStoredAuth());
   }
 
-  const [intervalID, setIntervalID] = useState('');
   useEffect(() => {
     const timeLeft = localStorage.getItem('sessionTime');
     if (parseInt(timeLeft) < 0) return;
@@ -49,6 +54,7 @@ const App = (props) => {
       // props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);
+
   useEffect(() => {
     if ((sessionTime, countDown)) {
       const id = setInterval(() => {
@@ -64,11 +70,29 @@ const App = (props) => {
       setSessionTime(0);
     }
   }, [dispatch]);
+
   useEffect(() => {
     if (window.localStorage.getItem('token')) {
       dispatch(me());
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log('timer in app.js useEffect:', timer);
+    if (timer === 0 && currentSession.id) {
+      setCountDown(false);
+      dispatch(endSession(currentSession.id, true));
+    }
+  }, [timer]);
+  if (chrome.storage) {
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (changes.timer) {
+        chrome.storage.local.get(['timer'], (res) => {
+          setTimer(res.timer);
+        });
+      }
+    });
+  }
 
   return (
     <div className={classes.main}>
@@ -85,7 +109,7 @@ const App = (props) => {
         }}
       >
         <Nav />
-        <Routes />
+        <Routes timer={timer} />
       </SessionContext.Provider>
     </div>
   );

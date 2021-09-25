@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button, Typography, makeStyles, Card, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { updateSession, endSession } from '../../store/sessions';
+import { updateSession } from '../../store/sessions';
 import StopButton from './StopButton';
 import { SessionContext } from '../../app';
 import { TimerContext } from './CreateSession';
@@ -42,37 +42,20 @@ const msToHMS = (ms) => {
 };
 
 const Stopwatch = (props) => {
+  const { updateSession, timer } = props;
+  const displayTime = msToHMS(timer);
   const classes = useStyles();
   const theme = useTheme();
-  const { info, primary, secondary, text, error } = theme.palette;
-  const dispatch = useDispatch();
+  const { primary } = theme.palette;
   const currentSession = useSelector((state) => state.currentSession);
-  const [displayTime, setDisplayTime] = useState('00:00:00');
-  const [timer, setTimer] = useState(0);
-  const { setHours, setMinutes, setSeconds } = useContext(TimerContext);
+  console.log('currentSession:', currentSession);
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);
   const { setCountDown, sessionTime, countDown, setSessionTime } =
     useContext(SessionContext);
+
   const targetTime = end - start;
-  const { updateSession } = props;
-
-  useEffect(() => {
-    console.log('timer:', timer);
-    if (timer === 0 && currentSession.id) {
-      dispatch(endSession(currentSession.id, true));
-    }
-  }, [timer]);
-
-  chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (changes.timer) {
-      chrome.storage.local.get(['timer', 'displayTime'], (res) => {
-        setTimer(res.timer);
-        setDisplayTime(res.displayTime);
-      });
-    }
-  });
 
   const stopBackgroundTimer = () => {
     chrome.storage.local.set({ isRunning: false });
@@ -82,6 +65,8 @@ const Stopwatch = (props) => {
     const button = ev.target.innerText;
 
     if (button === 'START') {
+      console.log('currentSession.sessionTime:', currentSession.sessionTime);
+
       setStoredIsRunning(true);
       setStoredTimer(sessionTime);
       if (!currentSession.sessionTime) {
@@ -113,7 +98,7 @@ const Stopwatch = (props) => {
               {displayTime}{' '}
             </Typography>
           </Grid>
-          {countDown ? (
+          {timer > 0 ? (
             <Grid container direction="row" className={classes.buttons}>
               <Grid>
                 <Button
