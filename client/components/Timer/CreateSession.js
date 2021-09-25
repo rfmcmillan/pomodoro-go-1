@@ -33,7 +33,9 @@ const CreateSession = (props) => {
   const [seconds, setSeconds] = useState(0);
   const { setSessionTime, sessionTime, countDown, setCountDown } =
     useContext(SessionContext);
+  console.log('sessionTime in CreateSession:', sessionTime);
   useEffect(() => {
+    console.log('countDown:', countDown);
     if (!countDown) {
       const sec = seconds * 1000;
       const min = minutes * 60000;
@@ -41,22 +43,6 @@ const CreateSession = (props) => {
 
       setSessionTime(sec + min + hour);
       window.localStorage.setItem('sessionTime', sec + min + hour);
-    } else {
-      window.timer = setInterval(() => {
-        setSessionTime((sessionTime) => {
-          const newSessionTime = sessionTime - 1000;
-          localStorage.setItem('sessionTime', newSessionTime);
-          return newSessionTime;
-        });
-        if (!sessionTime) {
-          setSessionTime(0);
-          setCountDown(false);
-          clearInterval(window.timer);
-        }
-      }, 1000);
-      return () => {
-        clearInterval(window.timer);
-      };
     }
   });
   return (
