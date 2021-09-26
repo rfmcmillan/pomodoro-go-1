@@ -33,9 +33,7 @@ const CreateSession = (props) => {
   const [seconds, setSeconds] = useState(0);
   const { setSessionTime, sessionTime, countDown, setCountDown } =
     useContext(SessionContext);
-  console.log('sessionTime in CreateSession:', sessionTime);
   useEffect(() => {
-    console.log('countDown:', countDown);
     if (!countDown) {
       const sec = seconds * 1000;
       const min = minutes * 60000;

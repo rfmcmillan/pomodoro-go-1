@@ -67,18 +67,21 @@ const App = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('timer in app.js useEffect:', timer);
     if (timer === 0 && currentSession.id) {
       setCountDown(false);
       dispatch(endSession(currentSession.id, true));
     }
   }, [timer]);
+
   if (chrome.storage) {
     chrome.storage.onChanged.addListener((changes, areaName) => {
       if (changes.timer) {
         chrome.storage.local.get(['timer'], (res) => {
           if (res.timer !== null) {
             setTimer(res.timer);
+          } else {
+            console.log('res.timer in app.js:', res.timer);
+            setTimer(timer - 1000);
           }
         });
       }

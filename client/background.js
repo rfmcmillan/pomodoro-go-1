@@ -287,7 +287,7 @@ chrome.alarms.create('oneSecond', {
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === 'oneSecond') {
     chrome.storage.local.get(['isRunning', 'timer'], (res) => {
-      console.log('res.isRunning:', res.isRunning);
+      console.log('res.timer in background.js:', res.timer);
       const time = res.timer ?? 0;
 
       if (time === 0) {
@@ -299,6 +299,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       }
       const displayTime = msToHMS(time - 1000);
       setStoredDisplayTime(displayTime);
+
       setStoredTimer(time - 1000);
     });
   }
