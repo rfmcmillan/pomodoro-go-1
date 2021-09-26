@@ -24,7 +24,6 @@ const loadBlackLists = () => {
 };
 
 const createBlackListActionCreator = (blackList) => {
-  console.log('blackList in AC:', blackList);
   return {
     type: CREATE_BLACKLIST,
     blackList,
@@ -33,12 +32,6 @@ const createBlackListActionCreator = (blackList) => {
 
 const createBlackList = (siteUrl, category, userId) => {
   return async (dispatch) => {
-    console.log(
-      'in createBlackList: siteUrl, category, userId',
-      siteUrl,
-      category,
-      userId
-    );
     const response = await axios.get(`${process.env.API_URL}/api/sites`);
     const existingSites = response.data;
     const foundSite = existingSites.find((site) => site.siteUrl === siteUrl);

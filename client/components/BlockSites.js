@@ -129,7 +129,6 @@ const BlockSites = (props) => {
       setStoredBlackList(newBlackList);
     });
     dispatch(createBlackList(urlInput.siteUrl, urlInput.category, auth.id));
-    //props.addSite(urlInput, props.auth.id);
   };
 
   const deleteUrl = (siteToDelete) => {

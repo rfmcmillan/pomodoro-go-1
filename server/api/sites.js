@@ -15,23 +15,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:siteUrl', async (req, res, next) => {
-  try {
-    console.log('siteUrl in get route:', req.params.siteUrl);
-    const site = await Site.findOne({
-      // include: [User],
-      where: {
-        siteUrl: req.params.siteUrl,
-      },
-    });
-    console.log('site in get route:', site);
-    res.send(site);
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
-
 //need to fix the route below cause it's not working fully
 router.get('/user/:userId', async (req, res, next) => {
   try {

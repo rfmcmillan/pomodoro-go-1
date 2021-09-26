@@ -32,18 +32,6 @@ const App = (props) => {
   const auth = useSelector((state) => state.auth);
   const [intervalID, setIntervalID] = useState('');
 
-  // if (blackList.length && auth) {
-  //   const blackListAuth = blackList.filter((item) => {
-  //     return item.userId === auth.id;
-  //   });
-  //   const blackListedSiteUrls = blackListAuth.map((item, index) => {
-  //     console.log('item in app.js:', item);
-  //     return item.site.siteUrl;
-  //   });
-  //   console.log('blackListedSiteUrls:', blackListedSiteUrls);
-  //   setStoredBlackList(blackListedSiteUrls);
-  // }
-
   if (auth.id) {
     setStoredAuth(auth).then(getStoredAuth());
   }
@@ -53,7 +41,6 @@ const App = (props) => {
     if (parseInt(timeLeft) < 0) return;
     if (!parseInt(timeLeft) && currentSession.id && countDown) {
       setStoredIsRunning(false);
-      // props.endSession(currentSession.id, true);
     }
   }, [sessionTime]);
 
@@ -90,7 +77,7 @@ const App = (props) => {
     chrome.storage.onChanged.addListener((changes, areaName) => {
       if (changes.timer) {
         chrome.storage.local.get(['timer'], (res) => {
-          if (timer !== null) {
+          if (res.timer !== null) {
             setTimer(res.timer);
           }
         });
