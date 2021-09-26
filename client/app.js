@@ -90,7 +90,9 @@ const App = (props) => {
     chrome.storage.onChanged.addListener((changes, areaName) => {
       if (changes.timer) {
         chrome.storage.local.get(['timer'], (res) => {
-          setTimer(res.timer);
+          if (timer !== null) {
+            setTimer(res.timer);
+          }
         });
       }
     });

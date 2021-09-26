@@ -99,7 +99,6 @@ const BlockSites = (props) => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const blackList = useSelector((state) => state.blackList);
-  console.log('blackList:', blackList);
   const blackListUser = blackList.filter((blackListItem) => {
     return blackListItem.userId === auth.id;
   });

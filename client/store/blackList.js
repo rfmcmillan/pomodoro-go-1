@@ -41,11 +41,16 @@ const createBlackList = (siteUrl, category, userId) => {
     );
     const response = await axios.get(`${process.env.API_URL}/api/sites`);
     const existingSites = response.data;
-    const existingSiteUrls = existingSites.map((site) => {
-      return site.siteUrl;
-    });
-    if (existingSiteUrls.includes(siteUrl)) {
-      console.log('yes, theres already a site');
+    const foundSite = existingSites.find((site) => site.siteUrl === siteUrl);
+
+    if (foundSite) {
+      const response = await axios.post(
+        `${process.env.API_URL}/api/blackList`,
+        { siteId: foundSite.id, userId }
+      );
+      const blackList = response.data;
+
+      dispatch(createBlackListActionCreator(blackList));
     } else {
       const response = await axios.post(`${process.env.API_URL}/api/sites`, {
         siteUrl,
