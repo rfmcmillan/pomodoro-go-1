@@ -51,18 +51,12 @@ router.post('/', async (req, res, next) => {
         siteUrl,
         category,
       });
-      await BlackList.create({
-        siteId: newSite.id,
-        userId,
-      });
-      res.send(newSite);
+
+      res.send({ newSite });
     } else {
       const existingSite = sites[0];
-      await BlackList.create({
-        siteId: existingSite.id,
-        userId,
-      });
-      res.send(existingSite);
+
+      res.send({ existingSite });
     }
   } catch (err) {
     next(err);

@@ -48,7 +48,6 @@ const Stopwatch = (props) => {
   const theme = useTheme();
   const { primary } = theme.palette;
   const currentSession = useSelector((state) => state.currentSession);
-  console.log('currentSession:', currentSession);
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);

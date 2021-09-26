@@ -8,7 +8,7 @@ import Timer from './components/Timer';
 import Dashboard from './components/Dashboard';
 import { me } from './store';
 import { loadSessions } from './store/sessions';
-import { loadBlackList, updateBlackList } from './store/blackList';
+import { loadBlackLists, updateBlackList } from './store/blackList';
 import { loadBlocks } from './store/blocks';
 import { loadSites } from './store/sites';
 import { getSites } from './store/blockSites';
@@ -31,6 +31,7 @@ class Routes extends Component {
     }
     chrome?.runtime?.sendMessage('kaghhmclljbnigfffgjhfbbbcpgenjoi', {
       message: 'set-blocked-sites',
+
       blockedSites: this.props.blockedSites.filter((each) => {
         return each.blacklist.blockingEnabled === true;
       }),
@@ -108,7 +109,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me());
       dispatch(loadSessions());
       dispatch(loadSites());
-      dispatch(loadBlackList());
+      dispatch(loadBlackLists());
       dispatch(loadBlocks());
     },
 

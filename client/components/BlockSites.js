@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -27,6 +27,7 @@ import {
   deleteSite,
   updateBlocking,
 } from '../store/blockSites';
+import { createBlackList } from '../store/blackList';
 import { setStoredBlackList, getStoredBlackList } from '../storage.js';
 
 // material-ui style definitions
@@ -96,16 +97,19 @@ const BlockSites = (props) => {
     category: '',
   });
   const dispatch = useDispatch();
-  //
-
+  const auth = useSelector((state) => state.auth);
+  const blackList = useSelector((state) => state.blackList);
+  const blackListUser = blackList.filter((blackListItem) => {
+    return blackListItem.userId === auth.id;
+  });
+  console.log('blackList after filter:', blackListUser);
   //style control
   const classes = useStyles();
-  //
 
   //lifecycles
   useEffect(() => {
     props.getSites(props.auth.id);
-  }, []);
+  }, [blackList]);
 
   //user interactions > change state, dispatch to store
   const handleChange = (event) => {
@@ -124,7 +128,7 @@ const BlockSites = (props) => {
       const newBlackList = [...blackList, urlInput.siteUrl];
       setStoredBlackList(newBlackList);
     });
-    props.addSite(urlInput, props.auth.id);
+    dispatch(createBlackList(urlInput.siteUrl, urlInput.category, auth.id));
   };
 
   const deleteUrl = (siteToDelete) => {

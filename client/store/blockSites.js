@@ -1,5 +1,7 @@
+import { ContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import history from '../history';
+import { createBlackList } from './blackList';
 
 const GET_SITES = 'GET_SITES';
 const ADD_SITE = 'ADD_SITE';
@@ -28,6 +30,13 @@ const _getSites = (blockedSites) => {
 };
 
 //add new site
+const _addSite = (blockedSite) => {
+  return {
+    type: ADD_SITE,
+    blockedSite,
+  };
+};
+
 export const addSite = (site, userId) => {
   return async (dispatch) => {
     try {
@@ -37,7 +46,17 @@ export const addSite = (site, userId) => {
           userId: userId,
         })
       ).data;
-      dispatch(getSites(userId));
+      const newBlackList = await axios.post(
+        `${process.env.API_URL}/api/blackList`,
+        {
+          siteId: newSite.id,
+          userId,
+        }
+      ).data;
+      const { siteId, userId } = newBlackList;
+      dispatch(_addSite(newSite));
+      console.log('about to call createBlackList()');
+      createBlackList(siteId, userId);
     } catch (err) {
       console.log(err);
     }
@@ -75,6 +94,9 @@ export const updateBlocking = (userId, siteId) => {
 const blockedSitesReducer = (state = [], action) => {
   if (action.type === GET_SITES) {
     return (state = action.blockedSites);
+  }
+  if (action.type === ADD_SITE) {
+    return (state = [...state, action.blockedSite]);
   }
   return state;
 };
