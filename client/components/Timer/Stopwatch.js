@@ -44,13 +44,10 @@ const msToHMS = (ms) => {
 const Stopwatch = (props) => {
   const { updateSession, timer } = props;
   const displayTime = msToHMS(timer);
-  console.log('timer:', timer);
-  console.log('displayTime:', displayTime);
   const classes = useStyles();
   const theme = useTheme();
   const { primary } = theme.palette;
   const currentSession = useSelector((state) => state.currentSession);
-  console.log('curretnSession:', currentSession);
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);

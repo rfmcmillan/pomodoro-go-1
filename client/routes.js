@@ -106,10 +106,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
-      dispatch(me());
       dispatch(loadSessions());
       dispatch(loadSites());
-      dispatch(loadBlackLists());
       dispatch(loadBlocks());
     },
 
