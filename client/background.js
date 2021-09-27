@@ -218,24 +218,24 @@ const background = {
     });
   },
 
-  listenForBlockedSite: function () {
-    return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
-      if (changeInfo.url) {
-        // const hostname = new URL(url).hostname;
-        // console.log(hostname);
-        getStoredBlackList().then((blackListUrls) => {
-          console.log('storedBlackList in background.js:', blackListUrls);
-          if (blackListUrls) {
-            if (blackListUrls.includes(changeInfo.url)) {
-              chrome.tabs.update(tabId, {
-                url: `${process.env.API_URL}/uhoh`,
-              });
-            }
-          }
-        });
-      }
-    });
-  },
+  // listenForBlockedSite: function () {
+  //   return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+  //     if (changeInfo.url) {
+  //       // const hostname = new URL(url).hostname;
+  //       // console.log(hostname);
+  //       getStoredBlackList().then((blackListUrls) => {
+  //         console.log('storedBlackList in background.js:', blackListUrls);
+  //         if (blackListUrls) {
+  //           if (blackListUrls.includes(changeInfo.url)) {
+  //             chrome.tabs.update(tabId, {
+  //               url: `${process.env.API_URL}/uhoh`,
+  //             });
+  //           }
+  //         }
+  //       });
+  //     }
+  //   });
+  // },
 
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
@@ -285,24 +285,41 @@ chrome.alarms.create('oneSecond', {
   periodInMinutes: 1 / 60,
 });
 
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'oneSecond') {
-    chrome.storage.local.get(['isRunning', 'timer'], (res) => {
-      console.log('res.timer in background.js:', res.timer);
-      console.log('res.isRunning:', res.isRunning);
-      const time = res.timer ?? 0;
+// chrome.alarms.onAlarm.addListener((alarm) => {
+//   if (alarm.name === 'oneSecond') {
+//     chrome.storage.local.get(['isRunning', 'timer'], (res) => {
+//       console.log('res.timer in background.js:', res.timer);
+//       console.log('res.isRunning:', res.isRunning);
+//       const time = res.timer ?? 0;
 
-      if (time === 0) {
-        setStoredIsRunning(false);
-        return;
+//       if (time === 0) {
+//         setStoredIsRunning(false);
+//         return;
+//       }
+//       if (!res.isRunning) {
+//         return;
+//       }
+//       const displayTime = msToHMS(time - 1000);
+//       setStoredDisplayTime(displayTime);
+//       console.log('time in background.js:', time);
+//       setStoredTimer(time - 1000);
+//     });
+//   }
+// });
+
+chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+  if (changeInfo.url) {
+    // const hostname = new URL(url).hostname;
+    // console.log(hostname);
+    getStoredBlackList().then((blackListUrls) => {
+      console.log('storedBlackList in background.js:', blackListUrls);
+      if (blackListUrls) {
+        if (blackListUrls.includes(changeInfo.url)) {
+          chrome.tabs.update(tabId, {
+            url: `${process.env.API_URL}/uhoh`,
+          });
+        }
       }
-      if (!res.isRunning) {
-        return;
-      }
-      const displayTime = msToHMS(time - 1000);
-      setStoredDisplayTime(displayTime);
-      console.log('time in background.js:', time);
-      setStoredTimer(time - 1000);
     });
   }
 });

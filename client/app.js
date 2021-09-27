@@ -3,14 +3,10 @@ import Nav from './components/Nav';
 import Routes from './routes';
 import { makeStyles } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { me } from './store';
 import { endSession } from './store/sessions';
-import {
-  setStoredBlackList,
-  setStoredAuth,
-  getStoredAuth,
-  setStoredIsRunning,
-} from './storage.js';
+import { loadBlackLists } from './store/blackList';
+import { me } from './store/auth';
+import { setStoredBlackList, setStoredAuth, getStoredAuth } from './storage.js';
 
 export const SessionContext = createContext();
 
@@ -21,8 +17,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 const App = (props) => {
-  console.log('starting app.js');
-
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentSession = useSelector((state) => state.currentSession);
@@ -32,15 +26,17 @@ const App = (props) => {
   const [counter, setCounter] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const blackList = useSelector((state) => state.blackList);
-  console.log('isActive:', isActive);
-  console.log('sessionTime', sessionTime);
-  console.log('counter:', counter);
-
   const auth = useSelector((state) => state.auth);
   const [intervalID, setIntervalID] = useState('');
+
   if (auth.id) {
     setStoredAuth(auth).then(getStoredAuth());
   }
+
+  useEffect(() => {
+    dispatch(loadBlackLists());
+    dispatch(me());
+  }, []);
 
   useEffect(() => {
     setCounter(sessionTime);
@@ -68,57 +64,17 @@ const App = (props) => {
     return () => clearInterval(intervalId);
   }, [isActive, counter]);
 
-  // useEffect(() => {
-  //   const timeLeft = localStorage.getItem('sessionTime');
-  //   if (parseInt(timeLeft) < 0) return;
-  //   if (!parseInt(timeLeft) && currentSession.id && countDown) {
-  //     setStoredIsRunning(false);
-  //   }
-  // }, [sessionTime]);
-
-  // useEffect(() => {
-  //   if (window.localStorage.getItem('token')) {
-  //     dispatch(me());
-  //   }
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (timer === 0 && currentSession.id) {
-  //     setCountDown(false);
-  //     dispatch(endSession(currentSession.id, true));
-  //   } else {
-  //     console.log('timer:', timer);
-  //   }
-  // }, [timer]);
-
   useEffect(() => {
-    console.log('blackList in app.js:', blackList);
-    const blackListUser = blackList.filter((blackListItem) => {
-      return blackListItem.userId === auth.id;
-    });
-    console.log("user's blackList in app.js:", blackListUser);
-    const blackListUserUrls = blackListUser.map((blackListItem) => {
-      return blackListItem.site.siteUrl;
-    });
-    setStoredBlackList(blackListUserUrls);
-  }, [blackList]);
-
-  // if (chrome.storage) {
-  //   chrome.storage.onChanged.addListener((changes, areaName) => {
-  //     console.log('changes:', changes);
-  //     if (changes.timer) {
-  //       chrome.storage.local.get(['timer'], (res) => {
-  //         console.log('res.timer:', res.timer);
-  //         if (res.timer !== null) {
-  //           setTimer(res.timer);
-  //         } else {
-  //           console.log('res.timer in app.js:', res.timer);
-  //           setTimer(timer - 1000);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
+    if (auth.id && blackList.length) {
+      const blackListUser = blackList.filter((blackListItem) => {
+        return blackListItem.userId === auth.id;
+      });
+      const blackListUserUrls = blackListUser.map((blackListItem) => {
+        return blackListItem.site.siteUrl;
+      });
+      setStoredBlackList(blackListUserUrls);
+    }
+  }, [blackList, auth]);
 
   return (
     <div className={classes.main}>
