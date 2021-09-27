@@ -22,12 +22,14 @@ const useStyles = makeStyles(() => ({
 const GoalSelector = (props) => {
   const auth = useSelector((state) => state.auth);
   const currentSession = useSelector((state) => state.currentSession);
-  const { goal, setGoal } = useContext(SessionContext);
+  const { goal, setGoal, sessionTime, setSessionTime } =
+    useContext(SessionContext);
   const { createSession, updateSession } = props;
   const classes = useStyles();
 
   const handleChange = (ev) => {
     const { value } = ev.target;
+    console.log('sessionTime in GoalSelector:', sessionTime);
     if (!currentSession.id) {
       createSession(auth.id, value);
     }

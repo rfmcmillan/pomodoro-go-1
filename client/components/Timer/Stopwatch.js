@@ -51,7 +51,7 @@ const Stopwatch = (props) => {
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);
-  const { setCountDown, sessionTime, countDown, setSessionTime } =
+  const { isActive, setIsActive, sessionTime, setSessionTime } =
     useContext(SessionContext);
 
   const targetTime = end - start;
@@ -66,18 +66,20 @@ const Stopwatch = (props) => {
     if (button === 'START') {
       console.log('currentSession.sessionTime:', currentSession.sessionTime);
 
-      setStoredIsRunning(true);
-      setStoredTimer(sessionTime);
+      // setStoredIsRunning(true);
+      // setStoredTimer(sessionTime);
+
       if (!currentSession.sessionTime) {
         updateSession(currentSession.id, { sessionTime });
       }
       chrome.alarms.create('startTimer', { when: Date.now() + sessionTime });
       localStorage.setItem('currentSession', JSON.stringify(currentSession));
-      setCountDown(true);
+
+      setIsActive(true);
     }
     if (button === 'STOP' || button === 'PAUSE') {
       stopBackgroundTimer();
-      setCountDown(false);
+      setIsActive(false);
     }
   };
 
@@ -97,7 +99,7 @@ const Stopwatch = (props) => {
               {displayTime}{' '}
             </Typography>
           </Grid>
-          {timer > 0 ? (
+          {isActive > 0 ? (
             <Grid container direction="row" className={classes.buttons}>
               <Grid>
                 <Button
