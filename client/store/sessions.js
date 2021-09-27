@@ -63,15 +63,12 @@ const createSessionActionCreator = (session) => {
 };
 const createSession = (userId, goal, sessionTime) => async (dispatch) => {
   try {
-    console.log('goal in createSession in store:', goal);
-    console.log('sessionTime in createSession in store:', sessionTime);
     const response = await axios.post(`${process.env.API_URL}/api/sessions`, {
       userId,
       goal,
       sessionTime,
     });
     const { data } = response;
-
     localStorage.setItem('currentSession', JSON.stringify(data));
     dispatch(createSessionActionCreator(data));
   } catch (error) {

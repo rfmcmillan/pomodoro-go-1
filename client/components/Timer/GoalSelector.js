@@ -31,7 +31,6 @@ const GoalSelector = (props) => {
     const { value } = ev.target;
 
     if (!currentSession.id) {
-      console.log('sessionTime in GoalSelector:', sessionTime);
       createSession(auth.id, value, sessionTime);
     }
 
