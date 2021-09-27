@@ -56,29 +56,14 @@ const Stopwatch = (props) => {
 
   const targetTime = end - start;
 
-  const stopBackgroundTimer = () => {
-    chrome.storage.local.set({ isRunning: false });
-  };
-
   const toggleTimer = (ev) => {
     const button = ev.target.innerText;
 
     if (button === 'START') {
       console.log('currentSession.sessionTime:', currentSession.sessionTime);
-
-      // setStoredIsRunning(true);
-      // setStoredTimer(sessionTime);
-
-      // if (!currentSession.sessionTime) {
       updateSession(currentSession.id, { sessionTime });
-      // }
       localStorage.setItem('currentSession', JSON.stringify(currentSession));
-
       setIsActive(true);
-    }
-    if (button === 'STOP' || button === 'PAUSE') {
-      stopBackgroundTimer();
-      setIsActive(false);
     }
   };
 
@@ -99,28 +84,7 @@ const Stopwatch = (props) => {
             </Typography>
           </Grid>
           {isActive > 0 ? (
-            <Grid container direction="row" className={classes.buttons}>
-              <Grid>
-                <Button
-                  onClick={toggleTimer}
-                  style={{
-                    backgroundColor: '#5061a9',
-                    color: 'white',
-                    marginLeft: '4px',
-                    marginBottom: '10px',
-                    zIndex: 1,
-                    position: 'relative',
-                    top: '185px',
-                    left: '185px',
-                  }}
-                >
-                  pause
-                </Button>
-              </Grid>
-              <Grid>
-                <StopButton toggleTimer={toggleTimer} />
-              </Grid>
-            </Grid>
+            <StopButton toggleTimer={toggleTimer} />
           ) : (
             <Button
               onClick={toggleTimer}

@@ -22,7 +22,6 @@ const App = (props) => {
   const currentSession = useSelector((state) => state.currentSession);
   const [sessionTime, setSessionTime] = useState(0);
   const [goal, setGoal] = useState('');
-  const [countDown, setCountDown] = useState(false);
   const [counter, setCounter] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const blackList = useSelector((state) => state.blackList);
@@ -47,6 +46,8 @@ const App = (props) => {
   }, [sessionTime]);
 
   useEffect(() => {
+    console.log('isActive:', isActive);
+    console.log('counter:', counter);
     let intervalId;
 
     if (isActive) {
@@ -67,7 +68,10 @@ const App = (props) => {
   useEffect(() => {
     if (auth.id && blackList.length) {
       const blackListUser = blackList.filter((blackListItem) => {
-        return blackListItem.userId === auth.id;
+        return (
+          blackListItem.userId === auth.id &&
+          blackListItem.blockingEnabled === true
+        );
       });
       const blackListUserUrls = blackListUser.map((blackListItem) => {
         return blackListItem.site.siteUrl;
@@ -84,8 +88,6 @@ const App = (props) => {
           setSessionTime,
           goal,
           setGoal,
-          countDown,
-          setCountDown,
           intervalID,
           setIntervalID,
           isActive,

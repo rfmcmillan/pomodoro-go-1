@@ -37,7 +37,7 @@ export default connect(null, (dispatch) => {
     palette: { primary, secondary },
   } = theme;
   const { updateSession, toggleTimer } = props;
-  const { setCountDown } = useContext(SessionContext);
+  const { setCountDown, setIsActive } = useContext(SessionContext);
   const currentSession = useSelector((state) => state.currentSession);
   const [open, setOpen] = React.useState(false);
 
@@ -52,23 +52,26 @@ export default connect(null, (dispatch) => {
     handleClose();
     props.endSession(currentSession.id);
     clearInterval(window.timer);
-    setCountDown(false);
     toggleTimer(ev);
+    setIsActive(false);
   };
 
   return (
     <div>
-      <Button onClick={handleOpen} style={{
-        backgroundColor: '#9a6781',
-        color: 'white',
-        marginTop:'4px',
-        marginLeft:'4px',
-        marginBottom: '10px',
-        zIndex: 1,
-        position: 'relative',
-        top: '181px',
-        left: '185px'
-      }}>stop</Button>
+      <Button
+        onClick={handleOpen}
+        style={{
+          backgroundColor: '#9a6781',
+          color: 'white',
+          marginLeft: '4px',
+          marginBottom: '10px',
+          zIndex: 1,
+          position: 'relative',
+          top: '185px',
+        }}
+      >
+        stop
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -98,17 +101,26 @@ export default connect(null, (dispatch) => {
                 </Typography>
               </Grid>
               <Grid item className={classes.buttonGrid}>
-                <Button onClick={handleClose} style={{
-                  backgroundColor: '#5061a9',
-                  color: 'white',
-                  marginLeft:'4px',
-
-                }}>Go back</Button>
-                <Button onClick={handleStop} style={{
-                  backgroundColor: '#9a6781',
-                  color: 'white',
-                  marginLeft:'8px'
-                }}>End Session</Button>
+                <Button
+                  onClick={handleClose}
+                  style={{
+                    backgroundColor: '#5061a9',
+                    color: 'white',
+                    marginLeft: '4px',
+                  }}
+                >
+                  Go back
+                </Button>
+                <Button
+                  onClick={handleStop}
+                  style={{
+                    backgroundColor: '#9a6781',
+                    color: 'white',
+                    marginLeft: '8px',
+                  }}
+                >
+                  End Session
+                </Button>
               </Grid>
             </Grid>
           </div>

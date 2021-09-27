@@ -1,27 +1,6 @@
 'use strict';
-const { storage, tabs, runtime, alarms, scripting } = chrome;
+const { storage, tabs, runtime, alarms } = chrome;
 import { getStoredBlackList } from './storage';
-import {
-  setStoredIsRunning,
-  setStoredTimer,
-  setStoredDisplayTime,
-} from './storage';
-
-const msToHMS = (ms) => {
-  let seconds = ms / 1000;
-
-  let hours = parseInt(seconds / 3600);
-  seconds = seconds % 3600;
-
-  let minutes = parseInt(seconds / 60);
-  seconds = seconds % 60;
-
-  hours = hours < 10 ? '0' + hours : hours;
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  seconds = seconds < 10 ? (seconds >= 0 ? '0' + seconds : '00') : seconds;
-
-  return hours + ':' + minutes + ':' + seconds;
-};
 
 chrome.action.onClicked.addListener((tab) => {
   chrome.tabs.create({
@@ -42,10 +21,7 @@ const background = {
   init: async function () {
     try {
       if (!this.active) {
-        console.log('running app!');
         storage.sync.clear();
-        setStoredIsRunning(false);
-        // setStoredTimer(null);
         alarms.clearAll(() => {
           console.log('alarms are cleared');
         });
@@ -54,7 +30,6 @@ const background = {
         this.listenToExternalMessages();
         this.listenToStorage();
         this.listenToTabs();
-        this.listenForBlockedSite();
         this.listenForDashboardRedirect();
         this.active = true;
       }
@@ -144,9 +119,6 @@ const background = {
   },
   listenToStorage: function () {
     return storage.onChanged.addListener(async function (changes, namespace) {
-      // logging out the changes in storage
-      // THIS CODE IS FOR DEV PURPOSES
-      // YOU WILL HAVE ALOT OF LOGS IN CONSOLE
       for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
         console.log(
           `Storage key "${key}" in namespace "${namespace}" changed.`,
@@ -159,7 +131,6 @@ const background = {
   },
   listenToTabs: function () {
     return tabs.onUpdated.addListener(function (tabId, changeInfo) {
-      console.log('listening to tabs, tabID', tabId);
       chrome.tabs.query({ active: false }, (tabs) => {
         let tab = tabs.reduce((previous, current) => {
           return previous.lastAccessed > current.lastAccessed
@@ -218,25 +189,6 @@ const background = {
     });
   },
 
-  // listenForBlockedSite: function () {
-  //   return chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
-  //     if (changeInfo.url) {
-  //       // const hostname = new URL(url).hostname;
-  //       // console.log(hostname);
-  //       getStoredBlackList().then((blackListUrls) => {
-  //         console.log('storedBlackList in background.js:', blackListUrls);
-  //         if (blackListUrls) {
-  //           if (blackListUrls.includes(changeInfo.url)) {
-  //             chrome.tabs.update(tabId, {
-  //               url: `${process.env.API_URL}/uhoh`,
-  //             });
-  //           }
-  //         }
-  //       });
-  //     }
-  //   });
-  // },
-
   listenForAlarm: function () {
     return chrome.alarms.onAlarm.addListener(function (alarm) {
       if (alarm.name === 'startTimer') {
@@ -280,39 +232,11 @@ const background = {
 
 background.init();
 
-//Timer in Background
-chrome.alarms.create('oneSecond', {
-  periodInMinutes: 1 / 60,
-});
-
-// chrome.alarms.onAlarm.addListener((alarm) => {
-//   if (alarm.name === 'oneSecond') {
-//     chrome.storage.local.get(['isRunning', 'timer'], (res) => {
-//       console.log('res.timer in background.js:', res.timer);
-//       console.log('res.isRunning:', res.isRunning);
-//       const time = res.timer ?? 0;
-
-//       if (time === 0) {
-//         setStoredIsRunning(false);
-//         return;
-//       }
-//       if (!res.isRunning) {
-//         return;
-//       }
-//       const displayTime = msToHMS(time - 1000);
-//       setStoredDisplayTime(displayTime);
-//       console.log('time in background.js:', time);
-//       setStoredTimer(time - 1000);
-//     });
-//   }
-// });
-
 chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
   if (changeInfo.url) {
     // const hostname = new URL(url).hostname;
     // console.log(hostname);
     getStoredBlackList().then((blackListUrls) => {
-      console.log('storedBlackList in background.js:', blackListUrls);
       if (blackListUrls) {
         if (blackListUrls.includes(changeInfo.url)) {
           chrome.tabs.update(tabId, {
