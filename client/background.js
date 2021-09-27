@@ -45,7 +45,7 @@ const background = {
         console.log('running app!');
         storage.sync.clear();
         setStoredIsRunning(false);
-        setStoredTimer(null);
+        // setStoredTimer(null);
         alarms.clearAll(() => {
           console.log('alarms are cleared');
         });
@@ -223,9 +223,10 @@ const background = {
       if (changeInfo.url) {
         // const hostname = new URL(url).hostname;
         // console.log(hostname);
-        getStoredBlackList().then((blackList) => {
-          if (blackList) {
-            if (blackList.includes(changeInfo.url)) {
+        getStoredBlackList().then((blackListUrls) => {
+          console.log('storedBlackList in background.js:', blackListUrls);
+          if (blackListUrls) {
+            if (blackListUrls.includes(changeInfo.url)) {
               chrome.tabs.update(tabId, {
                 url: `${process.env.API_URL}/uhoh`,
               });

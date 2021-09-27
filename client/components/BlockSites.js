@@ -133,6 +133,7 @@ const BlockSites = (props) => {
 
   const deleteUrl = (siteToDelete) => {
     getStoredBlackList().then((blackList) => {
+      console.log('blackList in deleteUrl:', blackList);
       const filtered = blackList.filter((site) => {
         return site !== siteToDelete.siteUrl;
       });

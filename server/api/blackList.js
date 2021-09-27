@@ -30,7 +30,10 @@ router.get('/:userId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const { siteId, userId } = req.body;
-    const blackList = await BlackList.create({ siteId, userId });
+    let blackList = await BlackList.create({ siteId, userId });
+    blackList = await BlackList.findByPk(blackList.id, {
+      include: [User, Site],
+    });
     res.status(201).send(blackList);
   } catch (error) {
     next(error);
