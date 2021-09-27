@@ -13,10 +13,8 @@
     "tabs",
     "alarms",
     "notifications",
-    "unlimitedStorage",
-    "scripting"
+    "unlimitedStorage"
   ],
-  "host_permissions": ["http://*/", "https://*/"],
   "content_security_policy": {},
   "background": {
     "service_worker": "background.js"
