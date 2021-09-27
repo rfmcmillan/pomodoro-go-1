@@ -75,7 +75,6 @@ const Stopwatch = (props) => {
       // if (!currentSession.sessionTime) {
       updateSession(currentSession.id, { sessionTime });
       // }
-      chrome.alarms.create('startTimer', { when: Date.now() + sessionTime });
       localStorage.setItem('currentSession', JSON.stringify(currentSession));
 
       setIsActive(true);

@@ -57,6 +57,7 @@ const App = (props) => {
       if (counter === 0) {
         setIsActive(false);
         dispatch(endSession(currentSession.id, true));
+        chrome.alarms.create('startTimer', { when: Date.now() });
       }
 
       intervalId = setInterval(() => {
