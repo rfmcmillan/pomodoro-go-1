@@ -29,9 +29,10 @@ const GoalSelector = (props) => {
 
   const handleChange = (ev) => {
     const { value } = ev.target;
-    console.log('sessionTime in GoalSelector:', sessionTime);
+
     if (!currentSession.id) {
-      createSession(auth.id, value);
+      console.log('sessionTime in GoalSelector:', sessionTime);
+      createSession(auth.id, value, sessionTime);
     }
 
     if (currentSession.goal) {
@@ -63,7 +64,8 @@ const GoalSelector = (props) => {
 
 export default connect(null, (dispatch) => {
   return {
-    createSession: (userId, goal) => dispatch(createSession(userId, goal)),
+    createSession: (userId, goal, sessionTime) =>
+      dispatch(createSession(userId, goal, sessionTime)),
     updateSession: (sessionId, sessionInfo) =>
       dispatch(updateSession(sessionId, sessionInfo)),
   };

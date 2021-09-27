@@ -44,10 +44,13 @@ const msToHMS = (ms) => {
 const Stopwatch = (props) => {
   const { updateSession, timer } = props;
   const displayTime = msToHMS(timer);
+  console.log('timer:', timer);
+  console.log('displayTime:', displayTime);
   const classes = useStyles();
   const theme = useTheme();
   const { primary } = theme.palette;
   const currentSession = useSelector((state) => state.currentSession);
+  console.log('curretnSession:', currentSession);
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);
@@ -69,9 +72,9 @@ const Stopwatch = (props) => {
       // setStoredIsRunning(true);
       // setStoredTimer(sessionTime);
 
-      if (!currentSession.sessionTime) {
-        updateSession(currentSession.id, { sessionTime });
-      }
+      // if (!currentSession.sessionTime) {
+      updateSession(currentSession.id, { sessionTime });
+      // }
       chrome.alarms.create('startTimer', { when: Date.now() + sessionTime });
       localStorage.setItem('currentSession', JSON.stringify(currentSession));
 
@@ -141,7 +144,7 @@ const Stopwatch = (props) => {
           )}
         </Grid>
         <Circle
-          percent={(timer / targetTime) * 100}
+          percent={(timer / sessionTime) * 100}
           strokeWidth="3"
           strokeColor={{
             '0%': '#5061a9',

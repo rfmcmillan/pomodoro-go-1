@@ -44,6 +44,10 @@ const App = (props) => {
 
   useEffect(() => {
     setCounter(sessionTime);
+  }, [currentSession]);
+
+  useEffect(() => {
+    setCounter(sessionTime);
   }, [sessionTime]);
 
   useEffect(() => {

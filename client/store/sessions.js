@@ -61,11 +61,14 @@ const createSessionActionCreator = (session) => {
     session,
   };
 };
-const createSession = (userId, goal) => async (dispatch) => {
+const createSession = (userId, goal, sessionTime) => async (dispatch) => {
   try {
+    console.log('goal in createSession in store:', goal);
+    console.log('sessionTime in createSession in store:', sessionTime);
     const response = await axios.post(`${process.env.API_URL}/api/sessions`, {
       userId,
       goal,
+      sessionTime,
     });
     const { data } = response;
 
