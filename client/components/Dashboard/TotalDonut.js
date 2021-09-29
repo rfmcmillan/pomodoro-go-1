@@ -63,8 +63,6 @@ const TotalDonut = (props) => {
         toolbar: {
           show: false,
         },
-        // offsetX: -70,
-        // offsetY: -20,
       },
     },
 
@@ -73,12 +71,7 @@ const TotalDonut = (props) => {
 
   return (
     <div className="donut">
-      <Chart
-        options={chart.options}
-        series={chart.series}
-        type="donut"
-        // width="140%"
-      />
+      <Chart options={chart.options} series={chart.series} type="donut" />
     </div>
   );
 };

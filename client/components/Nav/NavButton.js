@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Button } from '@material-ui/core';
-import { withStyles, useTheme } from '@material-ui/styles';
+import { withStyles } from '@material-ui/styles';
 const NavButton = withStyles({
   root: {
     color: '#4d2a4e',
