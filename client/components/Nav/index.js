@@ -116,6 +116,14 @@ const Navbar = (props) => {
                 >
                   Friends
                 </NavButton>
+                <NavButton
+                  className={classes.button}
+                  id="about"
+                  component={Link}
+                  to="/about"
+                >
+                  About
+                </NavButton>
               </>
             ) : (
               <Grid container id="extension-login">
@@ -154,20 +162,6 @@ const Navbar = (props) => {
                 <Grid item>
                   <Button onClick={handleLogOut}>Logout</Button>
                 </Grid>
-                {/* <Grid item>
-                  <GoogleLogout
-                    clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
-                    buttonText="Logout"
-                    onLogoutSuccess={handleLogOut}
-                    isSignedIn={props.isLoggedIn}
-                    render={(renderProps) => (
-                      <Avatar
-                        onClick={renderProps.onClick}
-                        src="https://i.pinimg.com/originals/a3/d5/8f/a3d58f0b2820871d486e9851c0fdbb60.jpg"
-                      />
-                    )}
-                  ></GoogleLogout>
-                </Grid> */}
               </Grid>
             ) : (
               <Grid container className={classes.loggedOut}>

@@ -114,19 +114,6 @@ img {
   height: 500px;
 }
 
-#profile-expand {
-  height: 80%;
-  display: flex;
-}
-
-#profile-expand svg {
-  font-size: 50px;
-}
-
-#profile-expand a {
-  color: black;
-}
-
 .each-profile {
   border: 2px solid black;
   border-radius: 10px;
@@ -134,8 +121,6 @@ img {
   width: 350px;
   display: flex;
   height: 70px;
-  position: relative;
-  top: 280px;
 }
 
 .dev-name {
@@ -152,23 +137,6 @@ img {
   display: flex;
   justify-content: space-around;
   padding: 10px;
-}
-
-#avatars {
-  height: 20%;
-}
-
-#avatar div {
-  z-index: 1;
-}
-
-#avatars div:hover {
-  position: relative;
-  top: -30px;
-  left: -10px;
-  border: 3px solid black;
-  box-shadow: 7px 7px black;
-  z-index: 2;
 }
 
 .paper {
@@ -221,4 +189,64 @@ img {
     #cedaa4 90%
   );
   padding: 5px;
+}
+.paper {
+  font-size: '30px';
+  position: relative;
+  height: 550px;
+  width: 450px;
+  background: rgba(255, 255, 255, 0.9);
+  margin: -275px -225px;
+  left: 150px;
+  top: 300px;
+  box-shadow: 0px 0px 6px 0px #888;
+}
+.paper::before {
+  content: '';
+  position: absolute;
+  left: 45px;
+  height: 100%;
+  width: 2px;
+  background: rgba(255, 0, 0, 0.4);
+}
+.lines {
+  margin-top: 40px;
+  height: calc(100% - 40px);
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    white 0px,
+    white 24px,
+    steelblue 25px
+  );
+}
+.text {
+  position: relative;
+  top: 65px;
+  left: 55px;
+  bottom: 5px;
+  right: 10px;
+  line-height: 26px;
+  font-family: 'Nanum Pen Script';
+  font-size: 28px;
+  overflow: hidden;
+  outline: none;
+}
+
+.holes {
+  position: absolute;
+  left: 10px;
+  height: 25px;
+  width: 25px;
+  background: rgba(255, 232, 188, 0.9);
+  border-radius: 50%;
+  box-shadow: inset 1px 0px 2px 0px #888;
+}
+.hole-top {
+  top: 10%;
+}
+.hole-middle {
+  top: 50%;
+}
+.hole-bottom {
+  bottom: 10%;
 }

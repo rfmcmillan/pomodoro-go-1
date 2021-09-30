@@ -19,7 +19,7 @@ const TypedText = () => {
           .typeString('Welcome to Pomodoro Go! ')
           .pauseFor(1000)
           .typeString(
-            'This is an app that helps you boost your productivity by providing you a focus timer, blocking time-wasting websites and giving you useful data about your focus sessions!'
+            'This is an app that helps you boost your productivity by providing you with a focus timer, web-site and data dashboard!'
           )
           .start();
       }}
