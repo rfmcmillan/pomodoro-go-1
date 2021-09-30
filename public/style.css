@@ -132,13 +132,6 @@ img {
   font-size: 1.5em;
 }
 
-.links {
-  width: 60%;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-}
-
 .paper {
   font-size: '30px';
   height: 300px;

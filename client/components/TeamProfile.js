@@ -13,6 +13,16 @@ const useStyles = makeStyles((theme) => ({
     width: 100,
     height: 100,
   },
+  icons: {
+    color: 'black',
+    fontSize: 46,
+  },
+  links: {
+    width: '60%',
+    display: 'flex',
+    justifyContent: 'space-around',
+    padding: '10px',
+  },
 }));
 
 const TeamProfile = (props) => {
@@ -35,7 +45,7 @@ const TeamProfile = (props) => {
   };
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" spacing={3}>
       <Grid item container>
         <Avatar
           alt="russel"
@@ -50,16 +60,24 @@ const TeamProfile = (props) => {
             <br />
             McMillan
           </div>
-          <div className="links">
+          <div className={classes.links}>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://github.com/rfmcmillan"
             >
-              <GitHubIcon />
+              <GitHubIcon className={classes.icons} />
             </a>
-            <LinkedInIcon />
-            <EmailIcon />
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.linkedin.com/in/russelmcmillan/"
+            >
+              <LinkedInIcon className={classes.icons} />
+            </a>
+            <a href="mailto:rfmcmillan@gmail.com">
+              <EmailIcon className={classes.icons} />
+            </a>
           </div>
         </div>
       </Grid>
@@ -77,28 +95,28 @@ const TeamProfile = (props) => {
             <br />
             Ding
           </div>
-          <div className="links">
+          <div className={classes.links}>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://github.com/YiruDing"
             >
-              <GitHubIcon />
+              <GitHubIcon className={classes.icons} />
             </a>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://www.linkedin.com/in/yiru-ding/"
             >
-              <LinkedInIcon />
+              <LinkedInIcon className={classes.icons} />
             </a>
-            <a href="">
-              <EmailIcon />
+            <a href="mailto:dingyr0925@gmail.com">
+              <EmailIcon className={classes.icons} />
             </a>
           </div>
         </div>
       </Grid>
-      <Grid container>
+      <Grid item container>
         <Avatar
           alt="stephan"
           src="https://ca.slack-edge.com/T024FPYBQ-U01JF29P57C-c12ee469d629-512"
@@ -112,20 +130,28 @@ const TeamProfile = (props) => {
             <br />
             Alas
           </div>
-          <div className="links">
+          <div className={classes.links}>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://github.com/stephanalas"
             >
-              <GitHubIcon />
+              <GitHubIcon className={classes.icons} />
             </a>
-            <LinkedInIcon />
-            <EmailIcon />
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.linkedin.com/in/stephanalas/"
+            >
+              <LinkedInIcon className={classes.icons} />
+            </a>
+            <a href="mailto:stephan.j.alas@gmail.com">
+              <EmailIcon className={classes.icons} />
+            </a>
           </div>
         </div>
       </Grid>
-      <Grid container>
+      <Grid item container>
         <Avatar
           alt="felicity"
           src="https://ca.slack-edge.com/T024FPYBQ-U01JF8BDK35-fc70b3a47007-512"
@@ -139,16 +165,14 @@ const TeamProfile = (props) => {
             <br />
             Wu
           </div>
-          <div className="links">
+          <div className={classes.links}>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://github.com/felicityandherdragon"
             >
-              <GitHubIcon />
+              <GitHubIcon className={classes.icons} />
             </a>
-            <LinkedInIcon />
-            <EmailIcon />
           </div>
         </div>
       </Grid>

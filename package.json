@@ -58,6 +58,7 @@
     "sequelize": "^6.3.5",
     "socket.io": "^4.1.2",
     "socket.io-client": "^4.1.2",
+
     "typewriter-effect": "^2.18.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.3.1"
@@ -91,7 +92,8 @@
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "svg-url-loader": "^7.1.1"
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint --cache --fix",

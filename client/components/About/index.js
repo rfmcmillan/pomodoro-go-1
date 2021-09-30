@@ -3,6 +3,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import TypedText from './TypedText';
 import TeamProfile from '../TeamProfile';
+import Skills from './Skills';
 
 const About = () => {
   const useStyles = makeStyles({
@@ -53,6 +54,8 @@ const About = () => {
                   <Button
                     className={classes.button}
                     variant="contained"
+                    target="_blank"
+                    rel="noreferrer"
                     href="https://github.com/2101-Warriors/pomodoro-go"
                   >
                     Explore Repo
@@ -69,6 +72,7 @@ const About = () => {
       <Grid className={classes.profile} item xs={6}>
         <TeamProfile />
       </Grid>
+      <Skills />
     </Grid>
   );
 };
