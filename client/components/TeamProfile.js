@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import EmailIcon from '@material-ui/icons/Email';
 
 const useStyles = makeStyles((theme) => ({
-  avatars: {},
   avatar: {
     width: 100,
     height: 100,
@@ -23,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     padding: '10px',
   },
+  root: { width: '60vw' },
 }));
 
 const TeamProfile = (props) => {
@@ -45,16 +45,17 @@ const TeamProfile = (props) => {
   };
 
   return (
-    <Grid container direction="row" spacing={3}>
-      <Grid item container>
-        <Avatar
-          alt="russel"
-          src="https://ca.slack-edge.com/T024FPYBQ-U01K4T2GC7J-729e221b6004-512"
-          className={classes.avatar}
-          onClick={toggle}
-        />
-
-        <div className="each-profile">
+    <Grid className={classes.root} container alignItems="center" spacing={2}>
+      <Grid item container direction="row" xs={6} justifyContent="center">
+        <Grid item>
+          <Avatar
+            alt="russel"
+            src="https://ca.slack-edge.com/T024FPYBQ-U01K4T2GC7J-729e221b6004-512"
+            className={classes.avatar}
+            onClick={toggle}
+          />
+        </Grid>
+        <Grid className="each-profile" item>
           <div className="dev-name">
             Russel
             <br />
@@ -79,9 +80,9 @@ const TeamProfile = (props) => {
               <EmailIcon className={classes.icons} />
             </a>
           </div>
-        </div>
+        </Grid>
       </Grid>
-      <Grid item container>
+      <Grid item container xs={6} justifyContent="center">
         <Avatar
           alt="ding"
           src="https://ca.slack-edge.com/T024FPYBQ-U01J88VDNSJ-bf4326c217e1-512"
@@ -116,7 +117,7 @@ const TeamProfile = (props) => {
           </div>
         </div>
       </Grid>
-      <Grid item container>
+      <Grid item container xs={6} justifyContent="center">
         <Avatar
           alt="stephan"
           src="https://ca.slack-edge.com/T024FPYBQ-U01JF29P57C-c12ee469d629-512"
@@ -151,7 +152,7 @@ const TeamProfile = (props) => {
           </div>
         </div>
       </Grid>
-      <Grid item container>
+      <Grid item container xs={6} justifyContent="center">
         <Avatar
           alt="felicity"
           src="https://ca.slack-edge.com/T024FPYBQ-U01JF8BDK35-fc70b3a47007-512"
