@@ -45,7 +45,7 @@ const TeamProfile = (props) => {
   };
 
   return (
-    <Grid container direction="column" spacing={3}>
+    <Grid container direction="row" spacing={3}>
       <Grid item container>
         <Avatar
           alt="russel"

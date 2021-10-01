@@ -8,7 +8,7 @@ import Skills from './Skills';
 const About = () => {
   const useStyles = makeStyles({
     button: { margin: 3, position: 'relative', left: 100 },
-    root: { height: '80vh' },
+    root: { height: '80vh', width: '100vw' },
     text: {
       fontFamily: 'Nanum Pen Script',
       fontSize: '28px',
@@ -17,62 +17,70 @@ const About = () => {
       width: 360,
       height: 170,
     },
-    profile: {},
-    paper: { position: 'relative', bottom: '25vh' },
+    profile: { position: 'relative', left: '5vw' },
+    paper: {
+      position: 'relative',
+      bottom: '25vh',
+      right: '5vw',
+    },
   });
   const classes = useStyles();
   return (
-    <Grid
-      className={classes.root}
-      container
-      alignItems="center"
-      direction="row"
-    >
+    <Grid container direction="column">
       <Grid
-        item
+        className={classes.root}
         container
-        direction="column"
         alignItems="center"
-        justifyContent="space-between"
-        xs={6}
-        className={classes.paper}
+        direction="row"
       >
-        <Grid className="paper">
-          <Grid className="lines">
-            <Grid className="text" container>
-              <Grid
-                item
-                container
-                direction="column"
-                justifyContent="flex-start"
-                className={classes.typed}
-              >
-                <Grid item className={classes.text}>
-                  <TypedText />
-                </Grid>
-                <Grid item>
-                  <Button
-                    className={classes.button}
-                    variant="contained"
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://github.com/2101-Warriors/pomodoro-go"
-                  >
-                    Explore Repo
-                  </Button>
+        <Grid
+          item
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="space-between"
+          xs={6}
+          className={classes.paper}
+        >
+          <Grid className="paper">
+            <Grid className="lines">
+              <Grid className="text" container>
+                <Grid
+                  item
+                  container
+                  direction="column"
+                  justifyContent="flex-start"
+                  className={classes.typed}
+                >
+                  <Grid item className={classes.text}>
+                    <TypedText />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://github.com/2101-Warriors/pomodoro-go"
+                    >
+                      Explore Repo
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
+            <div className="holes hole-top"></div>
+            <div className="holes hole-middle"></div>
+            <div className="holes hole-bottom"></div>
           </Grid>
-          <div className="holes hole-top"></div>
-          <div className="holes hole-middle"></div>
-          <div className="holes hole-bottom"></div>
+        </Grid>
+        <Grid className={classes.profile} item xs={6}>
+          <TeamProfile />
         </Grid>
       </Grid>
-      <Grid className={classes.profile} item xs={6}>
-        <TeamProfile />
+      <Grid item>
+        <Skills />
       </Grid>
-      <Skills />
     </Grid>
   );
 };
