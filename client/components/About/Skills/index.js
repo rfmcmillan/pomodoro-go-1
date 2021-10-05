@@ -7,7 +7,7 @@ import SkillItem from './SkillItem';
 const SkillSet = ({ data }) => {
   const theme = useTheme();
   const useStyles = makeStyles({
-    container: { width: '60%', margin: 'auto' },
+    container: { margin: 'auto' },
     root: {},
     hr: { color: 'black', backgroundColor: 'black', height: 1, width: '33vw' },
   });
@@ -29,7 +29,7 @@ const Skills = () => {
   const useStyles = makeStyles({
     root: { textAlign: 'center' },
     header: { fontSize: 30 },
-    container: { width: '66%', margin: 'auto' },
+    container: { margin: 'auto' },
   });
   const classes = useStyles();
   return (

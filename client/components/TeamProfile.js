@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: 100,
     height: 100,
+    // borderColor: 'black',
+    border: '1px solid #999999',
   },
   icons: {
     color: 'black',
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     padding: '10px',
   },
-  root: { width: 1200 },
+  root: { width: 1216 },
 }));
 
 const TeamProfile = (props) => {

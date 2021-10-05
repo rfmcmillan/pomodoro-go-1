@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Typography, Divider } from '@material-ui/core';
+import { Button, Grid, Typography, Divider, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import TypedText from './TypedText';
 import TeamProfile from '../TeamProfile';
@@ -38,6 +38,12 @@ const About = () => {
       width: 360,
       height: 170,
     },
+    teamPaper: { margin: 10, padding: 14 },
+    techPaper: {
+      width: 1200,
+      margin: 10,
+      padding: 14,
+    },
   });
   const classes = useStyles();
   return (
@@ -48,50 +54,53 @@ const About = () => {
       alignItems="center"
       justifyContent="space-around"
     >
-      <Grid item container direction="column" alignItems="center">
-        <Grid item>
-          <Typography className={classes.header} variant="h2">
-            OUR TEAM
-          </Typography>
+      <Paper className={classes.teamPaper}>
+        <Grid item container direction="column" alignItems="center">
+          <Grid item>
+            <Typography className={classes.header} variant="h2">
+              OUR TEAM
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography className={classes.subTitle} variant="h3">
+              Small Team. Big Dreams.
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography className={classes.body} variant="body1">
+              Our goal is to help you focus and understand how you have been
+              spending your time.
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography className={classes.subTitle} variant="h3">
-            Small Team. Big Dreams.
-          </Typography>
+        <Grid item className={classes.profile}>
+          <TeamProfile />
         </Grid>
-        <Grid item>
-          <Typography className={classes.body} variant="body1">
-            Our goal is to help you focus and understand how you have been
-            spending your time.
-          </Typography>
+      </Paper>
+      <Paper className={classes.techPaper}>
+        <Grid item container direction="column" alignItems="center">
+          <Grid item>
+            <Typography className={classes.header} variant="h1">
+              TECHNOLOGIES
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography className={classes.subTitle} variant="h3">
+              Node. Express. React. Postgres...
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography className={classes.body} variant="body1">
+              ... and a variety of other frameworks, libraries and languages
+              that we used to build this project.
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
-      {/* <Grid item>
-        <Divider className={classes.hr} />
-      </Grid> */}
-      <Grid item className={classes.profile}>
-        <TeamProfile />
-      </Grid>
-      <Grid item>
-        <Typography className={classes.header} variant="h1">
-          TECHNOLOGIES
-        </Typography>
+
         <Grid item>
-          <Typography className={classes.subTitle} variant="h3">
-            Node. Express. React. Postgres...
-          </Typography>
+          <Skills />
         </Grid>
-        <Typography className={classes.body} variant="body1">
-          ... and a variety of other frameworks, libraries and languages that we
-          used to build this project.
-        </Typography>
-      </Grid>
-      {/* <Grid item>
-        <Divider className={classes.hr} />
-      </Grid> */}
-      <Grid item>
-        <Skills />
-      </Grid>
+      </Paper>
     </Grid>
   );
 };
