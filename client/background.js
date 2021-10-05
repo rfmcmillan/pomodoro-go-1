@@ -253,7 +253,10 @@ chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
     getStoredBlackList().then((blackListUrls) => {
       if (blackListUrls) {
         for (let i = 0; i < blackListUrls.length; i++) {
-          if (changeInfo.url.includes(blackListUrls[i])) {
+          if (
+            changeInfo.url.includes(blackListUrls[i]) &&
+            blackListUrls[i].length
+          ) {
             chrome.tabs.update(tabId, {
               url: `${process.env.API_URL}/uhoh`,
             });
