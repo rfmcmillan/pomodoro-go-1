@@ -66,7 +66,6 @@ const ChartLeft = (props) => {
       }
     }
   }
-  console.log('distDays:', distDays);
 
   let daysArr = [];
   for (const [key, val] of Object.entries(distDays)) {

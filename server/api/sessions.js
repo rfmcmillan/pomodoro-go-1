@@ -20,7 +20,6 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const { userId, goal, sessionTime } = req.body;
-    console.log('sessionTime in post route', sessionTime);
     const createdSession = await Session.create({ userId, goal, sessionTime });
     const eagerLoadedSession = await Session.findOne({
       where: { id: createdSession.id },

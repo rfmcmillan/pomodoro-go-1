@@ -55,7 +55,6 @@ export const addSite = (site, userId) => {
       ).data;
       const { siteId, userId } = newBlackList;
       dispatch(_addSite(newSite));
-      console.log('about to call createBlackList()');
       createBlackList(siteId, userId);
     } catch (err) {
       console.log(err);
