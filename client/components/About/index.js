@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Grid, Typography, Divider, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import TypedText from './TypedText';
-import TeamProfile from '../TeamProfile';
+import TeamProfile from './TeamProfile';
 import Skills from './Skills';
 
 const About = () => {
@@ -63,7 +62,7 @@ const About = () => {
           </Grid>
           <Grid item>
             <Typography className={classes.subTitle} variant="h3">
-              Small Team. Big Dreams.
+              The people behind PomodoroGo
             </Typography>
           </Grid>
           <Grid item>

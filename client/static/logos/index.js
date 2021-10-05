@@ -18,7 +18,7 @@ export const nodejs = {
 };
 export const postgres = {
   logo: require('./postgres.svg'),
-  title: 'PostGres',
+  title: 'Postgres',
 };
 
 export const react = {
