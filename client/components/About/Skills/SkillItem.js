@@ -8,23 +8,40 @@ const SkillItem = ({ skill }) => {
   const useStyles = makeStyles({
     root: { width: 150, height: 30 },
     image: {
-      width: 30,
+      width: 60,
     },
+    imageContain: { minHeight: 82 },
     title: {
-      marginLeft: 6,
+      // marginLeft: 6,
     },
+    skillItem: { height: 100, width: 100 },
   });
 
   const classes = useStyles();
 
   return (
-    <Grid container alignItems="center">
-      <Grid item>
-        <img
-          className={classes.image}
-          src={logo ? logo : ''}
-          alt={logo ? `${title} logo` : ''}
-        />
+    <Grid
+      className={classes.skillItem}
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="space-between"
+    >
+      <Grid
+        className={classes.imageContain}
+        item
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Grid item>
+          <img
+            className={classes.image}
+            src={logo ? logo : ''}
+            alt={logo ? `${title} logo` : ''}
+          />
+        </Grid>
       </Grid>
       <Grid item>
         <Box

@@ -46,16 +46,14 @@ const TeamProfile = (props) => {
 
   return (
     <Grid className={classes.root} container alignItems="center" spacing={2}>
-      <Grid item container direction="row" xs={6} justifyContent="center">
-        <Grid item>
-          <Avatar
-            alt="russel"
-            src="https://ca.slack-edge.com/T024FPYBQ-U01K4T2GC7J-729e221b6004-512"
-            className={classes.avatar}
-            onClick={toggle}
-          />
-        </Grid>
-        <Grid className="each-profile" item>
+      <Grid item container xs={6} justifyContent="center">
+        <Avatar
+          alt="russel"
+          src="https://ca.slack-edge.com/T024FPYBQ-U01K4T2GC7J-729e221b6004-512"
+          className={classes.avatar}
+          onClick={toggle}
+        />
+        <div className="each-profile">
           <div className="dev-name">
             Russel
             <br />
@@ -80,7 +78,7 @@ const TeamProfile = (props) => {
               <EmailIcon className={classes.icons} />
             </a>
           </div>
-        </Grid>
+        </div>
       </Grid>
       <Grid item container xs={6} justifyContent="center">
         <Avatar

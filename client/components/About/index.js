@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import TypedText from './TypedText';
 import TeamProfile from '../TeamProfile';
@@ -24,10 +24,17 @@ const About = () => {
       right: '5vw',
     },
     title: { fontSize: 36, margin: 5 },
+    hr: { color: 'black', backgroundColor: 'black', height: 1, width: '33vw' },
   });
   const classes = useStyles();
   return (
-    <Grid container direction="column" alignItems="center">
+    <Grid
+      className={classes.root}
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="space-around"
+    >
       <Grid>
         <Typography className={classes.title} variant="h1">
           Our Team
@@ -35,6 +42,9 @@ const About = () => {
       </Grid>
       <Grid item>
         <TeamProfile />
+      </Grid>
+      <Grid item>
+        <Divider className={classes.hr} />
       </Grid>
       <Grid item>
         <Skills />
