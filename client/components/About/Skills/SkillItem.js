@@ -11,9 +11,7 @@ const SkillItem = ({ skill }) => {
       width: 60,
     },
     imageContain: { minHeight: 82 },
-    title: {
-      // marginLeft: 6,
-    },
+    title: {},
     skillItem: { height: 100, width: 100 },
   });
 

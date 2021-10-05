@@ -1,19 +1,20 @@
 import React from 'react';
 import { skillsData } from './skillsData.js';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Typography, Divider, Paper } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SkillItem from './SkillItem';
 
 const SkillSet = ({ data }) => {
   const theme = useTheme();
   const useStyles = makeStyles({
+    container: { width: '60%', margin: 'auto' },
     root: {},
-    container: { width: '40%', margin: 'auto' },
+    hr: { color: 'black', backgroundColor: 'black', height: 1, width: '33vw' },
   });
   const classes = useStyles();
   return (
     <div>
-      <Grid className={classes.container} container wrap="wrap" spacing={3}>
+      <Grid className={classes.container} container spacing={3}>
         {data.items.map((skill, index) => (
           <Grid item xs={2}>
             <SkillItem skill={skill} key={index} />
@@ -33,15 +34,7 @@ const Skills = () => {
   const classes = useStyles();
   return (
     <section>
-      <div className={classes.root}>
-        <Typography className={classes.header} variant="h2">
-          Technologies Used
-        </Typography>
-        <Typography variant="body1">
-          A variety of frameworks, libraries and languages that we used to build
-          this project.
-        </Typography>
-      </div>
+      <div className={classes.root}></div>
       <ul>
         {skillsData.map((skillSet, index) => (
           <SkillSet data={skillSet} key={index} />

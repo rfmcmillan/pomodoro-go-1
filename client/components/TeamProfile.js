@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     padding: '10px',
   },
-  root: { width: '60vw' },
+  root: { width: 1200 },
 }));
 
 const TeamProfile = (props) => {
@@ -47,38 +47,42 @@ const TeamProfile = (props) => {
   return (
     <Grid className={classes.root} container alignItems="center" spacing={2}>
       <Grid item container xs={6} justifyContent="center">
-        <Avatar
-          alt="russel"
-          src="https://ca.slack-edge.com/T024FPYBQ-U01K4T2GC7J-729e221b6004-512"
-          className={classes.avatar}
-          onClick={toggle}
-        />
-        <div className="each-profile">
-          <div className="dev-name">
-            Russel
-            <br />
-            McMillan
+        <Grid item>
+          <Avatar
+            alt="russel"
+            src="https://ca.slack-edge.com/T024FPYBQ-U01K4T2GC7J-729e221b6004-512"
+            className={classes.avatar}
+            onClick={toggle}
+          />
+        </Grid>
+        <Grid item>
+          <div className="each-profile">
+            <div className="dev-name">
+              Russel
+              <br />
+              McMillan
+            </div>
+            <div className={classes.links}>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/rfmcmillan"
+              >
+                <GitHubIcon className={classes.icons} />
+              </a>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.linkedin.com/in/russelmcmillan/"
+              >
+                <LinkedInIcon className={classes.icons} />
+              </a>
+              <a href="mailto:rfmcmillan@gmail.com">
+                <EmailIcon className={classes.icons} />
+              </a>
+            </div>
           </div>
-          <div className={classes.links}>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://github.com/rfmcmillan"
-            >
-              <GitHubIcon className={classes.icons} />
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://www.linkedin.com/in/russelmcmillan/"
-            >
-              <LinkedInIcon className={classes.icons} />
-            </a>
-            <a href="mailto:rfmcmillan@gmail.com">
-              <EmailIcon className={classes.icons} />
-            </a>
-          </div>
-        </div>
+        </Grid>
       </Grid>
       <Grid item container xs={6} justifyContent="center">
         <Avatar

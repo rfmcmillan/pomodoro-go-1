@@ -61,17 +61,9 @@ export const webpack = {
   title: 'Webpack',
 };
 
-export const babel = {
-  title: 'Babel',
-};
-
 export const chai = {
   logo: require('./chai.svg'),
   title: 'Chai',
-};
-
-export const travisCi = {
-  title: 'Travis CI',
 };
 
 export const jwt = {

@@ -127,8 +127,8 @@ img {
   width: 40%;
   background-color: black;
   color: white;
-  padding: 10px;
-  font-family: 'Nanum Pen Script';
+  padding-left: 10px;
+  font-family: 'Noto Sans Display';
   font-size: 1.5em;
 }
 
