@@ -402,17 +402,32 @@ const background = {
     });
   }
 };
-background.init();
+background.init(); // chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
+//   if (changeInfo.url) {
+//     // const hostname = new URL(url).hostname;
+//     // console.log(hostname);
+//     getStoredBlackList().then((blackListUrls) => {
+//       if (blackListUrls) {
+//         if (blackListUrls.includes(changeInfo.url)) {
+//           chrome.tabs.update(tabId, {
+//             url: `${process.env.API_URL}/uhoh`,
+//           });
+//         }
+//       }
+//     });
+//   }
+// });
+
 chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
   if (changeInfo.url) {
-    // const hostname = new URL(url).hostname;
-    // console.log(hostname);
     (0,_storage__WEBPACK_IMPORTED_MODULE_0__.getStoredBlackList)().then(blackListUrls => {
       if (blackListUrls) {
-        if (blackListUrls.includes(changeInfo.url)) {
-          chrome.tabs.update(tabId, {
-            url: `${"http://localhost:8080"}/uhoh`
-          });
+        for (let i = 0; i < blackListUrls.length; i++) {
+          if (changeInfo.url.includes(blackListUrls[i])) {
+            chrome.tabs.update(tabId, {
+              url: `${"http://localhost:8080"}/uhoh`
+            });
+          }
         }
       }
     });
