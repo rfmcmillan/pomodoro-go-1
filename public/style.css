@@ -127,23 +127,17 @@ img {
   width: 40%;
   background-color: black;
   color: white;
-  padding: 10px;
-  font-family: 'Nanum Pen Script';
+  padding-left: 10px;
+  font-family: 'Noto Sans Display';
   font-size: 1.5em;
-}
-
-.links {
-  width: 60%;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
 }
 
 .paper {
   font-size: '30px';
-  height: 300px;
+  height: 400px;
+  width: 300px;
   background: 'transparent';
-  margin: -275px -225px;
+  /* margin: -275px -225px; */
 }
 
 .lines {
@@ -193,8 +187,8 @@ img {
 .paper {
   font-size: '30px';
   position: relative;
-  height: 550px;
-  width: 450px;
+  height: 700px;
+  width: 550px;
   background: rgba(255, 255, 255, 0.9);
   margin: -275px -225px;
   left: 150px;

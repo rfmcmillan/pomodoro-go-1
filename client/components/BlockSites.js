@@ -91,28 +91,27 @@ const Alert = (props) => {
 
 //Start of component
 const BlockSites = (props) => {
-  //states
   const [urlInput, setUrlInput] = useState({
     siteUrl: '',
     category: '',
   });
+  const [hasError, setHasError] = useState(false);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const blackList = useSelector((state) => state.blackList);
   const blackListUser = blackList.filter((blackListItem) => {
     return blackListItem.userId === auth.id;
   });
-  console.log('blackList after filter:', blackListUser);
-  //style control
+
   const classes = useStyles();
 
-  //lifecycles
   useEffect(() => {
     props.getSites(props.auth.id);
   }, [blackList]);
 
   //user interactions > change state, dispatch to store
   const handleChange = (event) => {
+    console.log('event.target:', event.target);
     const siteId = event.target.name.slice(4);
     const toggleSite = props.blockedSites.filter((each) => each.id === siteId);
 
@@ -123,7 +122,14 @@ const BlockSites = (props) => {
     props.updateBlocking(props.auth.id, siteId);
   };
 
+  const handleSelectChange = (event) => {
+    console.log('event.target:', event.target);
+    setUrlInput({ ...urlInput, category: event.target.value });
+  };
+
   const submitNewUrl = () => {
+    console.log('!urlInput.category:', !urlInput.category);
+    setHasError(!urlInput.category);
     getStoredBlackList().then((blackList) => {
       const newBlackList = [...blackList, urlInput.siteUrl];
       setStoredBlackList(newBlackList);
@@ -167,21 +173,21 @@ const BlockSites = (props) => {
           className={classes.textfield}
           helperText="Enter URL to block"
           variant="outlined"
-          onChange={(ev) =>
-            setUrlInput({ ...urlInput, siteUrl: ev.target.value })
-          }
+          onChange={(event) => {
+            setUrlInput({ ...urlInput, siteUrl: event.target.value });
+          }}
           name="siteUrl"
         />
-        <FormControl variant="outlined">
+        <FormControl variant="outlined" error={hasError}>
           <InputLabel id="category-label">Category</InputLabel>
           <Select
             labelId="category-label"
             id="category"
             name="category"
             value={urlInput.category}
-            onChange={(ev) =>
-              setUrlInput({ ...urlInput, category: ev.target.value })
-            }
+            onChange={(event) => {
+              handleSelectChange(event);
+            }}
           >
             <MenuItem value="">
               <em>None</em>
@@ -190,7 +196,10 @@ const BlockSites = (props) => {
             <MenuItem value={'entertainment'}>Entertainment</MenuItem>
             <MenuItem value={'other'}>Other</MenuItem>
           </Select>
-          <FormHelperText>Select a category</FormHelperText>
+          {hasError && (
+            <FormHelperText>Please select a category</FormHelperText>
+          )}
+          {!hasError && <FormHelperText>Select a category</FormHelperText>}
         </FormControl>
         <LightGreenButton
           variant="contained"

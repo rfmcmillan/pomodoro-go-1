@@ -59,6 +59,7 @@ router.post('/', async (req, res, next) => {
       res.send({ existingSite });
     }
   } catch (err) {
+    res.send(err);
     next(err);
   }
 });
