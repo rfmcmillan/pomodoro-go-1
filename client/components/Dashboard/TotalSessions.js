@@ -10,7 +10,6 @@ const useStyles = makeStyles({
   contain: {
     padding: 10,
     minWidth: 100,
-
     maxHeight: 273,
     flexGrow: 1,
   },
