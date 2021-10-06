@@ -10,13 +10,15 @@ const useStyles = makeStyles({
   contain: {
     padding: 10,
     minWidth: 100,
-    minHeight: 272,
     maxHeight: 273,
     flexGrow: 1,
   },
   lsItem: {
     padding: 8,
   },
+  // total: {
+  //   maxHeight: 100,
+  // },
 });
 
 const TotalSessions = (props) => {
@@ -49,11 +51,18 @@ const TotalSessions = (props) => {
 
   return (
     <Paper className={classes.contain} elevation={10}>
-      <Typography className={classes.lsItem} variant="h5" color="textPrimary">
-        Total Sessions
-      </Typography>
-      <Grid container alignItems="center">
+      <Grid className={classes.total} container alignItems="flex-start">
         <Grid container item direction="column" xs={4}>
+          <Grid item>
+            <Typography
+              className={classes.lsItem}
+              variant="h5"
+              color="textPrimary"
+              xs={3}
+            >
+              Total Sessions
+            </Typography>
+          </Grid>
           <Grid item className={classes.lsItem} xs={3}>
             <Typography variant="caption" color="textSecondary">
               Total

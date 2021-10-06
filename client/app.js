@@ -46,8 +46,6 @@ const App = (props) => {
   }, [sessionTime]);
 
   useEffect(() => {
-    console.log('isActive:', isActive);
-    console.log('counter:', counter);
     let intervalId;
 
     if (isActive) {

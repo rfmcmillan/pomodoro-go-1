@@ -34,15 +34,17 @@ const TotalDonut = (props) => {
 
   const chart = {
     options: {
-      dataLabels: { enabled: false },
       colors: [primary.main, secondary.main],
+      dataLabels: { enabled: false },
+
       labels: ['Successful', 'Failed'],
       legend: { show: false, position: 'bottom' },
-      // plotOptions: {
-      //   pie: {
-      //     customScale: 0.95,
-      //   },
-      // },
+      plotOptions: {
+        pie: {
+          customScale: 0.8,
+          // offsetY: -50,
+        },
+      },
       // responsive: [
       //   {
       //     breakpoint: 10000,
@@ -63,9 +65,9 @@ const TotalDonut = (props) => {
         toolbar: {
           show: false,
         },
+        height: 50,
       },
     },
-
     series: [totalSuccessful.length, totalFailed.length],
   };
 

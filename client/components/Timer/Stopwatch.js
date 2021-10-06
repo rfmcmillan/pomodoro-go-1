@@ -60,7 +60,6 @@ const Stopwatch = (props) => {
     const button = ev.target.innerText;
 
     if (button === 'START') {
-      console.log('currentSession.sessionTime:', currentSession.sessionTime);
       updateSession(currentSession.id, { sessionTime });
       localStorage.setItem('currentSession', JSON.stringify(currentSession));
       setIsActive(true);

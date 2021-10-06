@@ -216,22 +216,22 @@ const Dashboard = () => {
       </Grid>
       <Grid container spacing={3}>
         <Grid item container spacing={3}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             {lastSession ? <LastSession sessions={sessions} /> : ''}
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             {totalSessions ? <TotalSessions sessions={sessions} /> : ''}
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             {averageSession ? <AverageSession sessions={sessions} /> : ''}
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             {mostBlocked ? (
               <MostBlocked sessions={sessions} blackList={blackList} />
             ) : (
               ''
             )}
-          </Grid>
+          </Grid> */}
         </Grid>
 
         <Grid className={classes.charts} item container spacing={3}>

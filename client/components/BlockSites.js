@@ -111,7 +111,6 @@ const BlockSites = (props) => {
 
   //user interactions > change state, dispatch to store
   const handleChange = (event) => {
-    console.log('event.target:', event.target);
     const siteId = event.target.name.slice(4);
     const toggleSite = props.blockedSites.filter((each) => each.id === siteId);
 
@@ -123,12 +122,10 @@ const BlockSites = (props) => {
   };
 
   const handleSelectChange = (event) => {
-    console.log('event.target:', event.target);
     setUrlInput({ ...urlInput, category: event.target.value });
   };
 
   const submitNewUrl = () => {
-    console.log('!urlInput.category:', !urlInput.category);
     setHasError(!urlInput.category);
     getStoredBlackList().then((blackList) => {
       const newBlackList = [...blackList, urlInput.siteUrl];
@@ -139,7 +136,6 @@ const BlockSites = (props) => {
 
   const deleteUrl = (siteToDelete) => {
     getStoredBlackList().then((blackList) => {
-      console.log('blackList in deleteUrl:', blackList);
       const filtered = blackList.filter((site) => {
         return site !== siteToDelete.siteUrl;
       });

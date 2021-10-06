@@ -31,7 +31,6 @@ const TimerInput = (props) => {
   };
 
   return (
-    // <Grid item xs={4}>
     <TextField
       label={label}
       InputLabelProps={{
@@ -48,7 +47,6 @@ const TimerInput = (props) => {
       type="number"
       inputProps={{ maxLength: 2 }}
     ></TextField>
-    // </Grid>
   );
 };
 

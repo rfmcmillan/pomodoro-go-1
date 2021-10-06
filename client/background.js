@@ -232,22 +232,6 @@ const background = {
 
 background.init();
 
-// chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
-//   if (changeInfo.url) {
-//     // const hostname = new URL(url).hostname;
-//     // console.log(hostname);
-//     getStoredBlackList().then((blackListUrls) => {
-//       if (blackListUrls) {
-//         if (blackListUrls.includes(changeInfo.url)) {
-//           chrome.tabs.update(tabId, {
-//             url: `${process.env.API_URL}/uhoh`,
-//           });
-//         }
-//       }
-//     });
-//   }
-// });
-
 chrome.tabs.onUpdated.addListener(function async(tabId, changeInfo) {
   if (changeInfo.url) {
     getStoredBlackList().then((blackListUrls) => {
