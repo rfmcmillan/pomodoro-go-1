@@ -13,7 +13,7 @@ const Home = (props) => {
       textTransform: 'capitalize',
       fontWeight: 100,
       marginTop: 30,
-      boxShadow: '0px 10px 10px #b3b3b3',
+      boxShadow: '0px 10px 10px #d3aa93',
       height: 45,
       fontSize: 16,
     },
