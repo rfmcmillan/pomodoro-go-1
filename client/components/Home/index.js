@@ -17,8 +17,10 @@ const Home = (props) => {
       height: 45,
       fontSize: 16,
     },
-    image: { width: 969, height: 762 },
-    root: { margin: 60 },
+    description: { paddingRight: 100, paddingBottom: 300 },
+    stack: {},
+    image: { width: '100%' },
+    root: { width: '90%', height: '90vh' },
     subTitle: { fontSize: 20, fontWeight: 400 },
     title: { fontSize: 40, fontWeight: 700 },
   }));
@@ -26,26 +28,34 @@ const Home = (props) => {
 
   return (
     <Fade easing="ease-in" timeout={1000} in={true}>
-      <Grid container className={classes.root}>
-        <Grid item xs={6}>
-          <Typography variant="h1" className={classes.title}>
-            Stay focused and track your productivity
-          </Typography>
-          <Typography variant="h2" className={classes.subTitle}>
-            A Pomodoro Timer and website blocker for Chrome that helps you be
-            more productive and tracks your productivity
-          </Typography>
-          <Button className={classes.button} variant="contained" type="submit">
-            Download for Chrome
-          </Button>
+      <Grid container alignItems="center" direction="column">
+        <Grid
+          item
+          container
+          className={classes.root}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Grid className={classes.description} item xs={6}>
+            <Typography variant="h1" className={classes.title}>
+              Stay focused and track your productivity
+            </Typography>
+            <Typography variant="h2" className={classes.subTitle}>
+              A Pomodoro Timer and website blocker for Chrome that helps you be
+              more productive and tracks your productivity
+            </Typography>
+            <Button
+              className={classes.button}
+              variant="contained"
+              type="submit"
+            >
+              Download for Chrome
+            </Button>
+          </Grid>
+          <Grid className={classes.stack} item xs={6}>
+            <img className={classes.image} src="./assets/Stackv3.png" />
+          </Grid>
         </Grid>
-
-        <img
-          className={classes.image}
-          src="./assets/Stackv3.png"
-          width="969"
-          height="762"
-        />
       </Grid>
     </Fade>
   );
