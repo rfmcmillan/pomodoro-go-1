@@ -17,6 +17,7 @@ const Home = (props) => {
       height: 45,
       fontSize: 16,
     },
+    image: { width: 969, height: 762 },
     root: { margin: 60 },
     subTitle: { fontSize: 20, fontWeight: 400 },
     title: { fontSize: 40, fontWeight: 700 },
@@ -38,7 +39,13 @@ const Home = (props) => {
             Download for Chrome
           </Button>
         </Grid>
-        <Grid item xs={6}></Grid>
+
+        <img
+          className={classes.image}
+          src="./assets/Stackv3.png"
+          width="969"
+          height="762"
+        />
       </Grid>
     </Fade>
   );
