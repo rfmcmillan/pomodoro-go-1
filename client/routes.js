@@ -17,6 +17,7 @@ import BlockSites from './components/BlockSites';
 import Friends from './components/Friends/Friends';
 import RedirectToSite from './components/RedirectToSite';
 import About from './components/About';
+import Home from './components/Home';
 
 class Routes extends Component {
   constructor(props) {
@@ -70,6 +71,7 @@ class Routes extends Component {
               <Redirect to="/timer" />
             </Route>
             <Route path="/" exact component={Timer} />
+            <Route path="/home" exact component={Home} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/timer" exact>
               <CreateSession />
@@ -82,6 +84,7 @@ class Routes extends Component {
         ) : (
           <Switch>
             <Route path="/about" component={About} />
+            <Route path="/home" exact component={Home} />
             <Route path="/sandboxLogin" component={SandboxLogin} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
