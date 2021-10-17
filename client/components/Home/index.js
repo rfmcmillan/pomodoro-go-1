@@ -41,13 +41,14 @@ const Home = (props) => {
               Stay focused and track your productivity
             </Typography>
             <Typography variant="h2" className={classes.subTitle}>
-              A Pomodoro Timer and website blocker for Chrome that helps you be
+              A pomodoro timer and website blocker for Chrome that helps you be
               more productive and tracks your productivity
             </Typography>
             <Button
               className={classes.button}
               variant="contained"
               type="submit"
+              href="https://chrome.google.com/webstore/detail/pomodorogo/hdkcidbbeignlpjolgfjelpkinmgkefd"
             >
               Download for Chrome
             </Button>
