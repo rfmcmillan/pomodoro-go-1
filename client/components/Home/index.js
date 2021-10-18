@@ -45,11 +45,6 @@ const Home = (props) => {
   }));
   const classes = useStyles();
 
-  const loginToSandbox = (ev) => {
-    ev.preventDefault();
-    dispatch(authenticate('cody@mail.com', 'cody@mail.com', '123', 'login'));
-  };
-
   return (
     <Fade easing="ease-in" timeout={1000} in={true}>
       <Grid container alignItems="center" direction="column">
@@ -86,7 +81,7 @@ const Home = (props) => {
                 className={classes.exploreButton}
                 variant="contained"
                 type="submit"
-                onClick={loginToSandbox}
+                href="https://pomodoro-go-1.herokuapp.com/sandboxLogin"
               >
                 Explore User Interface
               </Button>
