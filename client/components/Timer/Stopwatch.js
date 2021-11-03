@@ -12,6 +12,7 @@ import {
   setStoredTimer,
   getStoredDisplayTime,
 } from '../../storage';
+import { endSession } from '../../store/sessions';
 
 const useStyles = makeStyles(() => ({
   timerContainer: {
@@ -43,6 +44,7 @@ const msToHMS = (ms) => {
 
 const Stopwatch = (props) => {
   const { updateSession, timer } = props;
+  const dispatch = useDispatch();
   const displayTime = msToHMS(timer);
   const classes = useStyles();
   const theme = useTheme();
@@ -53,8 +55,10 @@ const Stopwatch = (props) => {
   const start = Date.parse(startTime);
   const { isActive, setIsActive, sessionTime, setSessionTime } =
     useContext(SessionContext);
-
+  const [triggerEnd, setTriggerEnd] = useState(false);
+  let timeLeft = sessionTime;
   const targetTime = end - start;
+  let intervalId;
 
   const toggleTimer = (ev) => {
     const button = ev.target.innerText;
@@ -79,21 +83,37 @@ const Stopwatch = (props) => {
   }, []);
 
   function startTimer(time) {
-    if (time.getTime() > Date.now()) {
-      setInterval(() => {
-        // display the remaining time
-      }, 1000);
-    }
+    let n = 0;
+    // if (time.getTime() > Date.now()) {
+    setIsActive(true);
+    intervalId = setInterval(() => {
+      // display the remaining time
+      if (time.getTime() > Date.now()) {
+        console.log('timeLeft:', timeLeft);
+        console.log('time:', n);
+        n++;
+        timeLeft -= 1000;
+      } else {
+        setTriggerEnd(true);
+      }
+    }, 1000);
+    // }
   }
+
+  useEffect(() => {
+    if (triggerEnd && isActive) {
+      console.log(triggerEnd, isActive);
+      dispatch(endSession(currentSession.id, true));
+
+      clearInterval(intervalId);
+      setIsActive(false);
+    }
+  }, [triggerEnd]);
 
   function startTimerInit(sessionTime) {
     const now = Date.now();
-    console.log('now', now);
     const timeToFinish = now + sessionTime;
     const timeDate = new Date(timeToFinish);
-    console.log('timeDate:', timeDate);
-    // const timeFinished = timeDate.getTime();
-    // console.log('timeFinished:', timeFinished);
     chrome.runtime.sendMessage({ cmd: 'START_TIMER', when: timeDate });
     startTimer(timeDate);
   }

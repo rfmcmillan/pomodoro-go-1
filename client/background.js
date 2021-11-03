@@ -88,6 +88,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     timerID = setTimeout(() => {
       // the time is app, alert the user.
       console.log('timer is finished');
+      chrome.alarms.create('startTimer', { when: Date.now() });
+      timerTime = 0;
     }, timerTime.getTime() - Date.now());
   } else if (request.cmd === 'GET_TIME') {
     sendResponse({ time: timerTime });
