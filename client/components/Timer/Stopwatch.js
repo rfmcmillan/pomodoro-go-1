@@ -45,7 +45,11 @@ const msToHMS = (ms) => {
 const Stopwatch = (props) => {
   const { updateSession, timer } = props;
   const dispatch = useDispatch();
-  const displayTime = msToHMS(timer);
+  const { isActive, setIsActive, sessionTime, setSessionTime } =
+    useContext(SessionContext);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [localIsActive, setLocalIsActive] = useState(false);
+  const displayTime = msToHMS(timeLeft);
   const classes = useStyles();
   const theme = useTheme();
   const { primary } = theme.palette;
@@ -53,12 +57,10 @@ const Stopwatch = (props) => {
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);
-  const { isActive, setIsActive, sessionTime, setSessionTime } =
-    useContext(SessionContext);
   const [triggerEnd, setTriggerEnd] = useState(false);
-  let timeLeft = sessionTime;
-  const targetTime = end - start;
   let intervalId;
+
+  const targetTime = end - start;
 
   const toggleTimer = (ev) => {
     const button = ev.target.innerText;
@@ -82,40 +84,59 @@ const Stopwatch = (props) => {
     });
   }, []);
 
-  function startTimer(time) {
+  function startTimer(time, sessionTime) {
     let n = 0;
-    // if (time.getTime() > Date.now()) {
-    setIsActive(true);
+
+    // setIsActive(true);
+    console.log('time in startTimer:', time);
+    setTimeLeft(sessionTime);
     intervalId = setInterval(() => {
       // display the remaining time
       if (time.getTime() > Date.now()) {
         console.log('timeLeft:', timeLeft);
         console.log('time:', n);
         n++;
-        timeLeft -= 1000;
+        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1000);
       } else {
+        console.log('time.getTime():', time.getTime());
         setTriggerEnd(true);
       }
     }, 1000);
-    // }
   }
 
   useEffect(() => {
-    if (triggerEnd && isActive) {
-      console.log(triggerEnd, isActive);
-      dispatch(endSession(currentSession.id, true));
+    if (localIsActive) {
+      console.log('sessionTime in useEffect:', sessionTime);
+      startTimerInit(sessionTime);
+      return () => clearInterval(intervalId);
+    }
+  }, [localIsActive]);
 
+  useEffect(() => {
+    console.log('timeLeft:', timeLeft);
+  }, [timeLeft]);
+
+  useEffect(() => {
+    console.log('triggerEnd:', triggerEnd);
+    if (triggerEnd && localIsActive) {
+      console.log(triggerEnd, localIsActive);
+      dispatch(endSession(currentSession.id, true));
+      console.log('intervalId:', intervalId);
       clearInterval(intervalId);
-      setIsActive(false);
+      setLocalIsActive(false);
+      setTriggerEnd(false);
+      // setIsActive(false);
     }
   }, [triggerEnd]);
 
   function startTimerInit(sessionTime) {
+    console.log('sessionTIme:', sessionTime);
     const now = Date.now();
     const timeToFinish = now + sessionTime;
     const timeDate = new Date(timeToFinish);
     chrome.runtime.sendMessage({ cmd: 'START_TIMER', when: timeDate });
-    startTimer(timeDate);
+    console.log('timeDate:', timeDate);
+    startTimer(timeDate, sessionTime);
   }
   ////timer test end
 
@@ -140,7 +161,7 @@ const Stopwatch = (props) => {
           ) : (
             <Button
               onClick={() => {
-                startTimerInit(sessionTime);
+                setLocalIsActive(true);
               }}
               disabled={sessionTime ? false : true}
               style={{
@@ -158,7 +179,7 @@ const Stopwatch = (props) => {
           )}
         </Grid>
         <Circle
-          percent={(timer / sessionTime) * 100}
+          percent={(timeLeft / sessionTime) * 100}
           strokeWidth="3"
           strokeColor={{
             '0%': '#5061a9',
