@@ -88,7 +88,7 @@ const Home = (props) => {
             </Tooltip>
           </Grid>
           <Grid className={classes.stack} item xs={6}>
-            <img className={classes.image} src="./assets/Stackv3.png" />
+            <img className={classes.image} src="./assets/Homev4.png" />
           </Grid>
         </Grid>
       </Grid>
