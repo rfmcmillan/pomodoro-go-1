@@ -43,6 +43,7 @@ const CreateSession = (props) => {
       window.localStorage.setItem('sessionTime', sec + min + hour);
     }
   });
+
   return (
     <TimerContext.Provider
       value={{

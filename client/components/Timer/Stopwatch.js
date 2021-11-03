@@ -66,6 +66,39 @@ const Stopwatch = (props) => {
     }
   };
 
+  ///timer test
+  useEffect(() => {
+    console.log('useEffect called');
+    chrome.runtime.sendMessage({ cmd: 'GET_TIME' }, (response) => {
+      console.log('response:', response);
+      if (response.time) {
+        const time = new Date(response.time);
+        startTimer(time);
+      }
+    });
+  }, []);
+
+  function startTimer(time) {
+    if (time.getTime() > Date.now()) {
+      setInterval(() => {
+        // display the remaining time
+      }, 1000);
+    }
+  }
+
+  function startTimerInit(sessionTime) {
+    const now = Date.now();
+    console.log('now', now);
+    const timeToFinish = now + sessionTime;
+    const timeDate = new Date(timeToFinish);
+    console.log('timeDate:', timeDate);
+    // const timeFinished = timeDate.getTime();
+    // console.log('timeFinished:', timeFinished);
+    chrome.runtime.sendMessage({ cmd: 'START_TIMER', when: timeDate });
+    startTimer(timeDate);
+  }
+  ////timer test end
+
   return (
     <div>
       <Card className={classes.timerContainer} elevation={10}>
@@ -86,7 +119,9 @@ const Stopwatch = (props) => {
             <StopButton toggleTimer={toggleTimer} />
           ) : (
             <Button
-              onClick={toggleTimer}
+              onClick={() => {
+                startTimerInit(sessionTime);
+              }}
               disabled={sessionTime ? false : true}
               style={{
                 backgroundColor: '#5061a9',

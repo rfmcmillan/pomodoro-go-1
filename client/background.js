@@ -74,3 +74,22 @@ tabs.onUpdated.addListener(function async(tabId, changeInfo) {
     });
   }
 });
+
+////////////////// Timer Test
+
+let timerID;
+let timerTime;
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log('request:', request);
+  if (request.cmd === 'START_TIMER') {
+    console.log('request.cmd === START_TIMER');
+    timerTime = new Date(request.when);
+    timerID = setTimeout(() => {
+      // the time is app, alert the user.
+      console.log('timer is finished');
+    }, timerTime.getTime() - Date.now());
+  } else if (request.cmd === 'GET_TIME') {
+    sendResponse({ time: timerTime });
+  }
+});
