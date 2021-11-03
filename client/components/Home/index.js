@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {
-  Grid,
-  Typography,
-  Fade,
-  Box,
-  Button,
-  Tooltip,
-} from '@material-ui/core';
-import { Dashboard } from '../Dashboard';
+import { Grid, Typography, Fade, Button, Tooltip } from '@material-ui/core';
 
 const Home = (props) => {
   const theme = useTheme();
@@ -88,7 +80,7 @@ const Home = (props) => {
             </Tooltip>
           </Grid>
           <Grid className={classes.stack} item xs={6}>
-            <img className={classes.image} src="./assets/Homev4.png" />
+            <img className={classes.image} src="./assets/Home.png" />
           </Grid>
         </Grid>
       </Grid>

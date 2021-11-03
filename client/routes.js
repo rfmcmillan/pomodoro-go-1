@@ -78,7 +78,7 @@ class Routes extends Component {
             </Route>
             <Route exact path="/blocksites" component={BlockSites} />
             <Route exact path="/friends" component={Friends} />
-            <Route exact path="/uhoh" component={BlockError} />
+            <Route exact path="/blocked" component={BlockError} />
             <Route path="/about" component={About} />
           </Switch>
         ) : (
@@ -88,7 +88,7 @@ class Routes extends Component {
             <Route path="/sandboxLogin" component={SandboxLogin} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route exact path="/uhoh" component={BlockError} />
+            <Route exact path="/blocked" component={BlockError} />
           </Switch>
         )}
       </div>
