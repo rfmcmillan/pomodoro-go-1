@@ -52,7 +52,6 @@ export default connect(null, (dispatch) => {
     handleClose();
     props.endSession(currentSession.id);
     clearInterval(intervalId);
-    // toggleTimer(ev);
     setLocalIsActive(false);
   };
 

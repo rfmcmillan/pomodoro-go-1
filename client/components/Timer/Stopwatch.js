@@ -5,13 +5,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { updateSession } from '../../store/sessions';
 import StopButton from './StopButton';
 import { SessionContext } from '../../app';
-import { TimerContext } from './CreateSession';
 import { Circle } from 'rc-progress';
-import {
-  setStoredIsRunning,
-  setStoredTimer,
-  getStoredDisplayTime,
-} from '../../storage';
 import { endSession } from '../../store/sessions';
 
 const useStyles = makeStyles(() => ({
@@ -43,12 +37,12 @@ const msToHMS = (ms) => {
 };
 
 const Stopwatch = (props) => {
-  const { updateSession, timer } = props;
+  const { updateSession } = props;
   const dispatch = useDispatch();
-  const { isActive, setIsActive, sessionTime, setSessionTime } =
+  const { localIsActive, setLocalIsActive, sessionTime, setSessionTime } =
     useContext(SessionContext);
   const [timeLeft, setTimeLeft] = useState(0);
-  const [localIsActive, setLocalIsActive] = useState(false);
+  // const [localIsActive, setLocalIsActive] = useState(false);
   const displayTime = msToHMS(localIsActive ? timeLeft : sessionTime);
   const classes = useStyles();
   const theme = useTheme();
@@ -60,18 +54,6 @@ const Stopwatch = (props) => {
   const [triggerEnd, setTriggerEnd] = useState(false);
   let intervalId;
 
-  const targetTime = end - start;
-
-  const toggleTimer = (ev) => {
-    const button = ev.target.innerText;
-
-    if (button === 'START') {
-      updateSession(currentSession.id, { sessionTime });
-      localStorage.setItem('currentSession', JSON.stringify(currentSession));
-      setIsActive(true);
-    }
-  };
-
   useEffect(() => {
     chrome.runtime.sendMessage({ cmd: 'GET_TIME' }, (response) => {
       if (response.time) {
@@ -81,7 +63,7 @@ const Stopwatch = (props) => {
     });
   }, []);
 
-  function startTimer(time, sessionTime) {
+  const startTimer = (time, sessionTime) => {
     setTimeLeft(sessionTime);
     intervalId = setInterval(() => {
       if (time.getTime() >= Date.now()) {
@@ -91,7 +73,7 @@ const Stopwatch = (props) => {
         setTriggerEnd(true);
       }
     }, 1000);
-  }
+  };
 
   useEffect(() => {
     if (localIsActive) {
