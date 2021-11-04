@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, Grid } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -32,7 +32,6 @@ export default connect(null, (dispatch) => {
   };
 })(function (props) {
   const classes = useStyles();
-  const theme = useTheme();
   const { intervalId } = props;
   const { setLocalIsActive } = useContext(SessionContext);
   const currentSession = useSelector((state) => state.currentSession);
