@@ -49,7 +49,7 @@ const Stopwatch = (props) => {
     useContext(SessionContext);
   const [timeLeft, setTimeLeft] = useState(0);
   const [localIsActive, setLocalIsActive] = useState(false);
-  const displayTime = msToHMS(timeLeft);
+  const displayTime = msToHMS(localIsActive ? timeLeft : sessionTime);
   const classes = useStyles();
   const theme = useTheme();
   const { primary } = theme.palette;
@@ -92,13 +92,15 @@ const Stopwatch = (props) => {
     setTimeLeft(sessionTime);
     intervalId = setInterval(() => {
       // display the remaining time
-      if (time.getTime() > Date.now()) {
+      console.log('time.getTime():', time.getTime(), 'Date.now():', Date.now());
+      if (time.getTime() >= Date.now()) {
         console.log('timeLeft:', timeLeft);
         console.log('time:', n);
         n++;
         setTimeLeft((prevTimeLeft) => prevTimeLeft - 1000);
       } else {
         console.log('time.getTime():', time.getTime());
+        setTimeLeft(0);
         setTriggerEnd(true);
       }
     }, 1000);
@@ -158,7 +160,7 @@ const Stopwatch = (props) => {
               {displayTime}{' '}
             </Typography>
           </Grid>
-          {isActive > 0 ? (
+          {localIsActive ? (
             <StopButton toggleTimer={toggleTimer} />
           ) : (
             <Button
@@ -181,7 +183,9 @@ const Stopwatch = (props) => {
           )}
         </Grid>
         <Circle
-          percent={(timeLeft / sessionTime) * 100}
+          percent={
+            ((localIsActive ? timeLeft : sessionTime) / sessionTime) * 100
+          }
           strokeWidth="3"
           strokeColor={{
             '0%': '#5061a9',
