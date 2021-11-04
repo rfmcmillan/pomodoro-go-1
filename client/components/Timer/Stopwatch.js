@@ -72,11 +72,8 @@ const Stopwatch = (props) => {
     }
   };
 
-  ///timer test
   useEffect(() => {
-    console.log('useEffect called');
     chrome.runtime.sendMessage({ cmd: 'GET_TIME' }, (response) => {
-      console.log('response:', response);
       if (response.time) {
         const time = new Date(response.time);
         startTimer(time);
@@ -85,21 +82,11 @@ const Stopwatch = (props) => {
   }, []);
 
   function startTimer(time, sessionTime) {
-    let n = 0;
-
-    // setIsActive(true);
-    console.log('time in startTimer:', time);
     setTimeLeft(sessionTime);
     intervalId = setInterval(() => {
-      // display the remaining time
-      console.log('time.getTime():', time.getTime(), 'Date.now():', Date.now());
       if (time.getTime() >= Date.now()) {
-        console.log('timeLeft:', timeLeft);
-        console.log('time:', n);
-        n++;
         setTimeLeft((prevTimeLeft) => prevTimeLeft - 1000);
       } else {
-        console.log('time.getTime():', time.getTime());
         setTimeLeft(0);
         setTriggerEnd(true);
       }
@@ -108,41 +95,29 @@ const Stopwatch = (props) => {
 
   useEffect(() => {
     if (localIsActive) {
-      console.log('sessionTime in useEffect:', sessionTime);
       startTimerInit(sessionTime);
       return () => clearInterval(intervalId);
     }
   }, [localIsActive]);
 
   useEffect(() => {
-    console.log('timeLeft:', timeLeft);
-  }, [timeLeft]);
-
-  useEffect(() => {
-    console.log('triggerEnd:', triggerEnd);
     if (triggerEnd && localIsActive) {
-      console.log(triggerEnd, localIsActive);
       dispatch(endSession(currentSession.id, true));
-      console.log('intervalId:', intervalId);
       clearInterval(intervalId);
       setLocalIsActive(false);
       setTriggerEnd(false);
-      // setIsActive(false);
     }
   }, [triggerEnd]);
 
   function startTimerInit(sessionTime) {
-    console.log('sessionTIme:', sessionTime);
     const now = Date.now();
     const timeToFinish = now + sessionTime;
     const timeDate = new Date(timeToFinish);
     chrome.runtime.sendMessage({ cmd: 'START_TIMER', when: timeDate });
-    console.log('timeDate:', timeDate);
     updateSession(currentSession.id, { sessionTime });
     localStorage.setItem('currentSession', JSON.stringify(currentSession));
     startTimer(timeDate, sessionTime);
   }
-  ////timer test end
 
   return (
     <div>
@@ -161,7 +136,11 @@ const Stopwatch = (props) => {
             </Typography>
           </Grid>
           {localIsActive ? (
-            <StopButton toggleTimer={toggleTimer} />
+            <StopButton
+              localIsActive={localIsActive}
+              setLocalIsActive={setLocalIsActive}
+              intervalId={intervalId}
+            />
           ) : (
             <Button
               onClick={() => {

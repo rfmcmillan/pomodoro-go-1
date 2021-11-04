@@ -36,7 +36,7 @@ export default connect(null, (dispatch) => {
   const {
     palette: { primary, secondary },
   } = theme;
-  const { updateSession, toggleTimer } = props;
+  const { updateSession, localIsActive, setLocalIsActive, intervalId } = props;
   const { setCountDown, setIsActive } = useContext(SessionContext);
   const currentSession = useSelector((state) => state.currentSession);
   const [open, setOpen] = React.useState(false);
@@ -51,9 +51,9 @@ export default connect(null, (dispatch) => {
   const handleStop = (ev) => {
     handleClose();
     props.endSession(currentSession.id);
-    clearInterval(window.timer);
-    toggleTimer(ev);
-    setIsActive(false);
+    clearInterval(intervalId);
+    // toggleTimer(ev);
+    setLocalIsActive(false);
   };
 
   return (
