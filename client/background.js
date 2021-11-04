@@ -74,3 +74,18 @@ tabs.onUpdated.addListener(function async(tabId, changeInfo) {
     });
   }
 });
+
+let timerID;
+let timerTime;
+
+runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.cmd === 'START_TIMER') {
+    timerTime = new Date(request.when);
+    timerID = setTimeout(() => {
+      chrome.alarms.create('startTimer', { when: Date.now() });
+      timerTime = 0;
+    }, timerTime.getTime() - Date.now());
+  } else if (request.cmd === 'GET_TIME') {
+    sendResponse({ time: timerTime });
+  }
+});

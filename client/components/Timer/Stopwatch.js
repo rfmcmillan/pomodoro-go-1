@@ -5,13 +5,8 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { updateSession } from '../../store/sessions';
 import StopButton from './StopButton';
 import { SessionContext } from '../../app';
-import { TimerContext } from './CreateSession';
 import { Circle } from 'rc-progress';
-import {
-  setStoredIsRunning,
-  setStoredTimer,
-  getStoredDisplayTime,
-} from '../../storage';
+import { endSession } from '../../store/sessions';
 
 const useStyles = makeStyles(() => ({
   timerContainer: {
@@ -42,8 +37,13 @@ const msToHMS = (ms) => {
 };
 
 const Stopwatch = (props) => {
-  const { updateSession, timer } = props;
-  const displayTime = msToHMS(timer);
+  const { updateSession } = props;
+  const dispatch = useDispatch();
+  const { localIsActive, setLocalIsActive, sessionTime, setSessionTime } =
+    useContext(SessionContext);
+  const [timeLeft, setTimeLeft] = useState(0);
+  // const [localIsActive, setLocalIsActive] = useState(false);
+  const displayTime = msToHMS(localIsActive ? timeLeft : sessionTime);
   const classes = useStyles();
   const theme = useTheme();
   const { primary } = theme.palette;
@@ -51,20 +51,55 @@ const Stopwatch = (props) => {
   const { expectedEndTime, startTime } = currentSession;
   const end = Date.parse(expectedEndTime);
   const start = Date.parse(startTime);
-  const { isActive, setIsActive, sessionTime, setSessionTime } =
-    useContext(SessionContext);
+  const [triggerEnd, setTriggerEnd] = useState(false);
+  let intervalId;
 
-  const targetTime = end - start;
+  useEffect(() => {
+    chrome.runtime.sendMessage({ cmd: 'GET_TIME' }, (response) => {
+      if (response.time) {
+        const time = new Date(response.time);
+        startTimer(time);
+      }
+    });
+  }, []);
 
-  const toggleTimer = (ev) => {
-    const button = ev.target.innerText;
-
-    if (button === 'START') {
-      updateSession(currentSession.id, { sessionTime });
-      localStorage.setItem('currentSession', JSON.stringify(currentSession));
-      setIsActive(true);
-    }
+  const startTimer = (time, sessionTime) => {
+    setTimeLeft(sessionTime);
+    intervalId = setInterval(() => {
+      if (time.getTime() >= Date.now()) {
+        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1000);
+      } else {
+        setTimeLeft(0);
+        setTriggerEnd(true);
+      }
+    }, 1000);
   };
+
+  useEffect(() => {
+    if (localIsActive) {
+      startTimerInit(sessionTime);
+      return () => clearInterval(intervalId);
+    }
+  }, [localIsActive]);
+
+  useEffect(() => {
+    if (triggerEnd && localIsActive) {
+      dispatch(endSession(currentSession.id, true));
+      clearInterval(intervalId);
+      setLocalIsActive(false);
+      setTriggerEnd(false);
+    }
+  }, [triggerEnd]);
+
+  function startTimerInit(sessionTime) {
+    const now = Date.now();
+    const timeToFinish = now + sessionTime;
+    const timeDate = new Date(timeToFinish);
+    chrome.runtime.sendMessage({ cmd: 'START_TIMER', when: timeDate });
+    updateSession(currentSession.id, { sessionTime });
+    localStorage.setItem('currentSession', JSON.stringify(currentSession));
+    startTimer(timeDate, sessionTime);
+  }
 
   return (
     <div>
@@ -82,11 +117,13 @@ const Stopwatch = (props) => {
               {displayTime}{' '}
             </Typography>
           </Grid>
-          {isActive > 0 ? (
-            <StopButton toggleTimer={toggleTimer} />
+          {localIsActive ? (
+            <StopButton intervalId={intervalId} />
           ) : (
             <Button
-              onClick={toggleTimer}
+              onClick={() => {
+                setLocalIsActive(true);
+              }}
               disabled={sessionTime ? false : true}
               style={{
                 backgroundColor: '#5061a9',
@@ -103,7 +140,9 @@ const Stopwatch = (props) => {
           )}
         </Grid>
         <Circle
-          percent={(timer / sessionTime) * 100}
+          percent={
+            ((localIsActive ? timeLeft : sessionTime) / sessionTime) * 100
+          }
           strokeWidth="3"
           strokeColor={{
             '0%': '#5061a9',

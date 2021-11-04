@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, Grid } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -32,12 +32,8 @@ export default connect(null, (dispatch) => {
   };
 })(function (props) {
   const classes = useStyles();
-  const theme = useTheme();
-  const {
-    palette: { primary, secondary },
-  } = theme;
-  const { updateSession, toggleTimer } = props;
-  const { setCountDown, setIsActive } = useContext(SessionContext);
+  const { intervalId } = props;
+  const { setLocalIsActive } = useContext(SessionContext);
   const currentSession = useSelector((state) => state.currentSession);
   const [open, setOpen] = React.useState(false);
 
@@ -51,9 +47,8 @@ export default connect(null, (dispatch) => {
   const handleStop = (ev) => {
     handleClose();
     props.endSession(currentSession.id);
-    clearInterval(window.timer);
-    toggleTimer(ev);
-    setIsActive(false);
+    clearInterval(intervalId);
+    setLocalIsActive(false);
   };
 
   return (

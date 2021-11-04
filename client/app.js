@@ -23,7 +23,7 @@ const App = (props) => {
   const [sessionTime, setSessionTime] = useState(0);
   const [goal, setGoal] = useState('');
   const [counter, setCounter] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [localIsActive, setLocalIsActive] = useState(false);
   const blackList = useSelector((state) => state.blackList);
   const auth = useSelector((state) => state.auth);
   const [intervalID, setIntervalID] = useState('');
@@ -45,23 +45,23 @@ const App = (props) => {
     setCounter(sessionTime);
   }, [sessionTime]);
 
-  useEffect(() => {
-    let intervalId;
+  // useEffect(() => {
+  //   let intervalId;
 
-    if (isActive) {
-      if (counter === 0) {
-        setIsActive(false);
-        dispatch(endSession(currentSession.id, true));
-        chrome.alarms.create('startTimer', { when: Date.now() });
-      }
+  //   if (isActive) {
+  //     if (counter === 0) {
+  //       setIsActive(false);
+  //       dispatch(endSession(currentSession.id, true));
+  //       chrome.alarms.create('startTimer', { when: Date.now() });
+  //     }
 
-      intervalId = setInterval(() => {
-        setCounter((counter) => counter - 1000);
-      }, 1000);
-    }
+  //     intervalId = setInterval(() => {
+  //       setCounter((counter) => counter - 1000);
+  //     }, 1000);
+  //   }
 
-    return () => clearInterval(intervalId);
-  }, [isActive, counter]);
+  //   return () => clearInterval(intervalId);
+  // }, [isActive, counter]);
 
   useEffect(() => {
     if (auth.id && blackList.length) {
@@ -88,11 +88,11 @@ const App = (props) => {
           setGoal,
           intervalID,
           setIntervalID,
-          isActive,
-          setIsActive,
+          localIsActive,
+          setLocalIsActive,
         }}
       >
-        {isActive ? '' : <Nav />}
+        {localIsActive ? '' : <Nav />}
         <Routes timer={counter} />
       </SessionContext.Provider>
     </div>
