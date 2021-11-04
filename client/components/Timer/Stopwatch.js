@@ -136,6 +136,8 @@ const Stopwatch = (props) => {
     const timeDate = new Date(timeToFinish);
     chrome.runtime.sendMessage({ cmd: 'START_TIMER', when: timeDate });
     console.log('timeDate:', timeDate);
+    updateSession(currentSession.id, { sessionTime });
+    localStorage.setItem('currentSession', JSON.stringify(currentSession));
     startTimer(timeDate, sessionTime);
   }
   ////timer test end
