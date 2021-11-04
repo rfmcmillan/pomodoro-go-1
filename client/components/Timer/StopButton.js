@@ -33,11 +33,8 @@ export default connect(null, (dispatch) => {
 })(function (props) {
   const classes = useStyles();
   const theme = useTheme();
-  const {
-    palette: { primary, secondary },
-  } = theme;
-  const { updateSession, localIsActive, setLocalIsActive, intervalId } = props;
-  const { setCountDown, setIsActive } = useContext(SessionContext);
+  const { intervalId } = props;
+  const { setLocalIsActive } = useContext(SessionContext);
   const currentSession = useSelector((state) => state.currentSession);
   const [open, setOpen] = React.useState(false);
 

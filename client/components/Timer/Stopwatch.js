@@ -118,11 +118,7 @@ const Stopwatch = (props) => {
             </Typography>
           </Grid>
           {localIsActive ? (
-            <StopButton
-              localIsActive={localIsActive}
-              setLocalIsActive={setLocalIsActive}
-              intervalId={intervalId}
-            />
+            <StopButton intervalId={intervalId} />
           ) : (
             <Button
               onClick={() => {
