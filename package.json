@@ -1,7 +1,7 @@
 {
   "name": "pomodoro_go",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "A focus timer and web site blocker",
   "main": "index.js",
   "scripts": {
     "build": "INLINE_RUNTIME_CHUNK=false NODE_ENV=production webpack --config webpack.config.js",
@@ -18,7 +18,7 @@
     "test:dev:routes": "npm run test:dev -- --grep=route",
     "prepare": "husky install"
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Stephen Alas, Yiru Ding, Russel McMillan & Felicity Wu",
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.4",

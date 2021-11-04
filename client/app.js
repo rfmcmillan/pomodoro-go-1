@@ -45,24 +45,6 @@ const App = (props) => {
     setCounter(sessionTime);
   }, [sessionTime]);
 
-  // useEffect(() => {
-  //   let intervalId;
-
-  //   if (isActive) {
-  //     if (counter === 0) {
-  //       setIsActive(false);
-  //       dispatch(endSession(currentSession.id, true));
-  //       chrome.alarms.create('startTimer', { when: Date.now() });
-  //     }
-
-  //     intervalId = setInterval(() => {
-  //       setCounter((counter) => counter - 1000);
-  //     }, 1000);
-  //   }
-
-  //   return () => clearInterval(intervalId);
-  // }, [isActive, counter]);
-
   useEffect(() => {
     if (auth.id && blackList.length) {
       const blackListUser = blackList.filter((blackListItem) => {
