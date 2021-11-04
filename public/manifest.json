@@ -1,7 +1,7 @@
 {
   "name": "PomodoroGo",
   "description": "PomodoroGo is an app that helps boost productivity by blocking social media and providing a focus timer and data dashboard.",
-  "version": "1.2",
+  "version": "1.3",
   "manifest_version": 3,
   "chrome_url_overrides": {
   },
