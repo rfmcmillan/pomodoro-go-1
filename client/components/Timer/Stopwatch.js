@@ -55,12 +55,16 @@ const Stopwatch = (props) => {
   let intervalId;
 
   useEffect(() => {
-    chrome.runtime.sendMessage({ cmd: 'GET_TIME' }, (response) => {
-      if (response.time) {
-        const time = new Date(response.time);
-        startTimer(time);
+    chrome.runtime.sendMessage(
+      'nmfhcdkehekkflbopjlnnihncpnlejho',
+      { cmd: 'GET_TIME' },
+      (response) => {
+        if (response.time) {
+          const time = new Date(response.time);
+          startTimer(time);
+        }
       }
-    });
+    );
   }, []);
 
   const startTimer = (time, sessionTime) => {
@@ -95,7 +99,10 @@ const Stopwatch = (props) => {
     const now = Date.now();
     const timeToFinish = now + sessionTime;
     const timeDate = new Date(timeToFinish);
-    chrome.runtime.sendMessage({ cmd: 'START_TIMER', when: timeDate });
+    chrome.runtime.sendMessage('nmfhcdkehekkflbopjlnnihncpnlejho', {
+      cmd: 'START_TIMER',
+      when: timeDate,
+    });
     updateSession(currentSession.id, { sessionTime });
     localStorage.setItem('currentSession', JSON.stringify(currentSession));
     startTimer(timeDate, sessionTime);

@@ -123,7 +123,7 @@ export const endSession =
           { successful }
         );
       }
-      chrome.runtime.sendMessage('jgphbioennmnjogfbpchcgphelmfoiig', {
+      chrome.runtime.sendMessage('nmfhcdkehekkflbopjlnnihncpnlejho', {
         message: 'timer-done',
       });
 
