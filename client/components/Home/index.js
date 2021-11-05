@@ -28,7 +28,7 @@ const Home = (props) => {
       height: 45,
       fontSize: 16,
     },
-    exploreTooltip: {},
+    exploreTooltip: { fonstSize: 20 },
 
     image: { width: '100%' },
     root: { width: '90%', height: '90vh' },
@@ -62,12 +62,12 @@ const Home = (props) => {
               type="submit"
               href="https://chrome.google.com/webstore/detail/pomodorogo/hdkcidbbeignlpjolgfjelpkinmgkefd"
             >
-              Download for Chrome
+              Download Chrome Extension
             </Button>
 
             <Tooltip
               className={classes.exploreTooltip}
-              title="If you aren't able to download the extension on your work computer, but would still like to checkout the user interface this is a good option. The only thing that won't be activated is the website-blocker."
+              title="If you can't download the extension to your work computer, you can explore the user interface by clicking here. The only thing that won't be activated is the website-blocker."
             >
               <Button
                 className={classes.exploreButton}
