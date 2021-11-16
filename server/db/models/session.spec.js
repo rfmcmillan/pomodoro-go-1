@@ -37,7 +37,6 @@ describe('Session model', () => {
     );
     expect(new Date(session.expectedEndTime).getTime()).to.equal(endTime);
   });
-  //using a UUID threw this test off; wasn't able to fix quickly but I'll look into
   describe('Session.start() class method', () => {
     it('creates a session with an associated user and goal(if it is provided)', async () => {
       const chris = await User.create({

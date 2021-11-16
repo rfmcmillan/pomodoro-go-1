@@ -3,19 +3,21 @@ import axios from 'axios';
 const GET_CURRPLAYLIST = 'GET_CURRPLAYLIST';
 const RESET_CURRPLAYLIST = 'RESET_CURRPLAYLIST';
 
-//get playlists
 export const getCurrPlaylist = (playlistId, accessToken) => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     try {
       let currPlaylist = (
-        await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
+        await axios.get(
+          `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
       ).data;
       dispatch(_getCurrPlaylist(currPlaylist));
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -24,14 +26,14 @@ export const getCurrPlaylist = (playlistId, accessToken) => {
 const _getCurrPlaylist = (currPlaylist) => {
   return {
     type: GET_CURRPLAYLIST,
-    currPlaylist
+    currPlaylist,
   };
 };
 
-export const resetCurrPlaylist = (currPlaylist={}) => {
+export const resetCurrPlaylist = (currPlaylist = {}) => {
   return {
     type: RESET_CURRPLAYLIST,
-    currPlaylist
+    currPlaylist,
   };
 };
 

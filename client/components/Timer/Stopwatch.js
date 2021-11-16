@@ -42,7 +42,6 @@ const Stopwatch = (props) => {
   const { localIsActive, setLocalIsActive, sessionTime, setSessionTime } =
     useContext(SessionContext);
   const [timeLeft, setTimeLeft] = useState(0);
-  // const [localIsActive, setLocalIsActive] = useState(false);
   const displayTime = msToHMS(localIsActive ? timeLeft : sessionTime);
   const classes = useStyles();
   const theme = useTheme();

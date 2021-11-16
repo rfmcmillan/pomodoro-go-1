@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-
 import { getMyRequestToOthers } from '../../store/getFriends';
-
-//material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -72,7 +69,6 @@ const RequestsToOthers = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    // auth: state.auth,
     myRequests: state.myRequests,
     newFriendRequest: state.newFriendRequest,
   };

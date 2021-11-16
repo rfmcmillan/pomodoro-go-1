@@ -66,7 +66,7 @@ router.put('/:sessionId', async (req, res, next) => {
     next(error);
   }
 });
-// END SESSION
+
 router.put('/:sessionId/end', async (req, res, next) => {
   try {
     const { sessionId } = req.params;

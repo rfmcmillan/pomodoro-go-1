@@ -9,7 +9,7 @@ const getMyRequestToOthers = (userId) => {
       const currentUser = (
         await axios.get(`${process.env.API_URL}/api/users/${userId}`)
       ).data;
-      const myRequests = currentUser.requester; //get where current user is the requester of friends requests
+      const myRequests = currentUser.requester;
       dispatch(_getMyRequestToOthers(myRequests));
     } catch (err) {
       console.log(err);
@@ -30,7 +30,7 @@ const getRequestsToMe = (userId) => {
       const currentUser = (
         await axios.get(`${process.env.API_URL}/api/users/${userId}`)
       ).data;
-      const requestsToMe = currentUser.requestee; //get where current user is the requester of friends requests
+      const requestsToMe = currentUser.requestee;
       dispatch(_getRequestsToMe(requestsToMe));
     } catch (err) {
       console.log(err);

@@ -3,7 +3,6 @@ import axios from 'axios';
 const ADD_TO_QUEUE = 'ADD_TO_QUEUE';
 const RESET_QUEUE = 'RESET_QUEUE';
 
-//add a track to queue
 export const addToQueue = (accessToken, trackUri) => {
   return async (dispatch) => {
     try {

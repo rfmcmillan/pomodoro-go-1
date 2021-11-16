@@ -28,6 +28,4 @@ const Site = db.define('site', {
   },
 });
 
-//need to make site unique, and add a beforecreate hook to check if the new url exists, if yes, add user to the site instead of creating a new site
-
 module.exports = Site;

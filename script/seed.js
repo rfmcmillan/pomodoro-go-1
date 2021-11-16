@@ -37,7 +37,8 @@ async function seed() {
   const jack = users[3];
   const lisa = users[4];
 
-  // Creating admin Users
+  // Creating Admin Users
+
   const [felicity, russel, stephan, ding] = await Promise.all(
     [
       ['felicity@mail.com', '123', 'felicity', true],
@@ -54,7 +55,7 @@ async function seed() {
     })
   );
 
-  //Creating sessions
+  //Creating Sessions
   const sessionSeeds = [];
   const goals = ['Study', 'Work', 'Read', 'Meditate'];
   for (let i = 0; i < 800; i++) {
@@ -69,7 +70,7 @@ async function seed() {
     Task.create({ name: 'Single User route' }),
   ]);
 
-  // Creating sites
+  // Creating Sites
   const sites = await Promise.all([
     Site.create({
       name: 'Twitter',
@@ -104,7 +105,7 @@ async function seed() {
   const netflix = sites[3];
   const hulu = sites[4];
 
-  // Creating site and user associations
+  // Creating Site and User Associations
   await Promise.all([
     BlackList.create({ siteId: twitter.id, userId: cody.id, blocks: 78 }),
     BlackList.create({ siteId: instagram.id, userId: cody.id, blocks: 24 }),
@@ -119,7 +120,7 @@ async function seed() {
     BlackList.create({ siteId: facebook.id, userId: jen.id, blocks: 65 }),
   ]);
 
-  // Creating friendship
+  // Creating Friendships
   await Promise.all([
     Friendship.create({
       requesteeId: murphy.id,
@@ -148,7 +149,7 @@ async function seed() {
     }),
   ]);
 
-  // Creating blocks
+  // Creating Blocks
   const blockSeeds = [];
   for (let i = 0; i < 200; i++) {
     blockSeeds.push(Block.seed(users, sites));

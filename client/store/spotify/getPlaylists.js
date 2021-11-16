@@ -2,9 +2,8 @@ import axios from 'axios';
 
 const GET_PLAYLISTS = 'GET_PLAYLISTS';
 
-//get playlists
 export const getPlaylists = (accessToken) => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     try {
       let playlists = (
         await axios.get('https://api.spotify.com/v1/me/playlists', {
@@ -14,7 +13,7 @@ export const getPlaylists = (accessToken) => {
         })
       ).data;
       dispatch(_getPlaylists(playlists));
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -23,7 +22,7 @@ export const getPlaylists = (accessToken) => {
 const _getPlaylists = (playlists) => {
   return {
     type: GET_PLAYLISTS,
-    playlists
+    playlists,
   };
 };
 

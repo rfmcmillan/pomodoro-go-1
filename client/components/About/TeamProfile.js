@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: 100,
     height: 100,
-    // borderColor: 'black',
     border: '1px solid #999999',
   },
   icons: {

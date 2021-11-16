@@ -42,21 +42,8 @@ const TotalDonut = (props) => {
       plotOptions: {
         pie: {
           customScale: 0.8,
-          // offsetY: -50,
         },
       },
-      // responsive: [
-      //   {
-      //     breakpoint: 10000,
-      //     options: {
-      //       plotOptions: {
-      //         pie: {
-      //           customScale: 1,
-      //         },
-      //       },
-      //     },
-      //   },
-      // ],
       stroke: {
         show: true,
         colors: [background.paper],

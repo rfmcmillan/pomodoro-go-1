@@ -34,8 +34,9 @@ const useStyles = makeStyles({
   },
 });
 
-//This component displays either the 'By Day of Week' bar chart or the 'By Goal'
-//bar chart depending on what is selected from the dropdown menu
+/* This component displays either the 'By Day of Week' bar chart or the 'By Goal'
+bar chart depending on what is selected from the dropdown menu */
+
 const ChartLeft = (props) => {
   const classes = useStyles();
   const { sessions } = props;
@@ -54,6 +55,7 @@ const ChartLeft = (props) => {
   };
 
   //Distribution By Days Chart
+
   const sessionDays = sessions.map((session) => {
     const dayOfWeek = dayjs(session.startTime).format('ddd');
     return dayOfWeek;
@@ -83,6 +85,7 @@ const ChartLeft = (props) => {
   };
 
   //Successful Sessions for Stacked Distribution View
+
   const sessionsSuccessful = sessions.filter((session) => {
     return session.successful === true;
   });
@@ -112,6 +115,7 @@ const ChartLeft = (props) => {
   }
 
   //Failed Sessions for Stacked Distribution View
+
   const sessionsFailed = sessions.filter((session) => {
     return session.successful === false;
   });
@@ -161,8 +165,6 @@ const ChartLeft = (props) => {
         toolbar: {
           show: true,
         },
-        // height: 50,
-        // width: '100px',
       },
       colors: stacked ? [secondary.main, primary.main] : [primary.main],
       dataLabels: {
@@ -491,6 +493,7 @@ const ChartLeft = (props) => {
   };
 
   //Distribution By Goals Chart
+
   const sessionGoals = sessions.map((session) => {
     const goal = session.goal;
     return goal;
@@ -519,7 +522,7 @@ const ChartLeft = (props) => {
   };
 
   //Goals - Stacked View
-  //Successful
+
   const sessionGoalsSuccessful = sessionsSuccessful.map((session) => {
     const goal = session.goal;
     return goal;

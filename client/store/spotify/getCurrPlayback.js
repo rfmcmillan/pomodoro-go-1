@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const GET_CURRPLAYBACK = 'GET_CURRPLAYBACK';
 
-//get current playback
 export const getCurrPlayback = (accessToken) => {
   return async (dispatch) => {
     try {
