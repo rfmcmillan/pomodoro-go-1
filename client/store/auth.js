@@ -10,19 +10,10 @@ const SPOTIFY_ACCESS_TOKEN = 'spotify_access_token';
 const SPOTIFY_REFRESH_TOKEN = 'spotify_refresh_token';
 const NEW_SPOTIFY_DEVICE = 'new-spotify-device';
 
-/**
- * ACTION TYPES
- */
 const SET_AUTH = 'SET_AUTH';
 
-/**
- * ACTION CREATORS
- */
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
 
-/**
- * THUNK CREATORS
- */
 export const me = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
@@ -78,9 +69,6 @@ export const logout = () => {
   };
 };
 
-/**
- * REDUCER
- */
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:

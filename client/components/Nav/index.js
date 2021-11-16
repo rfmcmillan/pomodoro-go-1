@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authenticateGoogle, logout, me } from '../../store';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 import {
   AppBar,
@@ -195,23 +194,6 @@ const Navbar = (props) => {
                     Sign Up
                   </NavButton>
                 </Grid>
-                {/* <Grid item>
-                  <GoogleLogin
-                    clientId="811227993938-nd59os35t80qtuqgmul58232c54sbmsm.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={handleSuccess}
-                    onFailure={handleFail}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={props.isLoggedIn}
-                    redirectUri={`${process.env.API_URL}/timer`}
-                    render={(renderProps) => (
-                      <Avatar
-                        onClick={renderProps.onClick}
-                        src="https://img-authors.flaticon.com/google.jpg"
-                      />
-                    )}
-                  />
-                </Grid> */}
               </Grid>
             )}
           </Toolbar>
@@ -221,9 +203,6 @@ const Navbar = (props) => {
   );
 };
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,

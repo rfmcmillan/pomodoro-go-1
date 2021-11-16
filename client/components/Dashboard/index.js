@@ -225,13 +225,6 @@ const Dashboard = () => {
           <Grid item xs={4}>
             {averageSession ? <AverageSession sessions={sessions} /> : ''}
           </Grid>
-          {/* <Grid item xs={3}>
-            {mostBlocked ? (
-              <MostBlocked sessions={sessions} blackList={blackList} />
-            ) : (
-              ''
-            )}
-          </Grid> */}
         </Grid>
 
         <Grid className={classes.charts} item container spacing={3}>

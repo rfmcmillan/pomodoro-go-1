@@ -55,8 +55,8 @@ module.exports = User;
 /**
  * instanceMethods
  */
+
 User.prototype.correctPassword = function (candidatePwd) {
-  //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password);
 };
 
@@ -67,6 +67,7 @@ User.prototype.generateToken = function () {
 /**
  * classMethods
  */
+
 User.authenticate = async function (userObj, method = null) {
   if (method === 'google') {
     return userObj.generateToken();
@@ -99,8 +100,8 @@ User.findByToken = async function (token, method = null) {
 /**
  * hooks
  */
+
 const hashPassword = async (user) => {
-  //in case the password has been changed, we want to encrypt it with bcrypt
   if (user.changed('password')) {
     user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
   }

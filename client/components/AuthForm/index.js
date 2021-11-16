@@ -34,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
   signInTitle: {},
 }));
 
-/**
- * COMPONENT
- */
 const AuthForm = (props) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -72,7 +69,6 @@ const AuthForm = (props) => {
 
   return (
     <div>
-      {/* script for google OAuth */}
       <form id="login" onSubmit={handleSubmit} name={name} value={value}>
         {name === 'signup' ? (
           <Paper className={classes.login}>
@@ -250,13 +246,6 @@ const AuthForm = (props) => {
   );
 };
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 const mapLogin = (state) => {
   return {
     name: 'login',

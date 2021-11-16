@@ -127,7 +127,6 @@ img {
   width: 40%;
   background-color: black;
   color: white;
-  /* padding-left: 10px; */
   padding: 10px 0px 0px 10px;
   font-family: 'Noto Sans Display';
   font-size: 1.5em;
@@ -138,7 +137,6 @@ img {
   height: 400px;
   width: 300px;
   background: 'transparent';
-  /* margin: -275px -225px; */
 }
 
 .lines {

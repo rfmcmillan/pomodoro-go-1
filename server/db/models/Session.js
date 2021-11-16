@@ -14,10 +14,8 @@ const Session = db.define('session', {
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  //expected length of session (in milliseconds)
   sessionTime: {
     type: DataTypes.INTEGER,
-    // allowNull: false,
   },
   startTime: {
     type: DataTypes.DATE,
@@ -41,9 +39,7 @@ const Session = db.define('session', {
   },
 });
 
-/**
- * instanceMethods
- */
+// Instance Methods
 
 Session.prototype.end = async function ({ successful, status }) {
   this.successful = successful;
@@ -52,9 +48,8 @@ Session.prototype.end = async function ({ successful, status }) {
   await this.save();
   return this;
 };
-/**
- * classMethods
- */
+
+// Class Methods
 
 Session.start = async function ({ userId, sessionTime, goal }) {
   const session = await Session.create({ sessionTime: sessionTime });
@@ -94,9 +89,7 @@ Session.seed = async function (users, goals) {
   return session;
 };
 
-/**
- * hooks
- */
+// Hooks
 
 const calcStartTime = (session) => {
   session.startTime = session.createdAt;
@@ -107,7 +100,6 @@ const calcExpectedEndTime = (session) => {
   const startDate = new Date(startTime);
   const startTimeInMS = startDate.setMilliseconds(sessionTime);
   session.expectedEndTime = startTimeInMS;
-  //session.actualEndTime = startDate.setMilliseconds(sessionTime);
 };
 
 Session.afterCreate((session) => {

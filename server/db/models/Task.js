@@ -16,16 +16,4 @@ const Task = db.define('task', {
   },
 });
 
-/**
- * instanceMethods
- */
-
-/**
- * classMethods
- */
-
-/**
- * hooks
- */
-
 module.exports = Task;

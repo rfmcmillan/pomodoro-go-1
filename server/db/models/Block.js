@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
-const { DataTypes: {
-  UUID, UUIDV4, DATE
-}
+const {
+  DataTypes: { UUID, UUIDV4, DATE },
 } = Sequelize;
 const db = require('../db');
 const faker = require('faker');
@@ -15,7 +14,7 @@ const Block = db.define('block', {
   date: {
     type: DATE,
     allowNull: true,
-  }
+  },
 });
 
 Block.seed = async function (users, sites) {
@@ -31,14 +30,5 @@ Block.seed = async function (users, sites) {
   await block.save();
   return block;
 };
-
-
-/**
- * hooks
- */
-// Block.afterCreate((block) => {
-//   block.date = block.createdAt;
-//   block.save();
-// });
 
 module.exports = Block;
