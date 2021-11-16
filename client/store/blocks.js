@@ -19,8 +19,6 @@ const loadBlocks = () => {
   };
 };
 
-//CREATE BLOCK
-
 const CREATE_BLOCK = 'CREATE_BLOCK';
 
 const createBlockActionCreator = (block) => {

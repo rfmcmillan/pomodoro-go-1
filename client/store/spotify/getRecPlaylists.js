@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const GET_REC_PLAYLISTS = 'GET_REC_PLAYLISTS';
 
-//get recommended playlists
 export const getRecPlaylists = (accessToken) => {
   return async (dispatch) => {
     try {

@@ -32,5 +32,5 @@ describe('User routes', () => {
       expect(res.body[0]).to.have.property('sessions');
       expect(res.body[0]).to.have.property('sites');
     });
-  }); // end describe('/api/users')
-}); // end describe('User routes')
+  });
+});

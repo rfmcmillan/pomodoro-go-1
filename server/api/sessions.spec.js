@@ -45,5 +45,4 @@ describe('Session routes', () => {
       expect(updatedSession.sessionTime).to.not.equal(sessionTime);
     });
   });
-  // end describe('/api/sessions')
-}); // end describe('Session routes')
+});

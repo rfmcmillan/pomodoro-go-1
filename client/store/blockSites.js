@@ -7,7 +7,6 @@ const GET_SITES = 'GET_SITES';
 const ADD_SITE = 'ADD_SITE';
 const DELETE_SITE = 'DELETE_SITE';
 
-//get sites
 export const getSites = (userId) => {
   return async (dispatch) => {
     try {
@@ -29,7 +28,6 @@ const _getSites = (blockedSites) => {
   };
 };
 
-//add new site
 const _addSite = (blockedSite) => {
   return {
     type: ADD_SITE,
@@ -62,7 +60,6 @@ export const addSite = (site, userId) => {
   };
 };
 
-//delete a site from a user
 export const deleteSite = (userId, siteId) => {
   return async (dispatch) => {
     try {
@@ -76,7 +73,6 @@ export const deleteSite = (userId, siteId) => {
   };
 };
 
-//update whether a site is de-blocked for the user temporarily
 export const updateBlocking = (userId, siteId) => {
   return async (dispatch) => {
     try {

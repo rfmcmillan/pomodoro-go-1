@@ -16,9 +16,6 @@ const useStyles = makeStyles({
   lsItem: {
     padding: 8,
   },
-  // total: {
-  //   maxHeight: 100,
-  // },
 });
 
 const TotalSessions = (props) => {

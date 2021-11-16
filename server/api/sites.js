@@ -15,7 +15,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-//need to fix the route below cause it's not working fully
 router.get('/user/:userId', async (req, res, next) => {
   try {
     const userSites = await Site.findAll({
@@ -35,7 +34,6 @@ router.get('/user/:userId', async (req, res, next) => {
     next(err);
   }
 });
-//
 
 router.post('/', async (req, res, next) => {
   try {

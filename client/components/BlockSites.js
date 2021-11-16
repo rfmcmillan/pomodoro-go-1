@@ -30,7 +30,6 @@ import {
 import { createBlackList } from '../store/blackList';
 import { setStoredBlackList, getStoredBlackList } from '../storage.js';
 
-// material-ui style definitions
 const LightGreenSwitch = withStyles({
   switchBase: {
     color: '#5061a9',
@@ -83,13 +82,11 @@ const useStyles = makeStyles({
     marginLeft: '10px',
   },
 });
-//
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
 
-//Start of component
 const BlockSites = (props) => {
   const [urlInput, setUrlInput] = useState({
     siteUrl: '',
@@ -109,7 +106,6 @@ const BlockSites = (props) => {
     props.getSites(props.auth.id);
   }, [blackList]);
 
-  //user interactions > change state, dispatch to store
   const handleChange = (event) => {
     const siteId = event.target.name.slice(4);
     const toggleSite = props.blockedSites.filter((each) => each.id === siteId);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import GoogleButton from 'react-google-button';
-//refresh token
 import { Button } from '@material-ui/core';
 import { refreshTokenSetup } from './RefreshToken';
 

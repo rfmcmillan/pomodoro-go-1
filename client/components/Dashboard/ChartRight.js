@@ -28,17 +28,16 @@ const useStyles = makeStyles({
   },
 });
 
-//This component displays either the Session History or Session Frequency charts
-// depending on what is selected from the dropdown menu
+/* This component displays either the Session History or Session Frequency charts
+depending on what is selected from the dropdown menu */
+
 const ChartRight = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const { sessions } = props;
   const { blocks } = props;
   const { sites } = props;
-
   const [rightChart, setRightChart] = useState('Frequency');
-  //set colors so that the charts are connected to the Mui theme
   const primaryColor = theme.palette.primary.main;
   const errorColor = theme.palette.error.main;
   const backgroundPaper = theme.palette.background.paper;
@@ -380,7 +379,6 @@ const ChartRight = (props) => {
       },
 
       grid: {
-        // borderColor: backgroundPaper,
         position: 'front',
         xaxis: {
           lines: {
@@ -394,30 +392,18 @@ const ChartRight = (props) => {
           },
         },
       },
-      // theme: {
-      //   palette: theme.pallete
-      // },
       plotOptions: {
         heatmap: {
-          // radius: 2,
           enableShades: true,
           shadeIntensity: 1,
-          // reverseNegativeShade: true,
-          // distributed: false,
-          // useFillColorAsStroke: false,
           colorScale: {
             ranges: [
               {
                 from: 0,
                 to: 0,
                 color: backgroundPaper,
-                // foreColor: undefined,
-                // name: undefined,
               },
             ],
-            // inverse: false,
-            // min: undefined,
-            // max: undefined
           },
         },
       },

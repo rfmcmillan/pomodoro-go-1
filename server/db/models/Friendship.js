@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db');
 
-// association table
 const Friendship = db.define('friendship', {
   id: {
     type: DataTypes.UUID,

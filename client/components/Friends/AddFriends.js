@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { getAllUsers } from '../../store/getAllUsers';
 import { addFriend } from '../../store/addFriend';
 import { existingRequest } from '../../../utils/helper';
-
-//material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,

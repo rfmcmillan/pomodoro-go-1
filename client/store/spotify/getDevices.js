@@ -2,16 +2,16 @@ import axios from 'axios';
 
 const GET_DEVICES = 'GET_DEVICES';
 
-//get playlists
 export const getDevices = (accessToken) => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     try {
-      let response = (
-        await axios.get('https://api.spotify.com/v1/me/player/devices', {
+      let response = await axios.get(
+        'https://api.spotify.com/v1/me/player/devices',
+        {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        })
+        }
       );
       if (response.status === 200) {
         const devices = response.data;
@@ -22,7 +22,7 @@ export const getDevices = (accessToken) => {
         window.localStorage.removeItem('new-spotify-device');
         history.push('/home');
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -31,7 +31,7 @@ export const getDevices = (accessToken) => {
 const _getDevices = (devices) => {
   return {
     type: GET_DEVICES,
-    devices
+    devices,
   };
 };
 

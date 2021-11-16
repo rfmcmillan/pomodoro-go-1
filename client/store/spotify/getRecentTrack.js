@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const GET_RECENT_PLAYED = 'GET_RECENT_PLAYED';
 
-//get recommended playlists
 export const getRecentTrack = (accessToken) => {
   return async (dispatch) => {
     try {
