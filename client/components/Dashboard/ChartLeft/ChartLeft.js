@@ -5,7 +5,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
-import { alpha, useTheme, makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
   Typography,
@@ -17,6 +17,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
+import DistributionByDay from './DistributionByDay';
 
 const useStyles = makeStyles({
   contain: {
@@ -42,7 +43,6 @@ const ChartLeft = (props) => {
   const { sessions } = props;
   const [distribution, setDistribution] = useState('Day of Week');
   const [stacked, setStacked] = useState(false);
-
   const theme = useTheme();
   const { primary, error, secondary } = theme.palette;
 
@@ -713,7 +713,12 @@ const ChartLeft = (props) => {
           </Grid>
         </Grid>
       </Grid>
-      {distribution === 'Day of Week' ? <Chart type="bar" {...chart} /> : ''}
+      {/* {distribution === 'Day of Week' ? <Chart type="bar" {...chart} /> : ''} */}
+      {distribution === 'Day of Week' ? (
+        <DistributionByDay sessions={sessions} />
+      ) : (
+        ''
+      )}
       {distribution === 'Hour of Day' ? (
         <Chart type="bar" {...hourChart} />
       ) : (

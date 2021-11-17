@@ -18,7 +18,7 @@ import LastSession from './LastSession';
 import TotalSessions from './TotalSessions';
 import AverageSession from './AverageSession';
 import MostBlocked from './MostBlocked';
-import ChartLeft from './ChartLeft';
+import ChartLeft from './ChartLeft/ChartLeft';
 import ChartRight from './ChartRight';
 
 const useStyles = makeStyles((theme) => ({
