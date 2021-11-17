@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Chart from 'react-apexcharts';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -7,28 +7,8 @@ dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  contain: {
-    padding: 10,
-    minWidth: 100,
-    flexGrow: 1,
-    height: '97%',
-  },
-  lsItem: {
-    padding: 8,
-    paddingBottom: 0,
-  },
-  formControl: {
-    minWidth: 100,
-  },
-});
-
 const DistributionByDay = (props) => {
-  const classes = useStyles();
-  const { sessions } = props;
-  console.log('sessions:', sessions);
-  const [distribution, setDistribution] = useState('Day of Week');
-  const [stacked, setStacked] = useState(false);
+  const { sessions, stacked } = props;
   const theme = useTheme();
   const { primary, secondary } = theme.palette;
 
@@ -36,6 +16,7 @@ const DistributionByDay = (props) => {
     const dayOfWeek = dayjs(session.startTime).format('ddd');
     return dayOfWeek;
   });
+
   const distDays = { Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0 };
   if (sessions.length) {
     for (let i = 0; i < sessionDays.length; i++) {

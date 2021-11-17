@@ -7,10 +7,6 @@ import {
   MenuItem,
   InputLabel,
   Typography,
-  FormLabel,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
 } from '@material-ui/core';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { loadSessions } from '../../store/sessions';
@@ -18,7 +14,7 @@ import LastSession from './LastSession';
 import TotalSessions from './TotalSessions';
 import AverageSession from './AverageSession';
 import MostBlocked from './MostBlocked';
-import ChartLeft from './ChartLeft/ChartLeft';
+import ChartLeft from './ChartLeft/index.js';
 import ChartRight from './ChartRight';
 
 const useStyles = makeStyles((theme) => ({

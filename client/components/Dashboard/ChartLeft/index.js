@@ -18,6 +18,7 @@ import {
   Checkbox,
 } from '@material-ui/core';
 import DistributionByDay from './DistributionByDay';
+import DistributionByHour from './DistributionByHour';
 
 const useStyles = makeStyles({
   contain: {
@@ -55,34 +56,6 @@ const ChartLeft = (props) => {
   };
 
   //Distribution By Days Chart
-
-  const sessionDays = sessions.map((session) => {
-    const dayOfWeek = dayjs(session.startTime).format('ddd');
-    return dayOfWeek;
-  });
-  const distDays = { Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0 };
-  if (sessions.length) {
-    for (let i = 0; i < sessionDays.length; i++) {
-      if (sessionDays[i] !== 'Invalid Date') {
-        distDays[sessionDays[i]]++;
-      }
-    }
-  }
-
-  let daysArr = [];
-  for (const [key, val] of Object.entries(distDays)) {
-    daysArr.push(key);
-  }
-
-  let valsArr = [];
-  for (const [key, val] of Object.entries(distDays)) {
-    valsArr.push(val);
-  }
-
-  const data = {
-    series: [{ name: 'Sessions', data: valsArr }],
-    categories: daysArr,
-  };
 
   //Successful Sessions for Stacked Distribution View
 
@@ -143,95 +116,6 @@ const ChartLeft = (props) => {
   for (const [key, val] of Object.entries(distDaysFailed)) {
     valsArrFailed.push(val);
   }
-
-  const stackedData = {
-    series: [
-      {
-        name: 'Failed',
-        data: valsArrFailed,
-      },
-      {
-        name: 'Successful',
-        data: valsArrSuccessful,
-      },
-    ],
-  };
-
-  const chart = {
-    options: {
-      chart: {
-        background: 'transparent',
-        stacked: true,
-        toolbar: {
-          show: true,
-        },
-      },
-      colors: stacked ? [secondary.main, primary.main] : [primary.main],
-      dataLabels: {
-        enabled: false,
-      },
-
-      grid: {
-        borderColor: theme.palette.divider,
-        xaxis: {
-          lines: {
-            show: true,
-          },
-        },
-        yaxis: {
-          lines: {
-            show: true,
-          },
-        },
-      },
-      states: {
-        active: {
-          filter: {
-            type: 'none',
-          },
-        },
-        hover: {
-          filter: {
-            type: 'none',
-          },
-        },
-      },
-      legend: {
-        show: false,
-      },
-      stroke: {
-        colors: ['#FFFFFF'],
-        show: true,
-        width: 2,
-      },
-      theme: {
-        mode: theme.palette.mode,
-      },
-      xaxis: {
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        categories: data.categories,
-        labels: {
-          style: {
-            colors: theme.palette.text.secondary,
-          },
-        },
-      },
-      yaxis: {
-        labels: {
-          offsetX: -12,
-          style: {
-            colors: theme.palette.text.secondary,
-          },
-        },
-      },
-    },
-    series: stacked ? stackedData.series : data.series,
-  };
 
   //Distribution By Hours Chart
   const sessionHours = sessions.map((session) => {
@@ -715,12 +599,12 @@ const ChartLeft = (props) => {
       </Grid>
       {/* {distribution === 'Day of Week' ? <Chart type="bar" {...chart} /> : ''} */}
       {distribution === 'Day of Week' ? (
-        <DistributionByDay sessions={sessions} />
+        <DistributionByDay sessions={sessions} stacked={stacked} />
       ) : (
         ''
       )}
       {distribution === 'Hour of Day' ? (
-        <Chart type="bar" {...hourChart} />
+        <DistributionByHour sessions={sessions} stacked={stacked} />
       ) : (
         ''
       )}
