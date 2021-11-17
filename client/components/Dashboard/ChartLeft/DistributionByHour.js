@@ -5,7 +5,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 
 const DistributionByHour = (props) => {
   const { sessions, stacked } = props;
@@ -20,17 +20,9 @@ const DistributionByHour = (props) => {
   const sessionsSuccessful = sessions.filter((session) => {
     return session.successful === true;
   });
-  const sessionDaysSuccessful = sessionsSuccessful.map((session) => {
-    const dayOfWeek = dayjs(session.startTime).format('ddd');
-    return dayOfWeek;
-  });
 
   const sessionsFailed = sessions.filter((session) => {
     return session.successful === false;
-  });
-  const sessionDaysFailed = sessionsFailed.map((session) => {
-    const dayOfWeek = dayjs(session.startTime).format('ddd');
-    return dayOfWeek;
   });
 
   const distHours = {

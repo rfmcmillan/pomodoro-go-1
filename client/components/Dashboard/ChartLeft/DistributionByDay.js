@@ -5,13 +5,12 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 
 const DistributionByDay = (props) => {
   const { sessions, stacked } = props;
   const theme = useTheme();
   const { primary, secondary } = theme.palette;
-
   const sessionDays = sessions.map((session) => {
     const dayOfWeek = dayjs(session.startTime).format('ddd');
     return dayOfWeek;
