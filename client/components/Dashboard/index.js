@@ -161,7 +161,7 @@ const Dashboard = () => {
               timeFrame={timeFrame}
               setTimeFrame={setTimeFrame}
             />
-            <GoalSelect sessions={sessions} goal={goal} setGoal={setGoal} />
+            <GoalSelect goal={goal} handleGoalChange={handleGoalChange} />
           </Grid>
         </Grid>
       </Grid>

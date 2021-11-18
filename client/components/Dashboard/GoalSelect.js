@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import {
   Grid,
   FormControl,
@@ -18,45 +17,8 @@ const useStyles = makeStyles((theme) => ({
 
 const GoalSelect = (props) => {
   const classes = useStyles();
-  const auth = useSelector((state) => state.auth);
-  let blackList = useSelector((state) => state.blackList);
-  let blocks = useSelector((state) => state.blocks);
-  let { sessions, goal, setGoal } = props;
-
-  if (auth) {
-    sessions = sessions.filter((session) => session.userId === auth.id);
-    blackList = blackList.filter((entry) => entry.userId === auth.id);
-    blocks = blocks.filter((block) => block.userId === auth.id);
-  }
-  let goals = sessions.map((session) => {
-    return session.goal;
-  });
-
-  const goalOptions = [];
-  for (let i = 0; i < goals.length; i++) {
-    if (!goalOptions.includes(goals[i])) {
-      goalOptions.push(goals[i]);
-    }
-  }
-
-  const handleGoalChange = (event) => {
-    setGoal(event.target.value);
-  };
-
-  if (goal !== 'All' && goal) {
-    sessions = sessions.filter((session) => {
-      return session.goal === goal;
-    });
-  }
-
-  let capitalized = '';
-
-  for (let i = 0; i < auth.username.length; i++) {
-    const char = auth.username[i];
-    if (i === 0) {
-      capitalized += char.toUpperCase();
-    } else capitalized += char;
-  }
+  let { goal, handleGoalChange } = props;
+  const goalOptions = ['Read', 'Work', 'Meditate', 'Study'];
 
   return (
     <Grid>
