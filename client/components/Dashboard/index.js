@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  Grid,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
-  Typography,
-} from '@material-ui/core';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-import { loadSessions } from '../../store/sessions';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import LastSession from './LastSession';
 import TotalSessions from './TotalSessions';
 import AverageSession from './AverageSession';
-import MostBlocked from './MostBlocked';
 import ChartLeft from './ChartLeft/index.js';
 import ChartRight from './ChartRight';
+import PeriodSelect from './PeriodSelect';
+import GoalSelect from './GoalSelect';
 
 const useStyles = makeStyles((theme) => ({
   contain: {
@@ -49,13 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   let sessions = useSelector((state) => state.sessions);
   const auth = useSelector((state) => state.auth);
   let blackList = useSelector((state) => state.blackList);
   let blocks = useSelector((state) => state.blocks);
   const sites = useSelector((state) => state.sites);
-  const theme = useTheme();
+  const [timeFrame, setTimeFrame] = useState('');
 
   if (auth) {
     sessions = sessions.filter((session) => session.userId === auth.id);
@@ -73,7 +65,6 @@ const Dashboard = () => {
     }
   }
 
-  const [timeFrame, setTimeFrame] = useState('');
   const [goal, setGoal] = useState('');
   const [state, setState] = useState({
     lastSession: true,
@@ -90,12 +81,8 @@ const Dashboard = () => {
     averageSession,
     sessionDistribution,
     sessionFrequency,
-    mostBlocked,
   } = state;
 
-  const handleTimeFrameChange = (event) => {
-    setTimeFrame(event.target.value);
-  };
   const handleGoalChange = (event) => {
     setGoal(event.target.value);
   };
@@ -169,44 +156,12 @@ const Dashboard = () => {
           alignItems="flex-end"
         >
           <Grid item container xs={2} justifyContent="flex-end">
-            <Grid>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="time-frame-label" color="primary">
-                  Period
-                </InputLabel>
-                <Select
-                  color="primary"
-                  labelId="time-frame-label"
-                  value={timeFrame}
-                  onChange={handleTimeFrameChange}
-                >
-                  <MenuItem value={'All'}>All</MenuItem>
-                  <MenuItem value={'Week'}>Week</MenuItem>
-                  <MenuItem value={'Month'}>Month</MenuItem>
-                  <MenuItem value={'Quarter'}>Quarter</MenuItem>
-                  <MenuItem value={'Year'}>Year</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl className={classes.formControlSelect}>
-                <InputLabel id="goal-label">Goal</InputLabel>
-                <Select
-                  labelId="goal-label"
-                  value={goal}
-                  onChange={handleGoalChange}
-                >
-                  <MenuItem value={'All'}>All</MenuItem>
-                  {goalOptions.map((goal, idx) => {
-                    return (
-                      <MenuItem key={idx} value={goal}>
-                        {goal}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </Grid>
+            <PeriodSelect
+              sessions={sessions}
+              timeFrame={timeFrame}
+              setTimeFrame={setTimeFrame}
+            />
+            <GoalSelect sessions={sessions} goal={goal} setGoal={setGoal} />
           </Grid>
         </Grid>
       </Grid>
