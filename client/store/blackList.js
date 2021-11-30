@@ -50,7 +50,6 @@ const createBlackList = (siteUrl, category, userId) => {
         category,
         userId,
       });
-      console.log('errors from post attempt:', response.data.errors);
       const newSite = response.data.newSite;
       const bLresponse = await axios.post(
         `${process.env.API_URL}/api/blackList`,
