@@ -38,7 +38,6 @@ const Home = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log('navigator.userAgent:', navigator.userAgent);
     const indexOfChrome = navigator.userAgent.indexOf('Chrome');
     if (indexOfChrome < 0) {
       setBrowserIsChrome(false);
