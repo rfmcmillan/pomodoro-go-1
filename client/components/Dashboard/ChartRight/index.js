@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
-import Chart from 'react-apexcharts';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 dayjs.extend(localizedFormat);
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import {
-  Box,
-  Card,
   Typography,
   Grid,
   FormControl,
   MenuItem,
   Select,
   InputLabel,
+  Paper,
 } from '@material-ui/core';
+import SessionFrequency from './SessionFrequency';
+import SessionHistory from './SessionHistory';
 
 const useStyles = makeStyles({
   contain: {
     padding: 10,
     minWidth: 100,
     flexGrow: 1,
+    height: '97%',
   },
   lsItem: {
     padding: 8,
@@ -30,16 +31,19 @@ const useStyles = makeStyles({
 /* This component displays either the Session History or Session Frequency charts
 depending on what is selected from the dropdown menu */
 
-const BlocksLine = (props) => {
+const ChartRight = (props) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { blocks } = props;
-  const primaryColor = theme.palette.primary.main;
-  const errorColor = theme.palette.error.main;
+  const { sessions } = props;
+  const [rightChart, setRightChart] = useState('Frequency');
+
+  const handleRightChartChange = (event) => {
+    setRightChart(event.target.value);
+  };
 
   return (
-    <Card className={classes.contain} {...props}>
-      <Grid container direction="row" justify="space-between">
+    <Paper className={classes.contain} {...props} elevation={10}>
+      <Grid container direction="row" justifyContent="space-between">
         <Grid item>
           <Typography
             className={classes.lsItem}
@@ -47,7 +51,7 @@ const BlocksLine = (props) => {
             color="textPrimary"
           >
             {rightChart === 'Frequency' ? 'Session Frequency' : ''}
-            {rightChart === 'History' ? 'Session History' : ''}
+            {rightChart === 'Session History' ? 'Session History' : ''}
           </Typography>
           <Typography
             className={classes.lsItem}
@@ -55,7 +59,7 @@ const BlocksLine = (props) => {
             color="textSecondary"
           >
             {rightChart === 'Frequency' ? 'Time of Week' : ''}
-            {rightChart === 'History' ? 'Monthly' : ''}
+            {rightChart === 'Session History' ? 'Monthly' : ''}
           </Typography>
         </Grid>
         <Grid item>
@@ -67,36 +71,22 @@ const BlocksLine = (props) => {
               onChange={handleRightChartChange}
             >
               <MenuItem value={'Frequency'}>Frequency</MenuItem>
-              <MenuItem value={'History'}>History</MenuItem>
+              <MenuItem value={'Session History'}>Session History</MenuItem>
             </Select>
           </FormControl>
         </Grid>
-        <Box
-          sx={{
-            height: 336,
-            minWidth: 500,
-            px: 2,
-          }}
-        >
-          {rightChart === 'Frequency' ? (
-            <Chart width="800" height="450" type="heatmap" {...chart} />
-          ) : (
-            ''
-          )}
-          {rightChart === 'History' ? (
-            <Chart
-              options={options}
-              series={series}
-              type="line"
-              width="800"
-              height="450"
-            />
-          ) : (
-            ''
-          )}
-        </Box>
       </Grid>
-    </Card>
+      {rightChart === 'Frequency' ? (
+        <SessionFrequency sessions={sessions} />
+      ) : (
+        ''
+      )}
+      {rightChart === 'Session History' ? (
+        <SessionHistory sessions={sessions} />
+      ) : (
+        ''
+      )}
+    </Paper>
   );
 };
 
