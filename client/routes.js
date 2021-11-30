@@ -6,7 +6,6 @@ import SandboxLogin from './components/AuthForm/SandboxLogin';
 import CreateSession from './components/Timer/CreateSession';
 import Timer from './components/Timer';
 import Dashboard from './components/Dashboard';
-import { me } from './store';
 import { loadSessions } from './store/sessions';
 import { loadBlackLists, updateBlackList } from './store/blackList';
 import { loadBlocks } from './store/blocks';
@@ -15,7 +14,6 @@ import { getSites } from './store/blockSites';
 import BlockError from './components/BlockError';
 import BlockSites from './components/BlockSites';
 import Friends from './components/Friends/Friends';
-import RedirectToSite from './components/RedirectToSite';
 import About from './components/About';
 import Home from './components/Home';
 
@@ -42,20 +40,6 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, auth, blackList, updateB, timer } = this.props;
-
-    if (chrome.storage)
-      chrome.storage.onChanged.addListener(async (changes, areaName) => {
-        if (changes.updatedBlackList) {
-          const {
-            updatedBlackList: { oldValue, newValue },
-          } = changes;
-          if (!oldValue) {
-            updateB(newValue.id, newValue);
-          } else if (oldValue.blocks !== newValue.blocks) {
-            updateB(newValue.id, newValue);
-          }
-        }
-      });
 
     return (
       <div>

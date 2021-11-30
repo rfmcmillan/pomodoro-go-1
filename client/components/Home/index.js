@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Grid, Typography, Fade, Button, Tooltip } from '@material-ui/core';
 
 const Home = (props) => {
   const theme = useTheme();
+  const [browserIsChrome, setBrowserIsChrome] = useState(true);
   const useStyles = makeStyles((theme) => ({
     button: {
       borderRadius: 30,
@@ -29,13 +30,20 @@ const Home = (props) => {
       fontSize: 16,
     },
     exploreTooltip: { fonstSize: 20 },
-
     image: { width: '100%' },
     root: { width: '90%', height: '90vh' },
     subTitle: { fontSize: 20, fontWeight: 400 },
     title: { fontSize: 40, fontWeight: 700 },
   }));
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log('navigator.userAgent:', navigator.userAgent);
+    const indexOfChrome = navigator.userAgent.indexOf('Chrome');
+    if (indexOfChrome < 0) {
+      setBrowserIsChrome(false);
+    }
+  }, []);
 
   return (
     <Fade easing="ease-in" timeout={1000} in={true}>
@@ -65,19 +73,23 @@ const Home = (props) => {
               Download Chrome Extension
             </Button>
 
-            <Tooltip
-              className={classes.exploreTooltip}
-              title="If you can't download the extension to your work computer, you can explore the user interface by clicking here. The only thing that won't be activated is the website-blocker."
-            >
-              <Button
-                className={classes.exploreButton}
-                variant="contained"
-                type="submit"
-                href="https://pomodoro-go-1.herokuapp.com/sandboxLogin"
+            {browserIsChrome ? (
+              <Tooltip
+                className={classes.exploreTooltip}
+                title="If you can't download the extension, you can explore the user interface by clicking here. The only thing that won't be activated is the website-blocker."
               >
-                Explore User Interface
-              </Button>
-            </Tooltip>
+                <Button
+                  className={classes.exploreButton}
+                  variant="contained"
+                  type="submit"
+                  href="https://pomodoro-go-1.herokuapp.com/sandboxLogin"
+                >
+                  Explore User Interface
+                </Button>
+              </Tooltip>
+            ) : (
+              ''
+            )}
           </Grid>
           <Grid className={classes.stack} item xs={6}>
             <img className={classes.image} src="./assets/Home.png" />
