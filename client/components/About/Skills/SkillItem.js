@@ -12,7 +12,7 @@ const SkillItem = ({ skill }) => {
     },
     imageContain: { minHeight: 82 },
     title: { fontSize: 16 },
-    skillItem: { height: 100, width: 100 },
+    skillItem: { height: 101, width: 100 },
   });
 
   const classes = useStyles();
