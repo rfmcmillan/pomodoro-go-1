@@ -51,7 +51,7 @@ const TeamProfile = (props) => {
         <Grid item>
           <Avatar
             alt="russel"
-            src="https://ca.slack-edge.com/T024FPYBQ-U01K4T2GC7J-729e221b6004-512"
+            src="./assets/rm.jpeg"
             className={classes.avatar}
             onClick={toggle}
           />
@@ -88,7 +88,7 @@ const TeamProfile = (props) => {
       <Grid item container xs={6} justifyContent="center">
         <Avatar
           alt="ding"
-          src="https://ca.slack-edge.com/T024FPYBQ-U01J88VDNSJ-bf4326c217e1-512"
+          src="./assets/yd.jpeg"
           className={classes.avatar}
           onClick={toggle}
         />
@@ -123,7 +123,7 @@ const TeamProfile = (props) => {
       <Grid item container xs={6} justifyContent="center">
         <Avatar
           alt="stephan"
-          src="https://ca.slack-edge.com/T024FPYBQ-U01JF29P57C-c12ee469d629-512"
+          src="./assets/sa.jpeg"
           className={classes.avatar}
           onClick={toggle}
         />
@@ -158,7 +158,7 @@ const TeamProfile = (props) => {
       <Grid item container xs={6} justifyContent="center">
         <Avatar
           alt="felicity"
-          src="https://ca.slack-edge.com/T024FPYBQ-U01JF8BDK35-fc70b3a47007-512"
+          src="./assets/fw.png"
           className={classes.avatar}
           onClick={toggle}
         />
