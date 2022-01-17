@@ -44,12 +44,12 @@ This is a group project from my time at Fullstack Academy (see below for individ
 -   Stephen Alas
     -   Front-End: Timer display and configuration components.
     -   Back-End: Task model, Session api and model
+-   Yiru Ding
+    -   Front-End: Login, About Page
+    -   Back-End: Auth API, User API and User model
 -   Russel McMillan
     -   Front-End: Dashboard, Timer, Website Blocker, Blocked-Site View, Login
     -   Back-End: Timer, Website Blocker, Session API and Session Model, Auth API, User Model
 -   Felicity Wu
     -   Front-End: Website Blocker, Friends, Blocked-Site View
     -   Back-End: Website Blocker, Blocklist API and Model, Friendship Blocklist and Model, Sites Blocklist & Model
--   Yiru Ding
-    -   Front-End: Login, About Page
-    -   Back-End: Auth API, User API and User model
