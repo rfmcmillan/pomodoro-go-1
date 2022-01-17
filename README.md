@@ -4,7 +4,7 @@ PomodoroGo is a Chrome extension that is a pomodoro timer (https://en.wikipedia.
 
 This is a group project from my time at Fullstack Academy (see below for individual contributions) that I have continued to work on after graduating.
 
-![alt text](https://github.com/rfmcmillan/pomodoro-go-1/blob/readme/client/static/dashboard-1.png?raw=true)
+![alt text](https://github.com/rfmcmillan/pomodoro-go-1/blob/main/client/static/dashboard-1.png?raw=true)
 
 ## Installation
 
