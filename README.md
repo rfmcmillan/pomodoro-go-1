@@ -2,9 +2,9 @@
 
 PomodoroGo is a Chrome extension that is a pomodoro timer (https://en.wikipedia.org/wiki/Pomodoro_Technique) and web-site blocker in one. It also provides a dashboard to help the user gain insights from their session history. You can view a demo of the app at https://pomodoro-go-1.herokuapp.com/home or you can download and install the full Chrome extension by following the instructions below.
 
-This is a group project from my time at Fullstack Academy (see below for individual contributions) that I revisited.
+This is a group project from my time at Fullstack Academy (see below for individual contributions) that I have continued to work on after graduating.
 
-![alt text](https://github.com/rfmcmillan/pomodoro-go-1/blob/readme/client/static/PomodoroGo.png?raw=true)
+![alt text](https://github.com/rfmcmillan/pomodoro-go-1/blob/readme/client/static/dashboard.png?raw=true)
 
 ## Installation
 
