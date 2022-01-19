@@ -104,14 +104,19 @@ const Navbar = (props) => {
                                 >
                                     Dashboard
                                 </NavButton>
-                                <NavButton
-                                    className={classes.button}
-                                    id="blocksites"
-                                    component={Link}
-                                    to="/blocksites"
-                                >
-                                    BlockList
-                                </NavButton>
+                                {navigator.userAgent.indexOf("Chrome") !==
+                                -1 ? (
+                                    <NavButton
+                                        className={classes.button}
+                                        id="blocksites"
+                                        component={Link}
+                                        to="/blocksites"
+                                    >
+                                        BlockList
+                                    </NavButton>
+                                ) : (
+                                    ""
+                                )}
                                 <NavButton
                                     className={classes.button}
                                     id="friends"
