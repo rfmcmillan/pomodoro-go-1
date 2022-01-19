@@ -54,7 +54,7 @@ class Routes extends Component {
                         <Route path="/sandboxLogin">
                             <Redirect to="/dashboard" />
                         </Route>
-                        <Route path="/" exact component={Timer} />
+                        <Route path="/" exact component={Home} />
                         <Route path="/home" exact component={Home} />
                         <Route path="/dashboard" component={Dashboard} />
                         <Route path="/timer" exact>
@@ -71,6 +71,7 @@ class Routes extends Component {
                     </Switch>
                 ) : (
                     <Switch>
+                        <Route path="/" exact component={Home} />
                         <Route path="/about" component={About} />
                         <Route path="/home" exact component={Home} />
                         <Route path="/sandboxLogin" component={SandboxLogin} />
