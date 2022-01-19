@@ -83,7 +83,8 @@ const Navbar = (props) => {
                         </NavButton>
                         {isLoggedIn ? (
                             <>
-                                {chrome.storage ? (
+                                {navigator.userAgent.indexOf("Chrome") !==
+                                -1 ? (
                                     <NavButton
                                         className={classes.button}
                                         aria-label="timer"
