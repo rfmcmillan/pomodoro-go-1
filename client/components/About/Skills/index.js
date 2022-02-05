@@ -1,11 +1,10 @@
 import React from "react"
 import { skillsData } from "./skillsData.js"
 import { Grid } from "@material-ui/core"
-import { makeStyles, useTheme } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import SkillItem from "./SkillItem"
 
 const SkillSet = ({ data }) => {
-  const theme = useTheme()
   const useStyles = makeStyles({
     container: { margin: "auto" },
     root: {},

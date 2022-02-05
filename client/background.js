@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 const { storage, tabs, runtime, alarms } = chrome;
-import { getStoredBlackList } from './storage';
+import { getStoredBlackList } from "./storage";
 
 chrome.action.onClicked.addListener((tab) => {
   tabs.create({
-    url: 'index.html',
+    url: "index.html",
   });
 });
 
@@ -15,31 +15,31 @@ const background = {
     try {
       if (!this.active) {
         alarms.clearAll(() => {
-          console.log('alarms are cleared');
+          console.log("alarms are cleared");
         });
         this.listenForAlarm();
         this.active = true;
       }
     } catch (error) {
-      console.log('issue with start up in background js', error);
+      console.log("issue with start up in background js", error);
     }
   },
 
   listenForAlarm: function () {
     return alarms.onAlarm.addListener(function (alarm) {
-      if (alarm.name === 'startTimer') {
+      if (alarm.name === "startTimer") {
         chrome.notifications.create(
           undefined,
           {
-            type: 'basic',
-            title: 'Your focus session is complete!',
-            message: 'Nice job! You deserve a break!',
-            iconUrl: 'logo-pomo.png',
+            type: "basic",
+            title: "Your focus session is complete!",
+            message: "Nice job! You deserve a break!",
+            iconUrl: "logo-pomo.png",
             requireInteraction: true,
             silent: false,
           },
           () => {
-            console.log('last error: ', runtime.lastError);
+            console.log("last error: ", runtime.lastError);
           }
         );
         storage.local.set({
@@ -79,13 +79,13 @@ let timerID;
 let timerTime;
 
 runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.cmd === 'START_TIMER') {
+  if (request.cmd === "START_TIMER") {
     timerTime = new Date(request.when);
     timerID = setTimeout(() => {
-      chrome.alarms.create('startTimer', { when: Date.now() });
+      chrome.alarms.create("startTimer", { when: Date.now() });
       timerTime = 0;
     }, timerTime.getTime() - Date.now());
-  } else if (request.cmd === 'GET_TIME') {
+  } else if (request.cmd === "GET_TIME") {
     sendResponse({ time: timerTime });
   }
 });

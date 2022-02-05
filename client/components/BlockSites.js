@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   FormControlLabel,
@@ -11,38 +11,39 @@ import {
   Chip,
   Button,
   TextField,
+  Grid,
   Select,
   FormHelperText,
   FormControl,
   InputLabel,
   MenuItem,
-} from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import { Paper } from '@material-ui/core';
+} from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
+import { Paper } from "@material-ui/core";
 import {
   getSites,
   addSite,
   deleteSite,
   updateBlocking,
-} from '../store/blockSites';
-import { createBlackList } from '../store/blackList';
-import { setStoredBlackList, getStoredBlackList } from '../storage.js';
+} from "../store/blockSites";
+import { createBlackList } from "../store/blackList";
+import { setStoredBlackList, getStoredBlackList } from "../storage.js";
 
 const LightGreenSwitch = withStyles({
   switchBase: {
-    color: '#5061a9',
-    '&$checked': {
-      color: '#9a6781',
+    color: "#5061a9",
+    "&$checked": {
+      color: "#9a6781",
     },
-    '&$checked + $track': {
-      backgroundColor: '#9a6781',
+    "&$checked + $track": {
+      backgroundColor: "#9a6781",
     },
-    '& + $track': {
-      backgroundColor: '#e0e2e4',
+    "& + $track": {
+      backgroundColor: "#e0e2e4",
       opacity: 1,
-      border: 'none',
+      border: "none",
     },
   },
   checked: {},
@@ -51,35 +52,35 @@ const LightGreenSwitch = withStyles({
 
 const LightGreenButton = withStyles((theme) => ({
   root: {
-    color: 'white',
-    backgroundColor: '#5061a9',
-    '&:hover': {
-      backgroundColor: '#9a6781',
+    color: "white",
+    backgroundColor: "#5061a9",
+    "&:hover": {
+      backgroundColor: "#9a6781",
     },
   },
 }))(Button);
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 500,
-    margin: '5px',
+    maxWidth: 400,
+    margin: "5px",
   },
   form: {
     maxWidth: 600,
-    marginTop: '10px',
-    marginBottom: '5px',
-    display: 'flex',
-    justifyContent: 'space-around',
+    marginTop: "10px",
+    marginBottom: "5px",
+    display: "flex",
+    justifyContent: "space-around",
   },
   textfield: {
     width: 350,
     height: 55,
-    marginRight: '10px',
+    marginRight: "10px",
   },
   button: {
     height: 55,
-    marginRight: '30px',
-    marginLeft: '10px',
+    marginRight: "30px",
+    marginLeft: "10px",
   },
 });
 
@@ -89,8 +90,8 @@ const Alert = (props) => {
 
 const BlockSites = (props) => {
   const [urlInput, setUrlInput] = useState({
-    siteUrl: '',
-    category: '',
+    siteUrl: "",
+    category: "",
   });
   const [hasError, setHasError] = useState(false);
   const dispatch = useDispatch();
@@ -110,8 +111,8 @@ const BlockSites = (props) => {
     const siteId = event.target.name.slice(4);
     const toggleSite = props.blockedSites.filter((each) => each.id === siteId);
 
-    chrome?.runtime?.sendMessage('nmfhcdkehekkflbopjlnnihncpnlejho', {
-      message: 'toggle-block-or-not',
+    chrome?.runtime?.sendMessage("nmfhcdkehekkflbopjlnnihncpnlejho", {
+      message: "toggle-block-or-not",
       toggleSite: toggleSite[0]?.siteUrl,
     });
     props.updateBlocking(props.auth.id, siteId);
@@ -143,7 +144,7 @@ const BlockSites = (props) => {
   const paperStyle = {
     padding: 20,
     width: 880,
-    margin: '30px auto',
+    margin: "30px auto",
   };
 
   return (
@@ -184,9 +185,9 @@ const BlockSites = (props) => {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={'socialMedia'}>Social Media</MenuItem>
-            <MenuItem value={'entertainment'}>Entertainment</MenuItem>
-            <MenuItem value={'other'}>Other</MenuItem>
+            <MenuItem value={"socialMedia"}>Social Media</MenuItem>
+            <MenuItem value={"entertainment"}>Entertainment</MenuItem>
+            <MenuItem value={"other"}>Other</MenuItem>
           </Select>
           {hasError && (
             <FormHelperText>Please select a category</FormHelperText>
@@ -216,8 +217,11 @@ const BlockSites = (props) => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Chip label={each.category} variant="outlined" />
-                  <FormControlLabel
+                  <Grid container justifyContent="space-between">
+                    <Grid item>
+                      <Chip label={each.category} variant="outlined" />
+                    </Grid>
+                    {/* <FormControlLabel
                     control={
                       <LightGreenSwitch
                         checked={each.blacklist?.blockingEnabled}
@@ -226,14 +230,17 @@ const BlockSites = (props) => {
                       />
                     }
                     label="Blocked"
-                  />
-                  <LightGreenButton
-                    variant="contained"
-                    startIcon={<DeleteIcon />}
-                    onClick={() => deleteUrl(each)}
-                  >
-                    Delete
-                  </LightGreenButton>
+                  /> */}
+                    <Grid item>
+                      <LightGreenButton
+                        variant="contained"
+                        startIcon={<DeleteIcon />}
+                        onClick={() => deleteUrl(each)}
+                      >
+                        Delete
+                      </LightGreenButton>
+                    </Grid>
+                  </Grid>
                 </CardActions>
               </Card>
             );
