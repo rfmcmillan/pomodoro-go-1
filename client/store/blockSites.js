@@ -6,7 +6,6 @@ const ADD_SITE = "ADD_SITE";
 
 export const getSites = (userId) => {
     return async (dispatch) => {
-        console.log("in blockSites thunk()");
         try {
             const currentUser = (
                 await axios.get(`${process.env.API_URL}/api/users/${userId}`)

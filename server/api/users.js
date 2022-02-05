@@ -28,7 +28,6 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/:id", async (req, res, next) => {
-    console.log("in users get route:");
     try {
         const user = await User.findByPk(req.params.id, {
             attributes: ["id", "username", "email", "profilePic"],

@@ -14,7 +14,6 @@ import { useTheme, makeStyles } from "@material-ui/styles";
 import NavButton from "./NavButton";
 
 const Navbar = (props) => {
-    console.log("in Navbar");
     const theme = useTheme();
     const useStyles = makeStyles({
         header: {
@@ -58,7 +57,6 @@ const Navbar = (props) => {
     };
 
     const { isLoggedIn } = props;
-    console.log("isLoggedIn in Nav:", isLoggedIn);
 
     return (
         <div>

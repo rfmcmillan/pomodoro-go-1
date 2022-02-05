@@ -23,14 +23,9 @@ class Routes extends Component {
     }
     async componentDidMount() {
         await this.props.loadInitialData();
-        console.log("in componenentDidMount() in routes");
     }
     async componentDidUpdate(prevProps) {
         if (this.props.auth.id && this.props.auth.id !== prevProps.auth.id) {
-            console.log(
-                "this.props.auth in componentDidUpdate in routes:",
-                this.props.auth
-            );
             await this.props.getSites(this.props.auth.id);
         }
         if (navigator.userAgent.indexOf("Chrome") !== -1) {
