@@ -1,8 +1,9 @@
-import React from 'react';
-import { Typography, Paper, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import dayjs from 'dayjs';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
+import React from "react";
+import PropTypes from "prop-types";
+import { Typography, Paper, Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
 const useStyles = makeStyles({
@@ -30,11 +31,11 @@ const LastSession = (props) => {
   let actualEndTime;
 
   if (lastSession) {
-    startTime = dayjs(lastSession.startTime).format('LT');
-    expectedEndTime = dayjs(lastSession.expectedEndTime).format('LT');
+    startTime = dayjs(lastSession.startTime).format("LT");
+    expectedEndTime = dayjs(lastSession.expectedEndTime).format("LT");
     actualEndTime = lastSession.actualEndTime
-      ? dayjs(lastSession.actualEndTime).format('LT')
-      : 'N/A';
+      ? dayjs(lastSession.actualEndTime).format("LT")
+      : "N/A";
   }
 
   return (
@@ -50,22 +51,22 @@ const LastSession = (props) => {
           <Typography variant="h5">
             {lastSession
               ? `${Math.round(lastSession.sessionTime / 60000)}min`
-              : ''}
+              : ""}
           </Typography>
         </Grid>
         <Grid item className={classes.lsItem} xs={6}>
           <Typography variant="caption" color="textSecondary">
             Start Time
           </Typography>
-          <Typography variant="h5">{lastSession ? startTime : ''}</Typography>
+          <Typography variant="h5">{lastSession ? startTime : ""}</Typography>
         </Grid>
         <Grid item className={classes.lsItem} xs={6}>
           <Typography variant="caption" color="textSecondary">
             Expected End Time
           </Typography>
           <Typography variant="h5">
-            {' '}
-            {lastSession ? expectedEndTime : ''}
+            {" "}
+            {lastSession ? expectedEndTime : ""}
           </Typography>
         </Grid>
         <Grid item className={classes.lsItem} xs={6}>
@@ -73,7 +74,7 @@ const LastSession = (props) => {
             Actual End Time
           </Typography>
           <Typography variant="h5">
-            {lastSession ? actualEndTime : ''}
+            {lastSession ? actualEndTime : ""}
           </Typography>
         </Grid>
         <Grid item className={classes.lsItem} xs={6}>
@@ -81,12 +82,16 @@ const LastSession = (props) => {
             Successful
           </Typography>
           <Typography variant="h5">
-            {lastSession ? (lastSession.successful ? 'Yes' : 'No') : ''}
+            {lastSession ? (lastSession.successful ? "Yes" : "No") : ""}
           </Typography>
         </Grid>
       </Grid>
     </Paper>
   );
+};
+
+LastSession.propTypes = {
+  sessions: PropTypes.array,
 };
 
 export default LastSession;

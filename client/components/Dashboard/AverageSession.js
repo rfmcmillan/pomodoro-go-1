@@ -1,8 +1,9 @@
-import React from 'react';
-import { Typography, Paper, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import dayjs from 'dayjs';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
+import React from "react";
+import PropTypes from "prop-types";
+import { Typography, Paper, Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
 const useStyles = makeStyles({
@@ -24,31 +25,6 @@ const useStyles = makeStyles({
 const AverageSession = (props) => {
   const classes = useStyles();
   const { sessions } = props;
-  let totalExpectedSessionLength;
-  if (sessions.length) {
-    totalExpectedSessionLength = sessions.reduce((total, session) => {
-      total += session.sessionTime;
-      return total;
-    }, 0);
-  }
-
-  const avgExpectedSessionLength = totalExpectedSessionLength / sessions.length;
-  const avgExpectedSessionMinutes = parseInt(avgExpectedSessionLength);
-
-  let totalActualSessionLength;
-  if (sessions.length) {
-    totalActualSessionLength = sessions.reduce((total, session) => {
-      const actualEndTime = dayjs(session.actualEndTime);
-      const startTime = dayjs(session.startTime);
-      const actualSessionLength = actualEndTime - startTime;
-
-      total += actualSessionLength;
-
-      return total;
-    }, 0);
-  }
-  const avgSessionLength = totalActualSessionLength / sessions.length;
-  const avgSessionMinutes = parseInt(avgSessionLength / 60000);
 
   let sessionsSuccessful = [];
   let sessionsFailed = [];
@@ -169,7 +145,7 @@ const AverageSession = (props) => {
               Expected
             </Typography>
             <Typography variant="h5">
-              {sessions.length ? `${avgSuccessfulExpSessionMinutes}min` : ''}
+              {sessions.length ? `${avgSuccessfulExpSessionMinutes}min` : ""}
             </Typography>
           </Grid>
           <Grid item className={classes.lsItem} xs={4}>
@@ -179,7 +155,7 @@ const AverageSession = (props) => {
             <Typography variant="h5">
               {sessionsFailed.length
                 ? `${avgFailedExpSessionMinutes}min`
-                : 'N/A'}
+                : "N/A"}
             </Typography>
           </Grid>
         </Grid>
@@ -189,7 +165,7 @@ const AverageSession = (props) => {
               Actual
             </Typography>
             <Typography variant="h5">
-              {sessions.length ? `${avgSuccessfulSessionMinutes}min` : ''}
+              {sessions.length ? `${avgSuccessfulSessionMinutes}min` : ""}
             </Typography>
           </Grid>
 
@@ -198,13 +174,17 @@ const AverageSession = (props) => {
               Actual
             </Typography>
             <Typography variant="h5">
-              {sessionsFailed.length ? `${avgFailedSessionMinutes}min` : 'N/A'}
+              {sessionsFailed.length ? `${avgFailedSessionMinutes}min` : "N/A"}
             </Typography>
           </Grid>
         </Grid>
       </Grid>
     </Paper>
   );
+};
+
+AverageSession.propTypes = {
+  sessions: PropTypes.array,
 };
 
 export default AverageSession;
