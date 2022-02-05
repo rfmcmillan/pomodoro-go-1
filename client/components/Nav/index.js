@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { authenticateGoogle, logout, me } from "../../store";
-
+import { authenticateGoogle, logout } from "../../store";
 import {
     AppBar,
     Grid,
     Button,
     Toolbar,
-    Typography,
     MenuItem,
     Menu,
-    Avatar,
 } from "@material-ui/core";
 import { useTheme, makeStyles } from "@material-ui/styles";
 import NavButton from "./NavButton";
 
 const Navbar = (props) => {
+    console.log("in Navbar");
     const theme = useTheme();
     const useStyles = makeStyles({
         header: {
@@ -51,13 +49,7 @@ const Navbar = (props) => {
     });
     const classes = useStyles();
 
-    const [isGoogleLoggedIn, setIsGoogleLoggedIn] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [authInstance, setAuthInstance] = useState({});
-    const handleSuccess = (response) => {
-        props.getMe(response);
-    };
-    const handleFail = (response) => {};
     const handleLogOut = () => {
         clearInterval(window.timer);
         setAnchorEl(null);
@@ -66,6 +58,7 @@ const Navbar = (props) => {
     };
 
     const { isLoggedIn } = props;
+    console.log("isLoggedIn in Nav:", isLoggedIn);
 
     return (
         <div>
