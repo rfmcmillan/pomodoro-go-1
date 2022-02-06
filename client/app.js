@@ -26,19 +26,17 @@ const App = (props) => {
     const [localIsActive, setLocalIsActive] = useState(false);
     const blackList = useSelector((state) => state.blackList);
     const auth = useSelector((state) => {
-        console.log("state in auth useSelector():", state);
         return state.auth;
     });
     const [intervalID, setIntervalID] = useState("");
-    console.log("in app.js:", auth.id);
+
     if (auth.id) {
-        console.log("auth.id in conditional:", auth.id);
         setStoredAuth(auth).then(getStoredAuth());
     }
 
     useEffect(() => {
         dispatch(loadBlackLists());
-        console.log("inUseEffect");
+
         dispatch(me());
     }, []);
 
@@ -51,7 +49,6 @@ const App = (props) => {
     }, [sessionTime]);
 
     useEffect(() => {
-        console.log("in auth useEffect:", auth);
         if (auth.id && blackList.length) {
             const blackListUser = blackList.filter((blackListItem) => {
                 return (

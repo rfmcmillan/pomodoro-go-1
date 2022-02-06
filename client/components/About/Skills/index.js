@@ -1,17 +1,16 @@
-import React from 'react';
-import { skillsData } from './skillsData.js';
-import { Grid, Typography, Divider, Paper } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import SkillItem from './SkillItem';
+import React from "react"
+import { skillsData } from "./skillsData.js"
+import { Grid } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
+import SkillItem from "./SkillItem"
 
 const SkillSet = ({ data }) => {
-  const theme = useTheme();
   const useStyles = makeStyles({
-    container: { margin: 'auto' },
+    container: { margin: "auto" },
     root: {},
-    hr: { color: 'black', backgroundColor: 'black', height: 1, width: '33vw' },
-  });
-  const classes = useStyles();
+    hr: { color: "black", backgroundColor: "black", height: 1, width: "33vw" },
+  })
+  const classes = useStyles()
   return (
     <div>
       <Grid className={classes.container} container spacing={3}>
@@ -22,16 +21,16 @@ const SkillSet = ({ data }) => {
         ))}
       </Grid>
     </div>
-  );
-};
+  )
+}
 
 const Skills = () => {
   const useStyles = makeStyles({
-    root: { textAlign: 'center' },
+    root: { textAlign: "center" },
     header: { fontSize: 30 },
-    container: { margin: 'auto' },
-  });
-  const classes = useStyles();
+    container: { margin: "auto" },
+  })
+  const classes = useStyles()
   return (
     <section>
       <div className={classes.root}></div>
@@ -41,7 +40,7 @@ const Skills = () => {
         ))}
       </ul>
     </section>
-  );
-};
+  )
+}
 
-export default Skills;
+export default Skills
