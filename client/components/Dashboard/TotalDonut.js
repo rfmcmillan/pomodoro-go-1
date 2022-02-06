@@ -1,19 +1,12 @@
-import React from 'react';
-import Chart from 'react-apexcharts';
-import { useTheme } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import Chart from "react-apexcharts";
+import { useTheme } from "@material-ui/core/styles";
 
 const TotalDonut = (props) => {
   const { sessions } = props;
   const theme = useTheme();
   const { background, primary, secondary } = theme.palette;
-
-  let totalExpectedSessionLength;
-  if (sessions.length) {
-    totalExpectedSessionLength = sessions.reduce((total, session) => {
-      total += session.sessionTime;
-      return total;
-    }, 0);
-  }
 
   let total;
   if (sessions.length) {
@@ -37,8 +30,8 @@ const TotalDonut = (props) => {
       colors: [primary.main, secondary.main],
       dataLabels: { enabled: false },
 
-      labels: ['Successful', 'Failed'],
-      legend: { show: false, position: 'bottom' },
+      labels: ["Successful", "Failed"],
+      legend: { show: false, position: "bottom" },
       plotOptions: {
         pie: {
           customScale: 0.8,
@@ -63,6 +56,10 @@ const TotalDonut = (props) => {
       <Chart options={chart.options} series={chart.series} type="donut" />
     </div>
   );
+};
+
+TotalDonut.propTypes = {
+  sessions: PropTypes.array,
 };
 
 export default TotalDonut;

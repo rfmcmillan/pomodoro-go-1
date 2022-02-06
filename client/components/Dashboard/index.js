@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { useSelector } from "react-redux"
-import { Grid, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import LastSession from "./LastSession"
-import TotalSessions from "./TotalSessions"
-import AverageSession from "./AverageSession"
-import ChartLeft from "./ChartLeft/index.js"
-import ChartRight from "./ChartRight"
-import PeriodSelect from "./PeriodSelect"
-import GoalSelect from "./GoalSelect"
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import LastSession from "./LastSession";
+import TotalSessions from "./TotalSessions";
+import AverageSession from "./AverageSession";
+import ChartLeft from "./ChartLeft/index.js";
+import ChartRight from "./ChartRight";
+import PeriodSelect from "./PeriodSelect";
+import GoalSelect from "./GoalSelect";
 
 const useStyles = makeStyles((theme) => ({
   contain: {
@@ -38,32 +38,33 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 5,
   },
   charts: { justifyContent: "space-around" },
-}))
+}));
 
 const Dashboard = () => {
-  const classes = useStyles()
-  let sessions = useSelector((state) => state.sessions)
-  const auth = useSelector((state) => state.auth)
-  let blocks = useSelector((state) => state.blocks)
-  const sites = useSelector((state) => state.sites)
-  const [timeFrame, setTimeFrame] = useState("")
+  const classes = useStyles();
+  let sessions = useSelector((state) => state.sessions);
+  const auth = useSelector((state) => state.auth);
+  let blocks = useSelector((state) => state.blocks);
+  const sites = useSelector((state) => state.sites);
+  const [timeFrame, setTimeFrame] = useState("");
 
   if (auth) {
-    sessions = sessions.filter((session) => session.userId === auth.id)
-    blocks = blocks.filter((block) => block.userId === auth.id)
+    sessions = sessions.filter((session) => session.userId === auth.id);
+    blocks = blocks.filter((block) => block.userId === auth.id);
   }
   let goals = sessions.map((session) => {
-    return session.goal
-  })
+    return session.goal;
+  });
 
-  const goalOptions = []
+  const goalOptions = [];
   for (let i = 0; i < goals.length; i++) {
     if (!goalOptions.includes(goals[i])) {
-      goalOptions.push(goals[i])
+      goalOptions.push(goals[i]);
     }
   }
 
-  const [goal, setGoal] = useState("")
+  const [goal, setGoal] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [state, setState] = useState({
     lastSession: true,
     totalSessions: true,
@@ -71,7 +72,7 @@ const Dashboard = () => {
     sessionDistribution: true,
     sessionFrequency: true,
     mostBlocked: true,
-  })
+  });
 
   const {
     lastSession,
@@ -79,50 +80,50 @@ const Dashboard = () => {
     averageSession,
     sessionDistribution,
     sessionFrequency,
-  } = state
+  } = state;
 
   const handleGoalChange = (event) => {
-    setGoal(event.target.value)
-  }
+    setGoal(event.target.value);
+  };
 
   if (timeFrame === "Year") {
     const filtered = sessions.filter((session) => {
-      const startTime = Date.parse(session.startTime)
-      return startTime > Date.now() - 86400000 * 365
-    })
-    sessions = filtered
+      const startTime = Date.parse(session.startTime);
+      return startTime > Date.now() - 86400000 * 365;
+    });
+    sessions = filtered;
   }
   if (timeFrame === "Quarter") {
     const filtered = sessions.filter((session) => {
-      const startTime = Date.parse(session.startTime)
-      return startTime > Date.now() - 86400000 * 90
-    })
-    sessions = filtered
+      const startTime = Date.parse(session.startTime);
+      return startTime > Date.now() - 86400000 * 90;
+    });
+    sessions = filtered;
   } else if (timeFrame === "Month") {
     const filtered = sessions.filter((session) => {
-      const startTime = Date.parse(session.startTime)
-      return startTime > Date.now() - 86400000 * 30
-    })
-    sessions = filtered
+      const startTime = Date.parse(session.startTime);
+      return startTime > Date.now() - 86400000 * 30;
+    });
+    sessions = filtered;
   } else if (timeFrame === "Week") {
     const filtered = sessions.filter((session) => {
-      const startTime = Date.parse(session.startTime)
-      return startTime > Date.now() - 86400000 * 7
-    })
-    sessions = filtered
+      const startTime = Date.parse(session.startTime);
+      return startTime > Date.now() - 86400000 * 7;
+    });
+    sessions = filtered;
   }
   if (goal !== "All" && goal) {
     sessions = sessions.filter((session) => {
-      return session.goal === goal
-    })
+      return session.goal === goal;
+    });
   }
-  let capitalized = ""
+  let capitalized = "";
 
   for (let i = 0; i < auth.username.length; i++) {
-    const char = auth.username[i]
+    const char = auth.username[i];
     if (i === 0) {
-      capitalized += char.toUpperCase()
-    } else capitalized += char
+      capitalized += char.toUpperCase();
+    } else capitalized += char;
   }
 
   return (
@@ -190,7 +191,7 @@ const Dashboard = () => {
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
