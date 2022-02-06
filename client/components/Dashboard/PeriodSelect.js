@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import {
   Grid,
@@ -19,14 +20,10 @@ const useStyles = makeStyles(() => ({
 const PeriodSelect = (props) => {
   const classes = useStyles();
   const auth = useSelector((state) => state.auth);
-  let blackList = useSelector((state) => state.blackList);
-  let blocks = useSelector((state) => state.blocks);
   let { sessions, timeFrame, setTimeFrame } = props;
 
   if (auth) {
     sessions = sessions.filter((session) => session.userId === auth.id);
-    blackList = blackList.filter((entry) => entry.userId === auth.id);
-    blocks = blocks.filter((block) => block.userId === auth.id);
   }
   let goals = sessions.map((session) => {
     return session.goal;
@@ -39,6 +36,7 @@ const PeriodSelect = (props) => {
     }
   }
 
+  // eslint-disable-next-line no-unused-vars
   const [goal, setGoal] = useState("");
 
   const handleTimeFrameChange = (event) => {
@@ -76,14 +74,6 @@ const PeriodSelect = (props) => {
       return session.goal === goal;
     });
   }
-  let capitalized = "";
-
-  for (let i = 0; i < auth.username.length; i++) {
-    const char = auth.username[i];
-    if (i === 0) {
-      capitalized += char.toUpperCase();
-    } else capitalized += char;
-  }
 
   return (
     <Grid>
@@ -106,6 +96,12 @@ const PeriodSelect = (props) => {
       </FormControl>
     </Grid>
   );
+};
+
+PeriodSelect.propTypes = {
+  sessions: PropTypes.array,
+  timeFrame: PropTypes.string,
+  setTimeFrame: PropTypes.func,
 };
 
 export default PeriodSelect;

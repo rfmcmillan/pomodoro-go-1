@@ -61,6 +61,7 @@ const LightGreenButton = withStyles((theme) => ({
 }))(Button);
 
 const useStyles = makeStyles({
+  category: { width: 200 },
   root: {
     maxWidth: 400,
     margin: "5px",
@@ -97,9 +98,6 @@ const BlockSites = (props) => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const blackList = useSelector((state) => state.blackList);
-  const blackListUser = blackList.filter((blackListItem) => {
-    return blackListItem.userId === auth.id;
-  });
 
   const classes = useStyles();
 
@@ -171,10 +169,15 @@ const BlockSites = (props) => {
           }}
           name="siteUrl"
         />
-        <FormControl variant="outlined" error={hasError}>
+        <FormControl
+          className={classes.category}
+          error={hasError}
+          variant="outlined"
+        >
           <InputLabel id="category-label">Category</InputLabel>
           <Select
             labelId="category-label"
+            label="Category"
             id="category"
             name="category"
             value={urlInput.category}
@@ -221,16 +224,6 @@ const BlockSites = (props) => {
                     <Grid item>
                       <Chip label={each.category} variant="outlined" />
                     </Grid>
-                    {/* <FormControlLabel
-                    control={
-                      <LightGreenSwitch
-                        checked={each.blacklist?.blockingEnabled}
-                        onChange={handleChange}
-                        name={`item${each.id}`}
-                      />
-                    }
-                    label="Blocked"
-                  /> */}
                     <Grid item>
                       <LightGreenButton
                         variant="contained"
