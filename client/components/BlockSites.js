@@ -3,7 +3,6 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
-  FormControlLabel,
   Switch,
   Card,
   CardContent,
@@ -31,26 +30,7 @@ import {
 import { createBlackList } from "../store/blackList";
 import { setStoredBlackList, getStoredBlackList } from "../storage.js";
 
-const LightGreenSwitch = withStyles({
-  switchBase: {
-    color: "#5061a9",
-    "&$checked": {
-      color: "#9a6781",
-    },
-    "&$checked + $track": {
-      backgroundColor: "#9a6781",
-    },
-    "& + $track": {
-      backgroundColor: "#e0e2e4",
-      opacity: 1,
-      border: "none",
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);
-
-const LightGreenButton = withStyles((theme) => ({
+const LightGreenButton = withStyles(() => ({
   root: {
     color: "white",
     backgroundColor: "#5061a9",
