@@ -51,7 +51,7 @@ const BlockedSiteCard = (props) => {
   return (
     <Card className={classes.root} key={site.id} variant="outlined">
       <CardContent>
-        <Typography variant="body1">Site URL: {site.siteUrl}</Typography>
+        <Typography variant="body1">{site.siteUrl}</Typography>
       </CardContent>
       <CardActions>
         <Grid container justifyContent="space-between">
